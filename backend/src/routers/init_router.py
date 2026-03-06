@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from database.db import database
+from src.database.db import database
 router=APIRouter(tags=["Init"],prefix="")
 
 @router.on_event("startup")

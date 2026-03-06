@@ -16,6 +16,7 @@ Table User {
 
 Table Talk_room {
   room_id integer [primary key]
+  room_name varchar
   created_at timestamp
 }
 

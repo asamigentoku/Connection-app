@@ -25,7 +25,7 @@ async def get_all_users() ->list[model.User]:
 async def get_user_by_id(user_id: int) -> Optional[model.User]:
     return await model.User.objects.get_or_none(user_id=user_id)
 
-#特定のメモを取得
+#特定のユーザーネームのユーザーを取得
 async def get_user_by_name(user_name: str) -> Optional[model.User]:
     user = await model.User.objects.get_or_none(user_name=user_name)
     return user

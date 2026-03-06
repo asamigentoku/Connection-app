@@ -13,3 +13,4 @@ base_ormar_config = ormar.OrmarConfig(
 )
 
 print("データベース初期化")
+#ゲストユーザーの作成
