@@ -1,7 +1,7 @@
 from typing import Optional
 import ormar
 import sqlalchemy
-from src.database.db import DATABASE_URL
+from src.database.db import base_ormar_config
 
 
 # Ormar の共通設定

@@ -1,8 +1,26 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.routers.main_router import  router as user_router
+from src.routers.user_router import  router as user_router
 from src.routers.jwt_router import router as jwt_router
-app=FastAPI()
+from src.database.db import database, metadata,engine
+from contextlib import asynccontextmanager
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+
+    # startup
+    if not database.is_connected:
+        await database.connect()
+        metadata.create_all(engine)
+
+    yield
+
+    # shutdown
+    if database.is_connected:
+        await database.disconnect()
+
+app = FastAPI(lifespan=lifespan)
 
 #環境変数読み込み
 import os
@@ -21,9 +39,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 app.include_router(user_router)
 app.include_router(jwt_router)
-
 from fastapi.responses import JSONResponse
 from pydantic import ValidationError
 @app.exception_handler(ValidationError)

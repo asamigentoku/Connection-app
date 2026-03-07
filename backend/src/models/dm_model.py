@@ -1,15 +1,9 @@
 import datetime
 import ormar
 import sqlalchemy
-from src.database.db import DATABASE_URL
+from src.database.db import base_ormar_config
 #外部キーのインポート
 from src.models.user_model import User
-
-# Ormar の共通設定
-base_ormar_config = ormar.OrmarConfig(
-    metadata=sqlalchemy.MetaData(),
-    database=ormar.DatabaseConnection(DATABASE_URL),
-)
 
 # ----------------- Talk Room -----------------
 class TalkRoom(ormar.Model):

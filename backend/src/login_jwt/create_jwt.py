@@ -7,6 +7,7 @@ from jwt.exceptions import InvalidTokenError
 from pwdlib import PasswordHash
 from src.cruds.process import get_user_by_name
 from src.schemas.jwt_schemas import Token,TokenData,User
+from src.schemas.user_schemas import *
 
 # to get a string like this run:
 # openssl rand -hex 32
@@ -59,14 +60,14 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
     except InvalidTokenError:
         raise credentials_exception
     #データベースからユーザー名がそのユーザー名のものの情報を取り出す
-    user = get_user_by_name(db=Depends(db.get_dbsession),username=token_data.username)
+    user = get_user_by_name(username=token_data.username)
     if user is None:
         raise credentials_exception
     return user
 
 async def get_current_active_user(
     #Annotated[型、追加情報(Field)など]
-    current_user: Annotated[User, Depends(get_current_user)],
+    current_user: Annotated[UserResponse, Depends(get_current_user)],
 ):
     if current_user.disabled:
         raise HTTPException(status_code=400, detail="Inactive user")

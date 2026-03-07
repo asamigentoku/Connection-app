@@ -1,14 +1,16 @@
 import datetime
 import ormar
 import sqlalchemy
-from src.database.db import DATABASE_URL
+from src.database.db import database,metadata
+from ormar import OrmarConfig
 
-# Ormar の共通設定
-base_ormar_config = ormar.OrmarConfig(
-    metadata=sqlalchemy.MetaData(),
-    database=ormar.DatabaseConnection(DATABASE_URL),
+base_ormar_config = OrmarConfig(
+    metadata=metadata,
+    database=database
 )
 
+
+print("読み込みされました")
 class User(ormar.Model):
     ormar_config = base_ormar_config.copy()
     user_id:int=ormar.Integer(primary_key=True,autoincrement=True)
