@@ -16,7 +16,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()]) -> Token:
     #フォームデータ->トークン型スキーマで返却
-    user=await process.authentication(form_data.username,form_data.password)
+    user=await process.authenticate_user(form_data.username,form_data.password)
     #そのパスワードとユーザ名のユーザーを発見!
     if not user:
         raise HTTPException(

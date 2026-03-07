@@ -10,4 +10,3 @@ metadata = sqlalchemy.MetaData()
 database=DatabaseConnection(DATABASE_URL)
 engine = sqlalchemy.create_engine(DATABASE_URL.replace("+asyncpg", ""))
 
-

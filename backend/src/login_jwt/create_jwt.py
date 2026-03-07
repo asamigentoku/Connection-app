@@ -30,10 +30,10 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     #もし、時間が設定されているのなら
     if expires_delta:
         #有効時間=現在時間+設定された時間
-        expire = datetime.now(timezone.utc) + expires_delta
+        expire = datetime.datetime.now(timezone.utc) + expires_delta
     else:
         #有効時間=現在時間＋15分
-        expire = datetime.now(timezone.utc) + timedelta(minutes=15)
+        expire = datetime.datetime.now(timezone.utc) + timedelta(minutes=15)
     #ユーザー情報に新しいJSONキーを追加(有効期限)
     to_encode.update({"exp": expire})
     #ユーザー情報、有効期限、秘密鍵、暗号手法を記載し、JWTを作成

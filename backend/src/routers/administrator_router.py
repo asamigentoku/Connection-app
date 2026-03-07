@@ -7,7 +7,7 @@ import src.cruds.process as process
 router=APIRouter(tags=["administrator"],prefix="")
 
 #全ユーザー取得
-@router.get("/users", response_model=list[User_Information_Schema])
+@router.get("/users")
 async def get_users_list():
     users = await process.get_all_users()  # Ormar版は db_session 不要
     return users
