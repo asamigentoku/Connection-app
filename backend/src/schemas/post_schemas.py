@@ -4,15 +4,21 @@ from datetime import datetime
 
 class PostModel(BaseModel):
     content:str
-    user_id:int
+    post_id:int
 
 class Get_Reply_PostModel(PostModel):
-    post_id:int
+    user_name:str
+    user_icon:Optional[str] = None
+    created_at: Optional[datetime] = None
+
+class ReplyModel(BaseModel):
+    reply_id:int
+    content:str
+    user_name:str
     user_icon:Optional[str] = None
     created_at: Optional[datetime] = None
 
 class PostImage(BaseModel):
-    post_id:int
     image_url:Optional[str] = None
 
 class UpdatePostModel(PostModel):
