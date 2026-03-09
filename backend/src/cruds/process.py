@@ -29,6 +29,8 @@ async def create_user(user_data:UserCreate) -> model.User:
 async def get_all_users() ->list[model.User]:
     return await model.User.objects.all()
 
+#アイコンを取得
+
 # IDで取得
 async def get_user_by_id(user_id: int) -> Optional[model.User]:
     return await model.User.objects.get_or_none(user_id=user_id)
