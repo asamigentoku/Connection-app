@@ -2,13 +2,31 @@ from fastapi import APIRouter,Depends,HTTPException
 from src.login_jwt.create_jwt import get_current_active_user
 from src.schemas.user_schemas import *
 from src.schemas.main_schemas import *
-from backend.src.schemas.dm_schemas import *
+from src.schemas.dm_schemas import *
 import src.cruds.dm_cruds as dm_cruds
 from typing import Annotated
-router=APIRouter(tags=["Home"],prefix="talk",dependencies=Depends(get_current_active_user))
-##ここのルーターでは認証している人のみ実行される
-###ユーザーが入っているroom一覧を取得
-###(tokenからユーザーID)->ルームID,ルーム名
+router=APIRouter(tags=["DM"],prefix="/talk",dependencies=[Depends(get_current_active_user)])
+
+#トークを始める、トークルームを作る
+@router.post("/create_room",response_model=ResponseSchema)
+async def create_room(room:CreateRoom):
+    try:
+        await dm_cruds.create_room(room)
+        return ResponseSchema(message="room created")
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=f"ルームの作成に失敗しました: {str(e)}")
+
+#トークルームにメンバーを追加
+@router.post("/add_room_member",response_model=ResponseSchema)
+async def add_room_member(newmember:AddRoomMember):
+    try:
+        await dm_cruds.add_room_member(newmember)
+        return ResponseSchema(message="member added")
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=f"ルームへのメンバーの追加に失敗しました: {str(e)}")
+
+
+#ユーザーのルームを取得
 @router.get("/user_rooms",response_model=list[RoomBase])
 async def get_rooms_by_user(
     current_user: Annotated[UserResponse,Depends(get_current_active_user)]):
@@ -20,7 +38,7 @@ async def get_rooms_by_user(
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"ユーザーのルーム一覧の読み込みに失敗しました {str(e)}")   
 
-###特定のroomの中身を開く->そのルームIDのメッセージを読み込む->メッセージ順に読み込む
+###特定のルームのメッセージを読み込む
 @router.get("/user_information/{room_id}",response_model=list[GetMessage])
 async def read_room(room_id:int):
     try:
@@ -30,8 +48,7 @@ async def read_room(room_id:int):
         raise HTTPException(status_code=404, detail=f"ルームの読み込みに失敗しました {str(e)}")  
 
 
-###送信
-###(tokenからユーザーID)、ルームID,コンテンツ->Null
+###メッセージを送信
 @router.post("/message_submit",response_model=ResponseSchema)
 async def submit_message(message:SubmitMessage,
     current_user: Annotated[UserResponse,Depends(get_current_active_user)]):
@@ -42,8 +59,7 @@ async def submit_message(message:SubmitMessage,
         raise HTTPException(status_code=404, detail=f"メッセージの送信に失敗しました: {str(e)}")
 
 ##送信取り消し
-###(メッセージID)->Null
-@router.delte("/message_delete/{message_id}",response_model=ResponseSchema)
+@router.delete("/message_delete/{message_id}",response_model=ResponseSchema)
 async def delete_message(message_id:int):
     try:
         await dm_cruds.delete_message(message_id)
@@ -52,7 +68,6 @@ async def delete_message(message_id:int):
         raise HTTPException(status_code=404, detail=f"メッセージの送信取り消しに失敗しました: {str(e)}")
 
 #メッセージを編集
-###(メッセージID)、コンテンツ->Null
 @router.put("/message_update",response_model=ResponseSchema)
 async def update(message:UpdateMessage):
     try:

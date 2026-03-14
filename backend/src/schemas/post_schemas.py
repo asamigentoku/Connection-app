@@ -11,6 +11,9 @@ class Get_Reply_PostModel(PostModel):
     user_icon:Optional[str] = None
     created_at: Optional[datetime] = None
 
+class Create_PostModel(BaseModel):
+    content:str
+
 class ReplyModel(BaseModel):
     reply_id:int
     content:str
@@ -21,14 +24,8 @@ class ReplyModel(BaseModel):
 class PostImage(BaseModel):
     image_url:Optional[str] = None
 
-class UpdatePostModel(PostModel):
-    post_id:int
-    image_url:Optional[str] = None
-    created_at: Optional[datetime] = None
 
-class GoodModel(BaseModel):
-    post_id:int
-    user_id:Optional[int] = None
+
 
 
     

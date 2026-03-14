@@ -7,12 +7,22 @@ class RoomBase(BaseModel):
     room_name:str
     created_at: Optional[datetime] = None
 
+class CreateRoom(BaseModel):
+    room_name:str
+    user1_id:int
+    user2_id:int
+    
+class AddRoomMember(BaseModel):
+    room_id:int
+    user_id:int
+
+
 class BaseMessage(BaseModel):
     id:int
     content:str
     room_id:int
 
-class UpdateMessage():
+class UpdateMessage(BaseModel):
     id:int
     content:str
 
@@ -21,6 +31,6 @@ class GetMessage(BaseMessage):
     user_icon:Optional[str] = None
     created_at: Optional[datetime] = None
 
-class SubmitMessage():
+class SubmitMessage(BaseModel):
     content:str
     room_id:int

@@ -1,6 +1,7 @@
 from src.schemas.post_schemas import *
 from typing import Optional
 import src.models.post_model as post_model
+import src.cruds.process as process
 
 #全てのポストを取得
 async def get_all_posts()->Optional[list[post_model.Post]]:
@@ -52,3 +53,38 @@ async def get_goodnum_by_postid(post_id:int)->int:
         return number
     else:
         return 0
+
+async def create_post(post:Create_PostModel,user_id:int):
+    user=await process.get_user_by_id(user_id)
+    await post_model.Post.objects.create(content=post.content,user=user)
+    return
+
+async def create_post_with_post(post:Create_PostModel,images:list[PostImage],user_id:int):
+    user=await process.get_user_by_id(user_id)
+    new_post=await post_model.Post.objects.create(content=post.content,user=user)
+    for image in images:
+        await post_model.PostImage.objects.create(image_url=image.image_url,post=new_post)
+    return
+
+async def update_post(post:PostModel,user_id:int):
+    existing_post=await get_post_by_id(post.post_id)
+    if existing_post and existing_post.user.user_id==user_id:
+        existing_post.content=post.content
+        await existing_post.update()
+    return
+
+async def delete_post(post_id:int,user_id:int):
+    existing_post=await get_post_by_id(post_id)
+    if existing_post and existing_post.user.user_id==user_id:
+        await existing_post.delete()
+    return
+
+async def manege_like(post_id:int,user_id:int):
+    post=await get_post_by_id(post_id)
+    user=await process.get_user_by_id(user_id)
+    existing_like=await post_model.Like.objects.filter(post=post,user=user).get_or_none()
+    if existing_like:
+        await existing_like.delete()
+    else:
+        await post_model.Like.objects.create(post=post,user=user)
+    return

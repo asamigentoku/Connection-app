@@ -1,5 +1,5 @@
 from typing import Optional
-from backend.src.schemas.dm_schemas import *
+from src.schemas.dm_schemas import *
 import src.models.user_model as user_model
 import src.models.dm_model as dm_model
 import src.cruds.process as process
@@ -23,6 +23,24 @@ async def get_rooms_by_userid(id:int) -> Optional[list[dm_model.TalkRoom]]:
     members=await get_members_by_user(user)
     rooms=[member.room for member in members]
     return rooms
+
+async def create_room(room:CreateRoom):
+    user1=await process.get_user_by_id(room.user1_id)
+    user2=await process.get_user_by_id(room.user2_id)
+    if not user1 or not user2:
+        raise HTTPException(status_code=404, detail="ユーザーが見つかりません")
+    new_room=await dm_model.TalkRoom.objects.create(room_name=room.room_name)
+    await dm_model.RoomMember.objects.create(room=new_room, user=user1)
+    await dm_model.RoomMember.objects.create(room=new_room, user=user2)
+    return new_room
+
+async def add_room_member(newmember:AddRoomMember):
+    room=await get_room_by_id(newmember.room_id)
+    user=await process.get_user_by_id(newmember.user_id)
+    if not room or not user:
+        raise HTTPException(status_code=404, detail="ルームまたはユーザーが見つかりません")
+    await dm_model.RoomMember.objects.create(room=room, user=user)
+    return
 
 async def get_message_by_roomid(id:int)->Optional[list[dm_model.Message]]:
     room=await get_room_by_id(id)

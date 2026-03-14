@@ -1,0 +1,30 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="asyncpg" />
+          <option value="bcrypt" />
+          <option value="click" />
+          <option value="cryptography" />
+          <option value="databases" />
+          <option value="dnspython" />
+          <option value="dotenv" />
+          <option value="email-validator" />
+          <option value="greenlet" />
+          <option value="ormar" />
+          <option value="passlib" />
+          <option value="psycopg2-binary" />
+          <option value="pwdlib" />
+          <option value="pyjwt" />
+          <option value="python-dotenv" />
+          <option value="python-multipart" />
+          <option value="ruff" />
+          <option value="sqlalchemy" />
+          <option value="uvicorn" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

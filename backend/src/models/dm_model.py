@@ -1,9 +1,16 @@
 import datetime
 import ormar
-import sqlalchemy
-from src.database.db import base_ormar_config
 #外部キーのインポート
 from src.models.user_model import User
+from src.database.db import database,metadata
+from ormar import OrmarConfig
+
+base_ormar_config = OrmarConfig(
+    metadata=metadata,
+    database=database
+)
+
+
 
 # ----------------- Talk Room -----------------
 class TalkRoom(ormar.Model):
@@ -19,7 +26,6 @@ class RoomMember(ormar.Model):
     id: int = ormar.Integer(primary_key=True,autoincrement=True)
     user: User = ormar.ForeignKey(User)
     room: TalkRoom = ormar.ForeignKey(TalkRoom)
-
 
 # ----------------- Message -----------------
 class Message(ormar.Model):

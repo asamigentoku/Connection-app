@@ -26,6 +26,7 @@ AI・自然言語処理を活用し、不適切な文章の検知や感情分析
 - React
 - TypeScript
 - Tailwind CSS
+- figma
 
 ---
 

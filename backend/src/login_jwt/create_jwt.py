@@ -3,8 +3,8 @@ from typing import Annotated
 import jwt
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from jwt.exceptions import InvalidTokenError
 from pwdlib import PasswordHash
+from jwt import PyJWTError
 from src.cruds.process import get_user_by_name
 from src.schemas.jwt_schemas import Token,TokenData,User
 from src.schemas.user_schemas import *
@@ -57,7 +57,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
         if username is None:
             raise credentials_exception
         token_data = TokenData(username=username)
-    except InvalidTokenError:
+    except PyJWTError:
         raise credentials_exception
     #データベースからユーザー名がそのユーザー名のものの情報を取り出す
     user = get_user_by_name(username=token_data.username)

@@ -1,7 +1,12 @@
 import datetime
 import ormar
-import sqlalchemy
-from src.database.db import base_ormar_config
+from src.database.db import database,metadata
+from ormar import OrmarConfig
+
+base_ormar_config = OrmarConfig(
+    metadata=metadata,
+    database=database
+)
 
 #外部キーのインポート
 from src.models.user_model import User

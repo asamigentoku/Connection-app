@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.routers.user_router import  router as user_router
 from src.routers.jwt_router import router as jwt_router
+from src.routers.post_router import router as post_router
+from src.routers.dm_router import router as dm_router
 from src.database.db import database, metadata,engine
 from contextlib import asynccontextmanager
 
@@ -42,6 +44,9 @@ app.add_middleware(
 
 app.include_router(user_router)
 app.include_router(jwt_router)
+app.include_router(post_router)
+app.include_router(dm_router)
+
 from fastapi.responses import JSONResponse
 from pydantic import ValidationError
 @app.exception_handler(ValidationError)
@@ -53,3 +58,7 @@ async def validation_exception_handler(exc:ValidationError):
             "body":exc.model
         }
     )
+    
+import yaml
+with open("openapi.yaml","w") as f:
+    yaml.dump(app.openapi(), f)
