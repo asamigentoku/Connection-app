@@ -17,6 +17,7 @@ class Post(ormar.Model):
     ormar_config = base_ormar_config.copy()
     post_id: int = ormar.Integer(primary_key=True,autoincrement=True)
     user: User = ormar.ForeignKey(User)
+    title:str=ormar.Text()
     content: str = ormar.Text()
     created_at: datetime.datetime = ormar.DateTime(default=datetime.datetime.utcnow)
 

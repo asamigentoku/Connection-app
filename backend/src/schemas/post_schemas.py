@@ -4,6 +4,7 @@ from datetime import datetime
 
 class PostModel(BaseModel):
     content:str
+    title:str
     post_id:int
 
 class Get_Reply_PostModel(PostModel):
@@ -12,6 +13,7 @@ class Get_Reply_PostModel(PostModel):
     created_at: Optional[datetime] = None
 
 class Create_PostModel(BaseModel):
+    title:str
     content:str
 
 class ReplyModel(BaseModel):

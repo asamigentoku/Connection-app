@@ -14,6 +14,7 @@ async def get_all_posts_information()->Optional[list[Get_Reply_PostModel]]:
     for p in posts:
         post=Get_Reply_PostModel(
             content=p.content,
+            title=p.title,
             post_id=p.post_id,
             user_name=p.user.user_name,
             user_icon=p.user.user_icon,
@@ -56,12 +57,12 @@ async def get_goodnum_by_postid(post_id:int)->int:
 
 async def create_post(post:Create_PostModel,user_id:int):
     user=await process.get_user_by_id(user_id)
-    await post_model.Post.objects.create(content=post.content,user=user)
+    await post_model.Post.objects.create(content=post.content,title=post.title,user=user)
     return
 
 async def create_post_with_post(post:Create_PostModel,images:list[PostImage],user_id:int):
     user=await process.get_user_by_id(user_id)
-    new_post=await post_model.Post.objects.create(content=post.content,user=user)
+    new_post=await post_model.Post.objects.create(content=post.content,title=post.title,user=user)
     for image in images:
         await post_model.PostImage.objects.create(image_url=image.image_url,post=new_post)
     return
@@ -69,6 +70,7 @@ async def create_post_with_post(post:Create_PostModel,images:list[PostImage],use
 async def update_post(post:PostModel,user_id:int):
     existing_post=await get_post_by_id(post.post_id)
     if existing_post and existing_post.user.user_id==user_id:
+        existing_post.title=post.title
         existing_post.content=post.content
         await existing_post.update()
     return
