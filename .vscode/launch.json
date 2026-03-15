@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/asamigentoku/Desktop/myapp/Connection-app/frontend/アプリのフロント作成",
+      "program": "/Users/asamigentoku/Desktop/myapp/Connection-app/frontend/アプリのフロント作成/build/Debug/outDebug"
+    }
+  ]
+}
