@@ -10,8 +10,6 @@ base_ormar_config = OrmarConfig(
     database=database
 )
 
-
-
 # ----------------- Talk Room -----------------
 class TalkRoom(ormar.Model):
     ormar_config = base_ormar_config.copy()
@@ -35,6 +33,7 @@ class Message(ormar.Model):
     user: User = ormar.ForeignKey(User)
     content: str = ormar.Text()
     created_at = ormar.DateTime(default=datetime.datetime.now)
+    is_read: bool = ormar.Boolean(default=False)
 
 
 # ----------------- Message Read -----------------

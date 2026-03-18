@@ -6,4 +6,5 @@ def verify_password(plain_password, hashed_password):
 
 #パスワードをハッシュ化
 def get_password_hash(password):
+    print(password_hash.hash(password))
     return password_hash.hash(password)

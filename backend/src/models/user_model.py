@@ -20,7 +20,9 @@ class User(ormar.Model):
     gender: str = ormar.String(max_length=50, nullable=True)
     status: str = ormar.String(max_length=50, nullable=True)
     icon_url: str = ormar.String(max_length=255, nullable=True)
-    created_at = ormar.DateTime(default=datetime.datetime.now)
+    created_at: datetime.datetime = ormar.DateTime(default=datetime.datetime.now)
+    is_online: bool = ormar.Boolean(default=False)
+    is_verified: bool = ormar.Boolean(default=False)
 
 # ----------------- Follow -----------------
 class Follow(ormar.Model):

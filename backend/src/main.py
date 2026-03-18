@@ -6,15 +6,18 @@ from src.routers.post_router import router as post_router
 from src.routers.dm_router import router as dm_router
 from src.database.db import database, metadata,engine
 from contextlib import asynccontextmanager
+from sqlalchemy import text
+from src.database.init_db import init_db
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-
     # startup
     if not database.is_connected:
         await database.connect()
+        metadata.drop_all(engine)
         metadata.create_all(engine)
+        await init_db()
 
     yield
 
