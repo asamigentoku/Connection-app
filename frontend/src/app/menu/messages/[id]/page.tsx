@@ -12,11 +12,12 @@ import { useAuthStore } from "@lib/auth_context"; // Zustand版
 import { useSettingsStore } from "@lib/settings_context"; // Zustand版
 
 interface ConversationViewProps {
-    params: Promise<{ userId: string }>;
+    params: Promise<{ id: string }>;
 }
 
 export default function ConversationView({ params }: ConversationViewProps) {
-    const { userId } =React.use(params);
+    const { id } =React.use(params);
+    const userId=id
     const [messageText, setMessageText] = useState("");
     const { isGuest, currentUser } = useAuthStore();
     const { showSentimentAnalysis, showModerationFlags } = useSettingsStore();

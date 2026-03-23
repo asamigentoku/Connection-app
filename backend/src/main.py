@@ -4,6 +4,7 @@ from src.routers.user_router import  router as user_router
 from src.routers.jwt_router import router as jwt_router
 from src.routers.post_router import router as post_router
 from src.routers.dm_router import router as dm_router
+from src.routers.emotin_router import router as emotion_router
 from src.database.db import database, metadata,engine
 from contextlib import asynccontextmanager
 from sqlalchemy import text
@@ -49,6 +50,7 @@ app.include_router(user_router)
 app.include_router(jwt_router)
 app.include_router(post_router)
 app.include_router(dm_router)
+app.include_router(emotion_router)
 
 from fastapi.responses import JSONResponse
 from pydantic import ValidationError

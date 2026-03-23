@@ -40,6 +40,9 @@ export default function BulletinBoard() {
 
         <div className="space-y-4">
             {posts.map((post) => {
+                //ここのmapで複数表示している
+                //ここでAPIを叩いているようなものpost一覧を取得してその後に
+                //そのpostのuser_idからその投稿について取得などを行う
             const author = users.find((u) => u.id === post.authorId);
             const moderationResult = analyzeContent(post.title + " " + post.content);
 
@@ -109,7 +112,8 @@ export default function BulletinBoard() {
                 </Link>
                 </ContentCard>
             );
-            })}
+            }
+            )}
         </div>
         </div>
     );

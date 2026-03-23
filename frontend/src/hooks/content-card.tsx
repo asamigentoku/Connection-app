@@ -12,7 +12,7 @@ interface ContentCardProps {
     author?: User;
     className?: string;
     }
-
+//ここではユーザーの検証情報が欲しい
 export function ContentCard({ children, moderationResult, author, className = "" }: ContentCardProps) {
     const { safeMode, showSentimentAnalysis, showModerationFlags, showFakeNewsWarnings, showVerifiedBadges } = useSettingsStore();
 
