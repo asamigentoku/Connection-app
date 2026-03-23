@@ -24,9 +24,10 @@ async def create_user(user: UserCreate):
 @router.get("/users/{user_id}",response_model=UserResponse)
 async def get_user_detail(current_user: Annotated[UserResponse, Depends(get_current_active_user)]):
     user = await process.get_user_by_id(current_user.user_id)
+    user_response=UserResponse(**user.model_dump())
     if not user:
         raise HTTPException(status_code=404, detail="ユーザーが見つかりません")
-    return user
+    return user_response
 
 #特定のユーザー情報更新
 # (トークン→ユーザーID),User->レスポンス

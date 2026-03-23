@@ -11,6 +11,7 @@ class Get_Reply_PostModel(PostModel):
     user_name:str
     user_icon:Optional[str] = None
     created_at: Optional[datetime] = None
+    category:Optional[str] = None
 
 class Create_PostModel(BaseModel):
     title:str

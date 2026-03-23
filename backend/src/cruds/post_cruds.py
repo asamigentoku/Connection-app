@@ -2,6 +2,7 @@ from src.schemas.post_schemas import *
 from typing import Optional
 import src.models.post_model as post_model
 import src.cruds.process as process
+import src.analysis.post_category as post_category
 
 #全てのポストを取得
 async def get_all_posts()->Optional[list[post_model.Post]]:
@@ -18,7 +19,8 @@ async def get_all_posts_information()->Optional[list[Get_Reply_PostModel]]:
             post_id=p.post_id,
             user_name=p.user.user_name,
             user_icon=p.user.user_icon,
-            created_at=p.created_at
+            created_at=p.created_at,
+            category=p.category,
         )
         posts_json.append(post)
     return posts_json
@@ -62,7 +64,9 @@ async def create_post(post:Create_PostModel,user_id:int):
 
 async def create_post_with_post(post:Create_PostModel,images:list[PostImage],user_id:int):
     user=await process.get_user_by_id(user_id)
-    new_post=await post_model.Post.objects.create(content=post.content,title=post.title,user=user)
+    #ここでカテゴリーを自動作成したい
+    category=post_category.post_classify(post.content)
+    new_post=await post_model.Post.objects.create(content=post.content,title=post.title,user=user,category=category)
     for image in images:
         await post_model.PostImage.objects.create(image_url=image.image_url,post=new_post)
     return

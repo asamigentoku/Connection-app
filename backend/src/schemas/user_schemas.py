@@ -26,3 +26,7 @@ class UserUpdate(BaseModel):
 # レスポンス用
 class UserResponse(UserBase):
     user_id: int
+    is_online:bool
+    is_verified:bool
+
+
