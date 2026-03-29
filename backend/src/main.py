@@ -10,6 +10,7 @@ from src.routers.fakecheck_router import router as fakecheck_router
 from src.database.db import database, metadata,engine
 from contextlib import asynccontextmanager
 from sqlalchemy import text
+import yaml
 from src.database.init_db import init_db
 
 
@@ -29,6 +30,7 @@ async def lifespan(app: FastAPI):
         await database.disconnect()
 
 app = FastAPI(lifespan=lifespan)
+
 
 #環境変数読み込み
 import os

@@ -22,7 +22,7 @@ async def create_user(user: UserCreate):
 #特定のユーザー情報取得
 #(トークン->ユーザーID)->User
 @router.get("/users/{user_id}",response_model=UserResponse)
-async def get_user_detail(current_user: Annotated[UserResponse, Depends(get_current_active_user)]):
+async def get_user_detail(current_user: Annotated[UserResponse, Depends(get_current_active_user)],user_id:int):
     user = await process.get_user_by_id(current_user.user_id)
     user_response=UserResponse(**user.model_dump())
     if not user:
@@ -32,7 +32,7 @@ async def get_user_detail(current_user: Annotated[UserResponse, Depends(get_curr
 #特定のユーザー情報更新
 # (トークン→ユーザーID),User->レスポンス
 @router.put("/users/{user_id}", response_model=ResponseSchema)
-async def modify_user(user:UserUpdate,current_user: Annotated[UserResponse, Depends(get_current_active_user)]):
+async def modify_user(user:UserUpdate,current_user: Annotated[UserResponse, Depends(get_current_active_user)],user_id:int):
     updated_user = await process.update_user(current_user.user_id, user)
     if not updated_user:
         raise HTTPException(status_code=404, detail="更新対象が見つかりません")

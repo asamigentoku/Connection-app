@@ -1,0 +1,11 @@
+
+services:
+  backend:
+    build: ./backend
+    container_name: my-backend
+    restart: always
+    environment:
+      DATABASE_URL: postgresql+asyncpg://postgres:gueBH0XjMSwJSxob@db.oslmcvghggsgdssjtqed.supabase.co:5432/postgres
+    ports:
+      - "8000:8000"
+
