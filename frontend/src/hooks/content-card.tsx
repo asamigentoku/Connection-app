@@ -5,6 +5,8 @@ import { AlertTriangle, ShieldAlert, AlertCircle, CheckCircle } from "lucide-rea
 import { ModerationResult, getSentimentColor, getSentimentBadge } from "@utils/content-moderation";
 import { useSettingsStore  } from "@lib/settings_context";
 import { User } from "@data/mock-data";
+export { api } from "@api/client";
+
 
 interface ContentCardProps {
     children: ReactNode;
