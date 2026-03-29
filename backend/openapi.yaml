@@ -463,6 +463,22 @@ info:
   version: 0.1.0
 openapi: 3.1.0
 paths:
+  /all_user:
+    get:
+      operationId: get_all_user_all_user_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserResponse'
+                title: Response Get All User All User Get
+                type: array
+          description: Successful Response
+      summary: Get All User
+      tags:
+      - Users
   /emotion/get_emotion_by_message:
     post:
       operationId: get_emotion_by_message_emotion_get_emotion_by_message_post

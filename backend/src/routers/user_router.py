@@ -9,6 +9,15 @@ from typing import Annotated
 
 router=APIRouter(tags=["Users"],prefix="")
 
+#全てのユーザー情報を取得、これは分ける
+@router.get("/all_user",response_model=list[UserResponse])
+async def get_all_user():
+    try:
+        users=await process.get_all_users()
+        return users
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=f"全てのユーザーの取得に失敗しました: {str(e)}")
+
 #登録
 #Userスキーマ->レスポンス
 @router.post("/register",response_model=ResponseSchema)

@@ -35,10 +35,12 @@ app = FastAPI(lifespan=lifespan)
 #環境変数読み込み
 import os
 from dotenv import load_dotenv
-# .envファイルのパスを指定して読み込む
-load_dotenv('.env')
+
+load_dotenv(".env")
+
 # 環境変数を利用する
 FRONTEND_URL=os.getenv('FRONTEND_URL')
+print(f"フロントURL{FRONTEND_URL}")
 
 #CORS設定
 app.add_middleware(

@@ -1,15 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { users } from "@data/mock-data";
 import { useAuthStore } from "@lib/auth_context";
 import { UserCircle, LogIn } from "lucide-react";
+import {api} from "@api/client"
 
 export default function LoginPage() {
     const router = useRouter();
     const { login, continueAsGuest } = useAuthStore();
+    //ここで選ばれたユーザーを選択
     const [selectedUserId, setSelectedUserId] = useState<string>("");
+
+    const [users2, setUsers2] = useState<any[]>([]);
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const res = await api.users.getAllUserAllUserGet();
+                console.log(res.data); // ←ここが本体
+                setUsers2(res.data);
+                console.log("response:", res);
+                console.log("data:", res.data);
+            } catch (e) {
+                console.error(e);
+            }
+        };
+
+        fetchUsers();
+    }, []);
 
     const handleLogin = () => {
         if (!selectedUserId) return;

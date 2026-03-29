@@ -100,6 +100,43 @@ export class UsersApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getAllUserAllUserGet without sending the request
+     */
+    async getAllUserAllUserGetRequestOpts(): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+
+        let urlPath = `/all_user`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get All User
+     */
+    async getAllUserAllUserGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<UserResponse>>> {
+        const requestOptions = await this.getAllUserAllUserGetRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(UserResponseFromJSON));
+    }
+
+    /**
+     * Get All User
+     */
+    async getAllUserAllUserGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<UserResponse>> {
+        const response = await this.getAllUserAllUserGetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getUserDetailUsersUserIdGet without sending the request
      */
     async getUserDetailUsersUserIdGetRequestOpts(requestParameters: GetUserDetailUsersUserIdGetRequest): Promise<runtime.RequestOpts> {

@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**createUserRegisterPost**](UsersApi.md#createuserregisterpost) | **POST** /register | Create User |
+| [**getAllUserAllUserGet**](UsersApi.md#getalluseralluserget) | **GET** /all_user | Get All User |
 | [**getUserDetailUsersUserIdGet**](UsersApi.md#getuserdetailusersuseridget) | **GET** /users/{user_id} | Get User Detail |
 | [**modifyUserUsersUserIdPut**](UsersApi.md#modifyuserusersuseridput) | **PUT** /users/{user_id} | Modify User |
 
@@ -72,6 +73,63 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
 | **422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getAllUserAllUserGet
+
+> Array&lt;UserResponse&gt; getAllUserAllUserGet()
+
+Get All User
+
+### Example
+
+```ts
+import {
+  Configuration,
+  UsersApi,
+} from '';
+import type { GetAllUserAllUserGetRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const api = new UsersApi();
+
+  try {
+    const data = await api.getAllUserAllUserGet();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Array&lt;UserResponse&gt;**](UserResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

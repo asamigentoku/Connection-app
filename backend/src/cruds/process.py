@@ -27,7 +27,9 @@ async def create_user(user_data:UserCreate) -> model.User:
 
 # 全件取得
 async def get_all_users() ->list[model.User]:
-    return await model.User.objects.all()
+    users=await model.User.objects.all()
+    users=[UserResponse(**i.model_dump()) for i in users]
+    return users
 
 #アイコンを取得
 
