@@ -30,10 +30,12 @@ async def add_room_member(newmember:AddRoomMember):
 @router.get("/user_rooms",response_model=list[RoomBase])
 async def get_rooms_by_user(
     current_user: Annotated[UserResponse,Depends(get_current_active_user)]):
-    try:   
+    try:
         rooms=await dm_cruds.get_rooms_by_userid(current_user.user_id)
         #現在のスキーマを変換
+        #ここの変換でエラーが起きてる
         rooms_base=[RoomBase(**r.model_dump()) for r in rooms]
+        #ここでラストメッセージと、その時刻を読み込みたい
         return rooms_base
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"ユーザーのルーム一覧の読み込みに失敗しました {str(e)}")   

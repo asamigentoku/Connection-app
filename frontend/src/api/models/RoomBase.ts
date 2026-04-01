@@ -30,7 +30,7 @@ export interface RoomBase {
      * @type {number}
      * @memberof RoomBase
      */
-    rommId: number;
+    roomId: number;
     /**
      * 
      * @type {string}
@@ -43,7 +43,7 @@ export interface RoomBase {
  * Check if a given object implements the RoomBase interface.
  */
 export function instanceOfRoomBase(value: object): value is RoomBase {
-    if (!('rommId' in value) || value['rommId'] === undefined) return false;
+    if (!('roomId' in value) || value['roomId'] === undefined) return false;
     if (!('roomName' in value) || value['roomName'] === undefined) return false;
     return true;
 }
@@ -59,7 +59,7 @@ export function RoomBaseFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     return {
         
         'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
-        'rommId': json['romm_id'],
+        'roomId': json['room_id'],
         'roomName': json['room_name'],
     };
 }
@@ -76,7 +76,7 @@ export function RoomBaseToJSONTyped(value?: RoomBase | null, ignoreDiscriminator
     return {
         
         'created_at': value['createdAt'] == null ? value['createdAt'] : value['createdAt'].toISOString(),
-        'romm_id': value['rommId'],
+        'room_id': value['roomId'],
         'room_name': value['roomName'],
     };
 }

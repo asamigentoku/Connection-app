@@ -103,7 +103,7 @@ export class TweetApi extends runtime.BaseAPI {
         }
 
 
-        let urlPath = `/tweetcreate_post`;
+        let urlPath = `/tweet/create_post`;
 
         return {
             path: urlPath,
@@ -155,7 +155,7 @@ export class TweetApi extends runtime.BaseAPI {
         }
 
 
-        let urlPath = `/tweetcreate_post_with_image`;
+        let urlPath = `/tweet/create_post_with_image`;
 
         return {
             path: urlPath,
@@ -205,7 +205,7 @@ export class TweetApi extends runtime.BaseAPI {
         }
 
 
-        let urlPath = `/tweetdelete_post/{post_id}`;
+        let urlPath = `/tweet/delete_post/{post_id}`;
         urlPath = urlPath.replace(`{${"post_id"}}`, encodeURIComponent(String(requestParameters['postId'])));
 
         return {
@@ -250,7 +250,7 @@ export class TweetApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
 
-        let urlPath = `/tweetposts/good_num/{post_id}`;
+        let urlPath = `/tweet/posts/good_num/{post_id}`;
         urlPath = urlPath.replace(`{${"post_id"}}`, encodeURIComponent(String(requestParameters['postId'])));
 
         return {
@@ -299,7 +299,7 @@ export class TweetApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
 
-        let urlPath = `/tweetposts/images/{post_id}`;
+        let urlPath = `/tweet/posts/images/{post_id}`;
         urlPath = urlPath.replace(`{${"post_id"}}`, encodeURIComponent(String(requestParameters['postId'])));
 
         return {
@@ -381,7 +381,7 @@ export class TweetApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
 
-        let urlPath = `/tweetposts/reply/{post_id}`;
+        let urlPath = `/tweet/posts/reply/{post_id}`;
         urlPath = urlPath.replace(`{${"post_id"}}`, encodeURIComponent(String(requestParameters['postId'])));
 
         return {
@@ -431,7 +431,7 @@ export class TweetApi extends runtime.BaseAPI {
         }
 
 
-        let urlPath = `/tweetmanege_like/{post_id}`;
+        let urlPath = `/tweet/manege_like/{post_id}`;
         urlPath = urlPath.replace(`{${"post_id"}}`, encodeURIComponent(String(requestParameters['postId'])));
 
         return {
@@ -483,7 +483,7 @@ export class TweetApi extends runtime.BaseAPI {
         }
 
 
-        let urlPath = `/tweetupdate_post`;
+        let urlPath = `/tweet/update_post`;
 
         return {
             path: urlPath,

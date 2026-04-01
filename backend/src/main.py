@@ -30,6 +30,8 @@ async def lifespan(app: FastAPI):
         await database.disconnect()
 
 app = FastAPI(lifespan=lifespan)
+with open("openapi.yaml","w") as f:
+    yaml.dump(app.openapi(), f)
 
 
 #環境変数読み込み

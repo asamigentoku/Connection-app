@@ -14,7 +14,8 @@ base_ormar_config = OrmarConfig(
 class TalkRoom(ormar.Model):
     ormar_config = base_ormar_config.copy()
     room_id: int = ormar.Integer(primary_key=True,autoincrement=True)
-    room_name:str =ormar.String(max_length=255, nullable=False)
+    room_name:str =ormar.String(max_length=255, nullable=True)
+    room_icon:str= ormar.String(max_length=255, nullable=True)
     created_at = ormar.DateTime(default=datetime.datetime.now)
 
 

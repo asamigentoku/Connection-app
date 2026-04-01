@@ -10,15 +10,16 @@ async def get_all_posts()->Optional[list[post_model.Post]]:
     return posts
 
 async def get_all_posts_information()->Optional[list[Get_Reply_PostModel]]:
-    posts=await get_all_posts()
+    posts =await post_model.Post.objects.select_related("user").all()
     posts_json = []
     for p in posts:
         post=Get_Reply_PostModel(
             content=p.content,
             title=p.title,
             post_id=p.post_id,
+            user_id=p.user.user_id,
             user_name=p.user.user_name,
-            user_icon=p.user.user_icon,
+            user_icon=p.user.icon_url,
             created_at=p.created_at,
             category=p.category,
         )
@@ -43,7 +44,7 @@ async def get_replys_by_postid(post_id:int)->Optional[list[ReplyModel]]:
             reply_id=r.id,
             content=r.content,
             user_name=r.user.user_name,
-            user_icon=r.user.user_icon,
+            user_icon=r.user.icon_url,
             created_at=r.created_at
         )
         replys_json.append(post)

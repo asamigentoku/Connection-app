@@ -1,7 +1,7 @@
 "use client"; // クライアントコンポーネントとして扱う
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { users, messages } from "@data/mock-data";
 import { ArrowLeft, Send, Circle, Lock, CheckCircle } from "lucide-react";
 import { format } from "date-fns";
@@ -10,6 +10,7 @@ import { analyzeContent } from "@utils/content-moderation";
 import * as React from 'react'
 import { useAuthStore } from "@lib/auth_context"; // Zustand版
 import { useSettingsStore } from "@lib/settings_context"; // Zustand版
+import {api} from "@api/client"
 
 interface ConversationViewProps {
     params: Promise<{ id: string }>;
@@ -17,16 +18,24 @@ interface ConversationViewProps {
 
 export default function ConversationView({ params }: ConversationViewProps) {
     const { id } =React.use(params);
-    const userId=id
+    const roomId=id
     const [messageText, setMessageText] = useState("");
-    const { isGuest, currentUser } = useAuthStore();
+    const { isGuest, currentUser,selectedRoom } = useAuthStore();
     const { showSentimentAnalysis, showModerationFlags } = useSettingsStore();
-    const user = users.find((u) => u.id === userId);
-    const conversationMessages = messages.filter(
-        (m) =>
-        (m.senderId === userId && m.receiverId === "current") ||
-        (m.senderId === "current" && m.receiverId === userId)
-    );
+    const [conversationMessages,setConversationMessages]=useState<any[]>([]);
+    useEffect(() => {
+        if (!currentUser) return;
+        const fetchUsers = async () => {
+            try {
+                const conversationMessages = await api.dm.readRoomTalkUserInformationRoomIdGet({roomId: roomId});
+                setConversationMessages(conversationMessages);
+            } catch (e) {
+                console.error(e);
+            }
+        };
+
+        fetchUsers();
+    }, []);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -55,7 +64,7 @@ export default function ConversationView({ params }: ConversationViewProps) {
         );
     }
 
-    if (!user) {
+    if (!roomId) {
         return (
         <div className="flex h-full items-center justify-center">
             <div className="text-center">
@@ -77,23 +86,23 @@ export default function ConversationView({ params }: ConversationViewProps) {
         <div className="border-b border-gray-200 bg-white px-6 py-4 shadow-sm">
             <div className="mx-auto flex max-w-4xl items-center gap-4">
             <Link
-                href="/messages"
+                href="/menu/messages"
                 className="text-indigo-600 transition-colors hover:text-indigo-700"
             >
                 <ArrowLeft className="h-5 w-5" />
             </Link>
             <img
-                src={user.avatar}
-                alt={user.name}
+                src={selectedRoom?.iconUrl || "/room_icon.png"}
+                alt={selectedRoom?.name || "user"}
                 className="h-10 w-10 rounded-full object-cover"
             />
             <div className="flex-1">
                 <div className="flex items-center gap-2">
-                <span className="font-semibold text-gray-900">{user.name}</span>
-                {user.isVerified && <CheckCircle className="h-5 w-5 text-blue-600" />}
+                <span className="font-semibold text-gray-900">{selectedRoom.name}</span>
+                {currentUser.isVerified && <CheckCircle className="h-5 w-5 text-blue-600" />}
                 </div>
                 <div className="flex items-center gap-1.5 text-sm text-gray-500">
-                {user.isOnline ? (
+                {currentUser.isOnline ? (
                     <>
                     <Circle className="h-2 w-2 fill-emerald-500 text-emerald-500" />
                     オンライン
@@ -113,16 +122,15 @@ export default function ConversationView({ params }: ConversationViewProps) {
         <div className="flex-1 overflow-y-auto bg-gray-50 p-6">
             <div className="mx-auto max-w-4xl space-y-4">
             {conversationMessages.map((message) => {
-                const isSent = message.senderId === "current";
+                const isSent = message.userId === currentUser.userId;
                 const moderationResult = analyzeContent(message.content);
-
                 return (
                 <div key={message.id} className={`flex ${isSent ? "justify-end" : "justify-start"}`}>
                     <div className="flex max-w-[70%] items-end gap-2">
                     {!isSent && (
                         <img
-                        src={user.avatar}
-                        alt={user.name}
+                        src={message.userIcon}
+                        alt={message.userName}
                         className="h-8 w-8 rounded-full object-cover"
                         />
                     )}
@@ -158,7 +166,7 @@ export default function ConversationView({ params }: ConversationViewProps) {
                         isSent ? "text-right" : "text-left"
                         }`}
                     >
-                        {format(message.timestamp, "HH:mm", { locale: ja })}
+                        {format(message.createdAt, "HH:mm", { locale: ja })}
                     </div>
                     </div>
                 </div>

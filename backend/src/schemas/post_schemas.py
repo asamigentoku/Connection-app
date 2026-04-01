@@ -8,7 +8,8 @@ class PostModel(BaseModel):
     post_id:int
 
 class Get_Reply_PostModel(PostModel):
-    user_name:str
+    user_name:str=None
+    user_id:int=None
     user_icon:Optional[str] = None
     created_at: Optional[datetime] = None
     category:Optional[str] = None

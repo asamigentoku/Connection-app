@@ -1,5 +1,6 @@
 // src/api/client.ts
 import { Configuration } from "./runtime";
+
 import {
     UsersApi,
     DMApi,
@@ -13,7 +14,10 @@ import {
 // 共通設定（JWTなどもここに集約できる）
 const config = new Configuration({
     basePath: "http://localhost:8000",
-    accessToken: () => localStorage.getItem("token") || "",
+    accessToken: () => {
+        const token = localStorage.getItem("accessToken"); // ←ここ統一
+        return token ? `Bearer ${token}` : "";
+    },
 });
 
 // APIまとめオブジェクト（これが一番使いやすい）

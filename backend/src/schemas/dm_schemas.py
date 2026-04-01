@@ -3,8 +3,9 @@ from typing import Optional
 from datetime import datetime
 
 class RoomBase(BaseModel):
-    romm_id:int
-    room_name:str
+    room_id:int
+    room_name:str=None
+    room_icon:str=None
     created_at: Optional[datetime] = None
 
 class CreateRoom(BaseModel):

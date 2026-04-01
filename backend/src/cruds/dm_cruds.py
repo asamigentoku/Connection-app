@@ -7,12 +7,12 @@ from fastapi import HTTPException
     #ユーザーIDからルーム名、ルームID
 
 async def get_room_by_id(id:int)-> Optional[dm_model.TalkRoom]:
-    return await dm_model.TalkRoom.objects.get_or_none(id=id)
+    print("get_room_by_id")
+    return await dm_model.TalkRoom.objects.get_or_none(room_id=id)
 
 async def get_members_by_user(user:user_model.User)->Optional[list[dm_model.RoomMember]]:
     members=await dm_model.RoomMember.objects.filter(user=user).all()
     if(members):
-        
         return members
     else:
         return None
@@ -20,7 +20,9 @@ async def get_members_by_user(user:user_model.User)->Optional[list[dm_model.Room
 
 async def get_rooms_by_userid(id:int) -> Optional[list[dm_model.TalkRoom]]:
     user=await process.get_user_by_id(id)
+    #上でユーザーが所有しているroomsを取得したい
     members=await get_members_by_user(user)
+    #ユーザーがメンバーであるmemberを取得
     rooms=[member.room for member in members]
     return rooms
 
@@ -42,9 +44,12 @@ async def add_room_member(newmember:AddRoomMember):
     await dm_model.RoomMember.objects.create(room=room, user=user)
     return
 
-async def get_message_by_roomid(id:int)->Optional[list[dm_model.Message]]:
-    room=await get_room_by_id(id)
-    messages=await dm_model.Message.objects.filter(room=room).all()
+async def get_message_by_roomid(room_id:int)->Optional[list[dm_model.Message]]:
+    room=await get_room_by_id(room_id)
+    if not room:
+        print("room not found")
+        return []
+    messages = await dm_model.Message.objects.filter(room=room).all()
     return messages
 
 async def get_message_by_id(id:int)-> Optional[dm_model.Message]:
@@ -52,20 +57,21 @@ async def get_message_by_id(id:int)-> Optional[dm_model.Message]:
 
 ###特定のroomの中身を開く->そのルームIDのメッセージを読み込む->メッセージ順に読み込む
 ###ルーム名->list[コンテンツ,ユーザー名、時間,メッセージID、ユーザーアイコン]
-async def get_room_information_by_id(id:int)->Optional[list[GetMessage]]:
-    messages=await get_message_by_roomid(id)
+async def get_room_information_by_id(room_id:int)->Optional[list[GetMessage]]:
+    messages=await get_message_by_roomid(room_id)
+    print(messages)
     messages_json = []
     for m in messages:
-        
         msg = GetMessage(
             id=m.id,
             content = m.content,
-            room_id=id,
+            room_id=m.room.room_id,
             user_id=m.user.user_id,
             user_icon = m.user.icon_url,
             created_at = m.created_at,
         )
         messages_json.append(msg)
+    print(messages_json)
     return messages_json
 
 ###送信

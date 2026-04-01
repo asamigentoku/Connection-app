@@ -1,15 +1,32 @@
 "use client";
-
+//👉 API generator（OpenAPI系）が自動で camelCase に変換してる
+import { useState,useEffect } from "react";
 import Link from "next/link";
-import { users, posts } from "@data/mock-data";
 import { MessageCircle, ThumbsUp, Clock, Lock, CheckCircle } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import { useAuthStore } from "@lib/auth_context";
 import { analyzeContent } from "@utils/content-moderation";
 import { ContentCard } from "@hooks/content-card";
-
+import {api} from "@api/client"
 export default function BulletinBoard() {
+    const [users,setusers]=useState<any[]>([]);
+    const [posts,setposts]=useState<any[]>([]);
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const posts = await api.tweets.getPostsTweetPostsGet();
+                setposts(posts);
+                console.log(posts.count)
+                const users = await api.users.getAllUserAllUserGet();
+                setusers(users);
+            } catch (e) {
+                console.error(e);
+            }
+        };
+
+        fetchUsers();
+    }, []);
     const { isGuest } = useAuthStore();
     const getCategoryColor = (category: string) => {
         const colors: Record<string, string> = {
@@ -43,31 +60,29 @@ export default function BulletinBoard() {
                 //ここのmapで複数表示している
                 //ここでAPIを叩いているようなものpost一覧を取得してその後に
                 //そのpostのuser_idからその投稿について取得などを行う
-            const author = users.find((u) => u.id === post.authorId);
+            const author = users.find((u) => u.user_id === post.user_id);
             const moderationResult = analyzeContent(post.title + " " + post.content);
-
             return (
                 <ContentCard
-                key={post.id}
+                key={post.postId}
                 moderationResult={moderationResult}
                 author={author}
                 >
-                <Link href={`/menu/thread/${post.id}`} className="block">
+                <Link href={`/menu/thread/${post.postId}`} className="block">
                     <div className="mb-3 flex items-start justify-between">
                     <div className="flex items-center gap-3">
                         <img
-                        src={author?.avatar}
-                        alt={author?.name}
+                        src={post.userIcon}
+                        alt={post.userName}
                         className="h-12 w-12 rounded-full object-cover"
                         />
 
                         <div>
                         <div className="flex items-center gap-2">
                             <span className="font-medium text-gray-900">
-                            {author?.name}
+                            {author?.user_name}
                             </span>
-
-                            {author?.isVerified && (
+                            {author?.is_verified && (
                             <CheckCircle className="h-4 w-4 text-blue-600" />
                             )}
                         </div>

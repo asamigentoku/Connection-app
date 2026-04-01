@@ -58,8 +58,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
                     {currentUser ? (
                     <>
                         <img
-                        src={currentUser.avatar}
-                        alt={currentUser.name}
+                        src={currentUser.iconUrl}
+                        alt={currentUser.userName}
                         className="h-8 w-8 rounded-full object-cover"
                         />
                         <span className="hidden sm:inline">{currentUser.name}</span>
@@ -80,7 +80,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                     <div className="absolute right-0 top-full mt-2 z-20 w-56 rounded-lg bg-white py-2 shadow-lg">
                         <div className="border-b border-gray-100 px-4 py-3">
                         <div className="font-medium text-gray-900">
-                            {currentUser ? currentUser.name : "ゲストユーザー"}
+                            {currentUser ? currentUser.userName : "ゲストユーザー"}
                         </div>
                         <div className="text-sm text-gray-500">
                             {isGuest ? "閲覧のみ可能" : currentUser?.status}

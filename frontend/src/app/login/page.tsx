@@ -2,26 +2,26 @@
 
 import { useState,useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { users } from "@data/mock-data";
 import { useAuthStore } from "@lib/auth_context";
 import { UserCircle, LogIn } from "lucide-react";
 import {api} from "@api/client"
 
 export default function LoginPage() {
     const router = useRouter();
+    //グローバルの関数を定義
     const { login, continueAsGuest } = useAuthStore();
     //ここで選ばれたユーザーを選択
     const [selectedUserId, setSelectedUserId] = useState<string>("");
 
-    const [users2, setUsers2] = useState<any[]>([]);
+    const [users, setUsers] = useState<any[]>([]);
     useEffect(() => {
         const fetchUsers = async () => {
             try {
                 const res = await api.users.getAllUserAllUserGet();
-                console.log(res.data); // ←ここが本体
-                setUsers2(res.data);
+                console.log(res); // ←ここが本体
+                setUsers(res);
                 console.log("response:", res);
-                console.log("data:", res.data);
+                console.log("data:", res);
             } catch (e) {
                 console.error(e);
             }
@@ -30,12 +30,16 @@ export default function LoginPage() {
         fetchUsers();
     }, []);
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         if (!selectedUserId) return;
-        const user = users.find((u) => u.id === selectedUserId);
+        const user = users.find((u) => u.userId === selectedUserId);
         if (user) {
-        login(user);
-        router.push("/menu/board");
+            const data = await api.jwt.loginForAccessTokenLoginPost({
+                username: user.userName,
+                password: "password",
+            });
+            login(user,data.accessToken);
+            router.push("/menu/board");
         }
     };
 
@@ -63,24 +67,24 @@ export default function LoginPage() {
                 <div className="space-y-2">
                 {users.map((user) => (
                     <button
-                    key={user.id}
-                    onClick={() => setSelectedUserId(user.id)}
+                    key={user.userId}
+                    onClick={() => setSelectedUserId(user.userId)}
                     className={`flex w-full items-center gap-3 rounded-xl border-2 p-4 transition-all ${
-                        selectedUserId === user.id
+                        selectedUserId === user.userId
                         ? "border-indigo-600 bg-indigo-50"
                         : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
                     }`}
                     >
                     <img
-                        src={user.avatar}
-                        alt={user.name}
+                        src={user.iconUrl}
+                        alt={user.userName}
                         className="h-12 w-12 rounded-full object-cover"
                     />
                     <div className="flex-1 text-left">
-                        <div className="font-semibold text-gray-900">{user.name}</div>
+                        <div className="font-semibold text-gray-900">{user.userName}</div>
                         <div className="text-sm text-gray-500">{user.status}</div>
                     </div>
-                    {selectedUserId === user.id && (
+                    {selectedUserId === user.userId && (
                         <div className="h-5 w-5 rounded-full bg-indigo-600 flex items-center justify-center">
                         <div className="h-2 w-2 rounded-full bg-white"></div>
                         </div>

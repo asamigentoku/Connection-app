@@ -17,7 +17,7 @@ async def get_posts():
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"ツイートの取得ができません: {str(e)}")
 
-@router.get("posts/images/{post_id}",response_model=list[PostImage])
+@router.get("/posts/images/{post_id}",response_model=list[PostImage])
 async def get_images(post_id:int):
     try:
         images=await post_cruds.get_images_by_postid(post_id)
@@ -25,7 +25,7 @@ async def get_images(post_id:int):
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"イメージが取得できません: {str(e)}")
 
-@router.get("posts/reply/{post_id}",response_model=list[ReplyModel])
+@router.get("/posts/reply/{post_id}",response_model=list[ReplyModel])
 async def get_replys(post_id:int):
     try:
         replys=await post_cruds.get_replys_by_postid(post_id)
@@ -33,7 +33,7 @@ async def get_replys(post_id:int):
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"リプライが取得できません: {str(e)}")
 
-@router.get("posts/good_num/{post_id}",response_model=int)
+@router.get("/posts/good_num/{post_id}",response_model=int)
 async def get_good_num(post_id:int):
     try:
         number=await post_cruds.get_goodnum_by_postid(post_id)
@@ -43,7 +43,7 @@ async def get_good_num(post_id:int):
 
 ###投稿
 ###コンテンツ、写真,(トークンユーザー)->null、写真無し投稿
-@router.post("create_post",response_model=ResponseSchema)
+@router.post("/create_post",response_model=ResponseSchema)
 async def create_post(post:Create_PostModel,current_user: Annotated[UserResponse,Depends(get_current_active_user)]):
     try:
         await post_cruds.create_post(post,current_user.user_id)
@@ -52,7 +52,7 @@ async def create_post(post:Create_PostModel,current_user: Annotated[UserResponse
         raise HTTPException(status_code=404, detail=f"ツイートの投稿に失敗しました: {str(e)}")
 
 #写真付き投稿
-@router.post("create_post_with_image",response_model=ResponseSchema)
+@router.post("/create_post_with_image",response_model=ResponseSchema)
 async def create_post_with_image(post:Create_PostModel,images:list[PostImage],current_user: Annotated[UserResponse,Depends(get_current_active_user)]):
     try:
         await post_cruds.create_post_with_post(post,images,current_user.user_id)
@@ -63,7 +63,7 @@ async def create_post_with_image(post:Create_PostModel,images:list[PostImage],cu
 
 ###投稿を編集
 ####post_id,(トークン=ユーザー),コンテンツ、写真->
-@router.put("update_post",response_model=ResponseSchema)
+@router.put("/update_post",response_model=ResponseSchema)
 async def update_post(post:PostModel,current_user: Annotated[UserResponse,Depends(get_current_active_user)]):
     try:
         await post_cruds.update_post(post,current_user.user_id)
@@ -73,7 +73,7 @@ async def update_post(post:PostModel,current_user: Annotated[UserResponse,Depend
 
 ###投稿を削除
 ####post_id,(トークンユーザー)->null
-@router.delete("delete_post/{post_id}",response_model=ResponseSchema)
+@router.delete("/delete_post/{post_id}",response_model=ResponseSchema)
 async def delete_post(post_id:int,current_user: Annotated[UserResponse,Depends(get_current_active_user)]):
     try:
         await post_cruds.delete_post(post_id,current_user.user_id)
@@ -83,7 +83,7 @@ async def delete_post(post_id:int,current_user: Annotated[UserResponse,Depends(g
 
 ###いいね
 ####post_id,(トークンユーザー or gueest)->null
-@router.post("manege_like/{post_id}",response_model=ResponseSchema)
+@router.post("/manege_like/{post_id}",response_model=ResponseSchema)
 async def post_like(post_id:int,current_user: Annotated[Optional[UserResponse],Depends(get_current_active_user)]):
     try:
         await post_cruds.manege_like(post_id,current_user.user_id)

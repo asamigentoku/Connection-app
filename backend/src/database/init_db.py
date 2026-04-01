@@ -31,11 +31,41 @@ replies_data = [
 ]
 
 messages_data = [
-        {"id": 1, "user1_id": 2,"user2_id": 3,"content": "こんにちは！先日の投稿、とても参考になりました。", "timestamp": datetime(2026, 3, 13, 10, 30), "is_read": True},
-        {"id": 2, "user1_id": 1,"user2_id": 4, "content": "ありがとうございます！お役に立てて嬉しいです。", "timestamp": datetime(2026, 3, 13, 10, 35), "is_read": True},
-        {"id": 3, "user1_id": 2,"user2_id": 5,  "content": "また何か情報があったら教えてくださいね！", "timestamp": datetime(2026, 3, 13, 10, 40), "is_read": True},
-        {"id": 4, "user1_id": 4,"user2_id": 2,  "content": "週末のイベント、一緒に行きませんか？", "timestamp": datetime(2026, 3, 14, 15, 20), "is_read": False},
-        {"id": 5, "user1_id": 3,"user2_id": 1,  "content": "プログラミングの学習方法について、もう少し詳しく教えていただけますか？", "timestamp": datetime(2026, 3, 14, 9, 15), "is_read": False},
+    {"id": 1, "user1_id": 2,"user2_id": 3,"content": "こんにちは！先日の投稿、とても参考になりました。", "timestamp": datetime(2026, 3, 13, 10, 30), "is_read": True},
+    {"id": 2, "user1_id": 1,"user2_id": 4,"content": "ありがとうございます！お役に立てて嬉しいです。", "timestamp": datetime(2026, 3, 13, 10, 35), "is_read": True},
+    {"id": 3, "user1_id": 2,"user2_id": 5,"content": "また何か情報があったら教えてくださいね！", "timestamp": datetime(2026, 3, 13, 10, 40), "is_read": True},
+    {"id": 4, "user1_id": 4,"user2_id": 2,"content": "週末のイベント、一緒に行きませんか？", "timestamp": datetime(2026, 3, 14, 15, 20), "is_read": False},
+    {"id": 5, "user1_id": 3,"user2_id": 1,"content": "プログラミングの学習方法について、もう少し詳しく教えていただけますか？", "timestamp": datetime(2026, 3, 14, 9, 15), "is_read": False},
+
+    {"id": 6, "user1_id": 2,"user2_id": 3,"content": "昨日の資料、もう一度送ってもらえますか？", "timestamp": datetime(2026, 3, 15, 11, 5), "is_read": True},
+    {"id": 7, "user1_id": 3,"user2_id": 2,"content": "もちろんです！今送りますね。", "timestamp": datetime(2026, 3, 15, 11, 7), "is_read": True},
+    {"id": 8, "user1_id": 1,"user2_id": 5,"content": "最近どう？開発進んでる？", "timestamp": datetime(2026, 3, 15, 18, 22), "is_read": False},
+    {"id": 9, "user1_id": 5,"user2_id": 1,"content": "ちょっと詰まってるけど頑張ってる！", "timestamp": datetime(2026, 3, 15, 18, 25), "is_read": False},
+    {"id": 10,"user1_id": 4,"user2_id": 1,"content": "明日のミーティング何時からでしたっけ？", "timestamp": datetime(2026, 3, 16, 8, 10), "is_read": True},
+
+    {"id": 11,"user1_id": 1,"user2_id": 4,"content": "10時からですよ！", "timestamp": datetime(2026, 3, 16, 8, 12), "is_read": True},
+    {"id": 12,"user1_id": 2,"user2_id": 4,"content": "資料の修正終わりました！確認お願いします。", "timestamp": datetime(2026, 3, 16, 14, 30), "is_read": False},
+    {"id": 13,"user1_id": 4,"user2_id": 2,"content": "確認しました、問題なさそうです！", "timestamp": datetime(2026, 3, 16, 15, 10), "is_read": False},
+    {"id": 14,"user1_id": 3,"user2_id": 5,"content": "おすすめの勉強サイトありますか？", "timestamp": datetime(2026, 3, 17, 9, 45), "is_read": True},
+    {"id": 15,"user1_id": 5,"user2_id": 3,"content": "Progateとかいいですよ！", "timestamp": datetime(2026, 3, 17, 9, 50), "is_read": True},
+
+    {"id": 16,"user1_id": 1,"user2_id": 2,"content": "今日の進捗どうですか？", "timestamp": datetime(2026, 3, 18, 17, 5), "is_read": False},
+    {"id": 17,"user1_id": 2,"user2_id": 1,"content": "API周りは終わりました！", "timestamp": datetime(2026, 3, 18, 17, 20), "is_read": False},
+    {"id": 18,"user1_id": 3,"user2_id": 4,"content": "今週末空いてます？", "timestamp": datetime(2026, 3, 19, 20, 10), "is_read": True},
+    {"id": 19,"user1_id": 4,"user2_id": 3,"content": "空いてます！どこ行きます？", "timestamp": datetime(2026, 3, 19, 20, 15), "is_read": True},
+    {"id": 20,"user1_id": 3,"user2_id": 4,"content": "カフェ巡りとかどうですか？", "timestamp": datetime(2026, 3, 19, 20, 18), "is_read": True},
+
+    {"id": 21,"user1_id": 5,"user2_id": 2,"content": "デザインちょっと変えてみました！", "timestamp": datetime(2026, 3, 20, 13, 30), "is_read": False},
+    {"id": 22,"user1_id": 2,"user2_id": 5,"content": "いい感じですね！", "timestamp": datetime(2026, 3, 20, 13, 40), "is_read": False},
+    {"id": 23,"user1_id": 1,"user2_id": 3,"content": "バグ見つけました…", "timestamp": datetime(2026, 3, 21, 11, 2), "is_read": True},
+    {"id": 24,"user1_id": 3,"user2_id": 1,"content": "どの部分ですか？", "timestamp": datetime(2026, 3, 21, 11, 5), "is_read": True},
+    {"id": 25,"user1_id": 1,"user2_id": 3,"content": "ログイン処理です", "timestamp": datetime(2026, 3, 21, 11, 7), "is_read": True},
+
+    {"id": 26,"user1_id": 4,"user2_id": 5,"content": "新しい機能どう思います？", "timestamp": datetime(2026, 3, 22, 16, 10), "is_read": False},
+    {"id": 27,"user1_id": 5,"user2_id": 4,"content": "かなり良いと思います！", "timestamp": datetime(2026, 3, 22, 16, 20), "is_read": False},
+    {"id": 28,"user1_id": 2,"user2_id": 1,"content": "ちょっと相談いいですか？", "timestamp": datetime(2026, 3, 23, 10, 0), "is_read": True},
+    {"id": 29,"user1_id": 1,"user2_id": 2,"content": "もちろんです！", "timestamp": datetime(2026, 3, 23, 10, 2), "is_read": True},
+    {"id": 30,"user1_id": 2,"user2_id": 1,"content": "DB設計で悩んでます", "timestamp": datetime(2026, 3, 23, 10, 5), "is_read": True},
 ]
 
 def get_room_by_ids(rooms_dict,uid1, uid2):
