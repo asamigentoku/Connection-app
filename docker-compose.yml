@@ -13,16 +13,5 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  backend:
-    build: ./backend
-    container_name: my-backend
-    restart: always
-    depends_on:
-      - db
-    environment:
-      DATABASE_URL: postgresql+asyncpg://user:password@db:5432/testdb
-    ports:
-      - "8000:8000"
-
 volumes:
   postgres_data:
