@@ -2,7 +2,8 @@
 
 import { ReactNode } from "react";
 import { AlertTriangle, ShieldAlert, AlertCircle, CheckCircle } from "lucide-react";
-import { ModerationResult, getSentimentColor, getSentimentBadge } from "@utils/content-moderation";
+import {getSentimentColor, getSentimentBadge } from "@utils/content-moderation";
+import {ModerationResult_post} from "@typs/analyze"
 import { useSettingsStore  } from "@lib/settings_context";
 import { User } from "@data/mock-data";
 
@@ -10,7 +11,7 @@ import { User } from "@data/mock-data";
 
 interface ContentCardProps {
     children: ReactNode;
-    moderationResult: ModerationResult;
+    moderationResult: ModerationResult_post;
     author?: User;
     className?: string;
     }
@@ -43,19 +44,19 @@ export function ContentCard({ children, moderationResult, author, className = ""
         {showModerationFlags && moderationResult.flags?.length > 0 && (
             <div className="border-b border-gray-100 p-4">
             <div className="flex flex-wrap gap-2">
-                {moderationResult.isInappropriate && (
+                {moderationResult.isHarassment==="inappropriate" && (
                 <div className="flex items-center gap-1.5 rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700">
                     <AlertCircle className="h-3.5 w-3.5" />
                     不適切な表現
                 </div>
                 )}
-                {moderationResult.isHarassment && (
+                {moderationResult.isHarassment==="power" && (
                 <div className="flex items-center gap-1.5 rounded-full bg-orange-100 px-3 py-1 text-xs font-medium text-orange-700">
                     <ShieldAlert className="h-3.5 w-3.5" />
                     パワハラの可能性
                 </div>
                 )}
-                {moderationResult.isDiscriminatory && (
+                {moderationResult.isHarassment==="discriminatory" & (
                 <div className="flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-700">
                     <AlertCircle className="h-3.5 w-3.5" />
                     差別的表現
@@ -66,7 +67,7 @@ export function ContentCard({ children, moderationResult, author, className = ""
         )}
 
         {/* デマ警告 */}
-        {showFakeNewsWarnings && moderationResult.isPotentialFakeNews && (
+        {showFakeNewsWarnings && moderationResult.fake_number>=1 && (
             <div className="border-b border-amber-200 bg-amber-50 p-4">
             <div className="flex gap-3">
                 <AlertTriangle className="h-5 w-5 text-amber-600 flex-shrink-0" />

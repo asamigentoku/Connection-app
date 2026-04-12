@@ -1,9 +1,7 @@
 // コンテンツモデレーションと分析のユーティリティ
 
-export interface ModerationResult {
-    isInappropriate: boolean;
+export interface ModerationResult_post{
     isHarassment: boolean;
-    isDiscriminatory: boolean;
     isPotentialFakeNews: boolean;
     sentiment: "positive" | "neutral" | "negative" | "angry";
     toxicityLevel: number; // 0-100
@@ -15,10 +13,10 @@ export async function analyzebyPostId(post_id:number): ModerationResult {
     const flags: string[] = [];
     let toxicityLevel = 0;
     console.log(post_id)
-    const harassment = await api.harassment.harassmentCheckHarassmentAnycheckPost({
+    let isHarassment = await api.harassment.harassmentCheckHarassmentAnycheckPost({
       postId: post_id
     });
-    switch (harassment) {
+    switch (isHarassment) {
       case "inappropriate":
         isHarassment=true;
         flags.push("不適切な表現");
@@ -41,20 +39,19 @@ export async function analyzebyPostId(post_id:number): ModerationResult {
         // どれにも当てはまらない
     }
 
-    const fake_number=await api.fakecheck.fakeCheckByPostFakecheckFakeCheckByPostPost({post_id:post_id})
+    const fake_number=await api.fakecheck.fakeCheckByPostFakecheckFakeCheckByPostPost({postId:post_id})
     if(fake_number>=3){
-        isPotentialFakeNews=true;
+        const isPotentialFakeNews=true;
         flags.push("要検証情報");
         toxicityLevel += 20;
     }
 
-    const sentiment=await api.emotion.getEmotionByPostEmotionGetEmotionByPostPost({post_id:post_id})
+
+    const sentiment=await api.emotion.getEmotionByPostEmotionGetEmotionByPostPost({postId:post_id})
 
     return {
-        isInappropriate,
         isHarassment,
-        isDiscriminatory,
-        isPotentialFakeNews,
+        fake_number,
         sentiment,
         toxicityLevel: Math.min(toxicityLevel, 100),
         flags,

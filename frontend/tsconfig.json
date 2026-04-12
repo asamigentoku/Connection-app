@@ -28,7 +28,9 @@
       "@lib/*": ["src/lib/*"],
       "@styles/*": ["src/styles/*"],
       "@api/*":["src/api/*"],
-    }
+      "@typs/*":["src/types/*"],
+    },
+
   },
   "include": [
     "next-env.d.ts",

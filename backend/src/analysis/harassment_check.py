@@ -31,5 +31,5 @@ def harassment_check_by_text(content: str):
     best_category = max(scores, key=scores.get)
     # 何もヒットしなかった場合
     if scores[best_category] == 0:
-        return None
+        return "no-harassment"
     return best_category
