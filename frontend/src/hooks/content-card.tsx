@@ -40,7 +40,7 @@ export function ContentCard({ children, moderationResult, author, className = ""
     return (
         <div className={`rounded-xl bg-white shadow-sm ${className}`}>
         {/* モデレーションフラグと警告 */}
-        {showModerationFlags && moderationResult.flags.length > 0 && (
+        {showModerationFlags && moderationResult.flags?.length > 0 && (
             <div className="border-b border-gray-100 p-4">
             <div className="flex flex-wrap gap-2">
                 {moderationResult.isInappropriate && (

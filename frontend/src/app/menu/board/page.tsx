@@ -6,7 +6,7 @@ import { MessageCircle, ThumbsUp, Clock, Lock, CheckCircle } from "lucide-react"
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import { useAuthStore } from "@lib/auth_context";
-import { analyzeContent } from "@utils/content-moderation";
+import {analyzebyPostId } from "@utils/content-moderation-post";
 import { ContentCard } from "@hooks/content-card";
 import {api} from "@api/client"
 export default function BulletinBoard() {
@@ -61,7 +61,7 @@ export default function BulletinBoard() {
                 //ここでAPIを叩いているようなものpost一覧を取得してその後に
                 //そのpostのuser_idからその投稿について取得などを行う
             const author = users.find((u) => u.user_id === post.user_id);
-            const moderationResult = analyzeContent(post.title + " " + post.content);
+            const moderationResult =analyzebyPostId (post.postId);
             return (
                 <ContentCard
                 key={post.postId}

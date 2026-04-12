@@ -20,12 +20,16 @@ moderation_dict = {
     ]
 }
 
-def harassment_check_by_text(content:str):
-    results = []
-
+def harassment_check_by_text(content: str):
+    scores = {category: 0 for category in moderation_dict.keys()}
     for category, words in moderation_dict.items():
         for word in words:
             if word in content:
-                results.append(category)
-                break  # 同じカテゴリで複数ヒットしても1回だけ
-    return results
+                scores[category] += 1
+
+    # 最大スコアのカテゴリを取得
+    best_category = max(scores, key=scores.get)
+    # 何もヒットしなかった場合
+    if scores[best_category] == 0:
+        return None
+    return best_category
