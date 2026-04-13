@@ -12,6 +12,7 @@ import {api} from "@api/client"
 export default function BulletinBoard() {
     const [users,setusers]=useState<any[]>([]);
     const [posts,setposts]=useState<any[]>([]);
+    const [moderationResults, setModerationResults] = useState<Record<number, any>>({});
     useEffect(() => {
         const fetchUsers = async () => {
             try {
@@ -20,6 +21,13 @@ export default function BulletinBoard() {
                 console.log(posts.count)
                 const users = await api.users.getAllUserAllUserGet();
                 setusers(users);
+                const results: Record<number, any> = {};
+                await Promise.all(
+                    posts.map(async (post: any) => {
+                        results[post.postId] = await analyzebyPostId(post.postId);
+                    })
+                );
+                setModerationResults(results);
             } catch (e) {
                 console.error(e);
             }
@@ -61,7 +69,8 @@ export default function BulletinBoard() {
                 //ここでAPIを叩いているようなものpost一覧を取得してその後に
                 //そのpostのuser_idからその投稿について取得などを行う
             const author = users.find((u) => u.user_id === post.user_id);
-            const moderationResult =analyzebyPostId (post.postId);
+            const moderationResult = moderationResults[post.postId];
+            if (!moderationResult) return null;
             return (
                 <ContentCard
                 key={post.postId}

@@ -18,6 +18,7 @@ interface ContentCardProps {
 //ここではユーザーの検証情報が欲しい
 export function ContentCard({ children, moderationResult, author, className = "" }: ContentCardProps) {
     const { safeMode, showSentimentAnalysis, showModerationFlags, showFakeNewsWarnings, showVerifiedBadges } = useSettingsStore();
+    console.log(moderationResult);
 
     // セーフモードで有害なコンテンツをフィルタリング
     if (safeMode && moderationResult.toxicityLevel > 50) {
@@ -37,6 +38,8 @@ export function ContentCard({ children, moderationResult, author, className = ""
     }
 
     const sentimentColor = showSentimentAnalysis ? getSentimentColor(moderationResult.sentiment) : "";
+    console.log("fake_number:", moderationResult.fake_number);
+    console.log("type:", typeof moderationResult.fake_number);
 
     return (
         <div className={`rounded-xl bg-white shadow-sm ${className}`}>
@@ -56,7 +59,7 @@ export function ContentCard({ children, moderationResult, author, className = ""
                     パワハラの可能性
                 </div>
                 )}
-                {moderationResult.isHarassment==="discriminatory" & (
+                {moderationResult.isHarassment==="discriminatory" && (
                 <div className="flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-700">
                     <AlertCircle className="h-3.5 w-3.5" />
                     差別的表現
@@ -67,7 +70,7 @@ export function ContentCard({ children, moderationResult, author, className = ""
         )}
 
         {/* デマ警告 */}
-        {showFakeNewsWarnings && moderationResult.fake_number>=1 && (
+        {showFakeNewsWarnings && moderationResult.fake_number>0 && (
             <div className="border-b border-amber-200 bg-amber-50 p-4">
             <div className="flex gap-3">
                 <AlertTriangle className="h-5 w-5 text-amber-600 flex-shrink-0" />

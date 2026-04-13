@@ -1,12 +1,6 @@
 // コンテンツモデレーションと分析のユーティリティ
 
-export interface ModerationResult_post{
-    isHarassment: boolean;
-    isPotentialFakeNews: boolean;
-    sentiment: "positive" | "neutral" | "negative" | "angry";
-    toxicityLevel: number; // 0-100
-    flags: string[];
-}
+import {ModerationResult_post} from "@typs/analyze"
 import {api} from "@api/client"
 
 export async function analyzebyPostId(post_id:number): ModerationResult {
@@ -40,7 +34,8 @@ export async function analyzebyPostId(post_id:number): ModerationResult {
     }
 
     const fake_number=await api.fakecheck.fakeCheckByPostFakecheckFakeCheckByPostPost({postId:post_id})
-    if(fake_number>=3){
+    console.log(fake_number)
+    if(fake_number>=1){
         const isPotentialFakeNews=true;
         flags.push("要検証情報");
         toxicityLevel += 20;
