@@ -18,10 +18,21 @@ interface ContentCardProps {
 //ここではユーザーの検証情報が欲しい
 export function ContentCard({ children, moderationResult, author, className = "" }: ContentCardProps) {
     const { safeMode, showSentimentAnalysis, showModerationFlags, showFakeNewsWarnings, showVerifiedBadges } = useSettingsStore();
-    console.log(moderationResult);
+    if(!moderationResult){
+        return (
+            <div className={`rounded-xl border-2 border-red-200 bg-red-50 p-6 ${className}`}>
+                <div className="flex items-start gap-3">
+                    <ShieldAlert className="h-6 w-6 text-red-600 flex-shrink-0" />
+                    <div>
+                        {children}
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     // セーフモードで有害なコンテンツをフィルタリング
-    if (safeMode && moderationResult.toxicityLevel > 50) {
+    if (safeMode && moderationResult?.toxicityLevel > 50) {
         return (
         <div className={`rounded-xl border-2 border-red-200 bg-red-50 p-6 ${className}`}>
             <div className="flex items-start gap-3">

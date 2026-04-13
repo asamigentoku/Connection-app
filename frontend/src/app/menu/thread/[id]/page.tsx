@@ -1,29 +1,55 @@
 "use client";
 
 import Link from "next/link";
-import { users, posts, replies } from "@data/mock-data";
+import { replies } from "@data/mock-data";
 import { ArrowLeft, ThumbsUp, Clock, Send, Lock, CheckCircle } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useAuthStore } from "@lib/auth_context";
-import { analyzeContent } from "@utils/content-moderation";
+import {analyzebyPostId } from "@utils/content-moderation-post";
 import { ContentCard } from "@hooks/content-card";
+import {ReplyCard} from "@hooks/reply-card"
+import {api} from "@api/client"
 import * as React from 'react'
+import {GetReplysTweetpostsReplyPostIdGetRequest} from "../../../../api";
 
 interface ThreadPageProps {
-    params: Promise<{ id: string }>; 
+    params: Promise<{ id: number }>;
 
 }
 
 export default function ThreadView({ params }: ThreadPageProps) {
     const { id } = React.use(params);
-        const threadId =id;
+    const [users,setusers]=useState<any[]>([]);
+    const [posts,setposts]=useState<any[]>([]);
+    const [threadReplies, setThreadReplies] = useState<any[]>([]);
+    const [moderationResult, setModerationResult] = useState<any>(null);
+    const threadId:number=Number(id);
     const [replyText, setReplyText] = useState("");
     const { isGuest } = useAuthStore();
+    useEffect(() => {
+        const apiaccess = async () => {
+            try {
+                const posts = await api.tweets.getPostsTweetPostsGet();
+                setposts(posts);
 
-    const post = posts.find((p) => p.id === threadId);
-    const threadReplies = replies.filter((r) => r.postId === threadId);
+                const users = await api.users.getAllUserAllUserGet();
+                setusers(users);
+
+                const moderationresult=await analyzebyPostId(threadId);
+                setModerationResult(moderationresult);
+
+                const threadreplies= await api.tweets.getReplysTweetpostsReplyPostIdGet({postId:threadId});
+                setThreadReplies(threadreplies);
+            } catch (e) {
+                console.error(e);
+            }
+        };
+        apiaccess();
+    }, []);
+    console.log(moderationResult);
+    const post = posts.find((p) => p.postId === threadId);
 
     if (!post) {
         return (
@@ -43,8 +69,6 @@ export default function ThreadView({ params }: ThreadPageProps) {
     }
 
     const author = users.find((u) => u.id === post.authorId);
-    const moderationResult = analyzeContent(post.title + " " + post.content);
-
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setReplyText("");
@@ -112,26 +136,22 @@ export default function ThreadView({ params }: ThreadPageProps) {
             <div className="space-y-4">
             {threadReplies.map((reply) => {
                 const replyAuthor = users.find((u) => u.id === reply.authorId);
-                const replyModeration = analyzeContent(reply.content);
-
                 return (
-                <ContentCard
-                    key={reply.id}
-                    moderationResult={replyModeration}
-                    author={replyAuthor}
+                <ReplyCard
+                    key={reply.replyId}
                     className="p-0"
                 >
                     <div className="mb-3 flex items-start gap-3">
                     <img
-                        src={replyAuthor?.avatar}
-                        alt={replyAuthor?.name}
+                        src={reply.userIcon}
+                        alt={reply.userName}
                         className="h-10 w-10 rounded-full object-cover"
                     />
 
                     <div className="flex-1">
                         <div className="flex items-center gap-2">
                         <span className="font-medium text-gray-900">
-                            {replyAuthor?.name}
+                            {reply.userName}
                         </span>
 
                         {replyAuthor?.isVerified && (
@@ -147,12 +167,11 @@ export default function ThreadView({ params }: ThreadPageProps) {
 
                     <button className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-indigo-600">
                         <ThumbsUp className="h-4 w-4" />
-                        <span>{reply.likes}</span>
                     </button>
                     </div>
 
                     <p className="text-gray-700">{reply.content}</p>
-                </ContentCard>
+                </ReplyCard>
                 );
             })}
             </div>

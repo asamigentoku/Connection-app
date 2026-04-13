@@ -3,7 +3,7 @@
 import {ModerationResult_post} from "@typs/analyze"
 import {api} from "@api/client"
 
-export async function analyzebyPostId(post_id:number): ModerationResult {
+export async function analyzebyPostId(post_id:number): ModerationResult_post {
     const flags: string[] = [];
     let toxicityLevel = 0;
     console.log(post_id)

@@ -37,7 +37,7 @@ async def get_images_by_postid(post_id:int)->Optional[list[PostImage]]:
 
 async def get_replys_by_postid(post_id:int)->Optional[list[ReplyModel]]:
     post=await get_post_by_id(post_id)
-    replys=await post_model.Reply.objects.filter(post=post).all()
+    replys=await post_model.Reply.objects.filter(post=post).select_related("user").all()
     replys_json = []
     for r in replys:
         post=ReplyModel(

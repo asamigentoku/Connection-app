@@ -118,7 +118,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </div>
         </header>
         <main className="flex-1 overflow-auto">{children}</main>
-        //設定画面を表示するか
         <SettingsModal isOpen={showSettings} onClose={() => setShowSettings(false)} />
         </div>
     );
