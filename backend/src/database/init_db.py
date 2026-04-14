@@ -70,6 +70,15 @@ messages_data = [
     {"id": 30,"user1_id": 2,"user2_id": 1,"content": "DB設計で悩んでます", "timestamp": datetime(2026, 3, 23, 10, 5), "is_read": True},
 ]
 
+follows_data = [
+    {"follower_id": 1, "following_id": 2},
+    {"follower_id": 1, "following_id": 3},
+    {"follower_id": 2, "following_id": 1},
+    {"follower_id": 3, "following_id": 1},
+    {"follower_id": 4, "following_id": 1},
+    {"follower_id": 5, "following_id": 2},
+]
+
 def get_room_by_ids(rooms_dict,uid1, uid2):
     key = tuple(sorted([uid1, uid2]))
     return rooms_dict.get(key, None)
@@ -132,6 +141,14 @@ async def init_db():
                 created_at=m["timestamp"],
                 is_read=m["is_read"]
             )
+
+    for f in follows_data:
+        follower = user_objs[f["follower_id"]]
+    following = user_objs[f["following_id"]]
+    await user_model.Follow.objects.create(
+        follower=follower,
+        following=following
+    )
 
     print("初期データ挿入完了!!")
     

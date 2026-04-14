@@ -17,6 +17,7 @@ class TalkRoom(ormar.Model):
     room_name:str =ormar.String(max_length=255, nullable=True)
     room_icon:str= ormar.String(max_length=255, nullable=True)
     created_at = ormar.DateTime(default=datetime.datetime.now)
+    is_group:bool = ormar.Boolean(default=False)
 
 
 # ----------------- Room Member -----------------
