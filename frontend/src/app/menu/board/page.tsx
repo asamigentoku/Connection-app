@@ -12,6 +12,7 @@ import {api} from "@api/client"
 export default function BulletinBoard() {
     const [users,setusers]=useState<any[]>([]);
     const [posts,setposts]=useState<any[]>([]);
+    const [searchText, setSearchText] = useState("");
     const [moderationResults, setModerationResults] = useState<Record<number, any>>({});
     useEffect(() => {
         const fetchUsers = async () => {
@@ -35,6 +36,11 @@ export default function BulletinBoard() {
 
         fetchUsers();
     }, []);
+    //searchText が空文字 "" のとき、includes("") は常に true を返すので全件表示されます。
+    const filteredPosts = posts.filter((post) =>
+        post.title?.includes(searchText) || post.content?.includes(searchText)
+    );
+
     const { isGuest } = useAuthStore();
     const getCategoryColor = (category: string) => {
         const colors: Record<string, string> = {
@@ -64,9 +70,18 @@ export default function BulletinBoard() {
                 </Link>
             )}
         </div>
+            <div className="mb-4">
+                <input
+                    type="text"
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                    placeholder="タイトルや内容で検索..."
+                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                />
+            </div>
 
         <div className="space-y-4">
-            {posts.map((post) => {
+            {filteredPosts.map((post) => {
                 //ここのmapで複数表示している
                 //ここでAPIを叩いているようなものpost一覧を取得してその後に
                 //そのpostのuser_idからその投稿について取得などを行う

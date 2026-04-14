@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ReactNode, useState } from "react";
-import { MessageSquare, Home, LogOut, UserCircle, User, Settings } from "lucide-react";
+import { MessageSquare, Home, LogOut, UserCircle, User, Settings,Users } from "lucide-react";
 import { useAuthStore } from "../../lib/auth_context";//二つ上の階層を示す
 import { SettingsModal } from "../../hooks/settings-modal";
 
@@ -34,6 +34,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <h1 className="text-2xl font-bold text-white">コミュニティボード</h1>
             <div className="flex items-center gap-4">
                 <nav className="flex gap-2">
+
                 <Link
                     href="/menu/board"
                     className="flex items-center gap-2 rounded-lg px-4 py-2 text-white hover:bg-white/10"
@@ -48,6 +49,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
                     <MessageSquare className="h-5 w-5" />
                     メッセージ
                 </Link>
+                <Link href="/menu/friends" className="flex items-center gap-2 rounded-lg px-4 py-2 text-white hover:bg-white/10">
+                    <Users className="h-5 w-5" />
+                    友達
+                 </Link>
                 </nav>
 
                 <div className="relative">
