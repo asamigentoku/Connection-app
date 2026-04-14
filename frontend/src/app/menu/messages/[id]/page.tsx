@@ -1,7 +1,7 @@
 "use client"; // クライアントコンポーネントとして扱う
 
 import Link from "next/link";
-import { useState,useEffect } from "react";
+import { useState,useEffect,useRef } from "react";
 import { users, messages } from "@data/mock-data";
 import { ArrowLeft, Send, Circle, Lock, CheckCircle } from "lucide-react";
 import { format } from "date-fns";
@@ -18,29 +18,64 @@ interface ConversationViewProps {
 
 export default function ConversationView({ params }: ConversationViewProps) {
     const { id } =React.use(params);
-    const roomId=id
+    const roomId=id;
+    const ws = useRef<WebSocket | null>(null);
     const [messageText, setMessageText] = useState("");
-    const { isGuest, currentUser,selectedRoom } = useAuthStore();
+    const { isGuest, currentUser,selectedRoom,accessToken } = useAuthStore();
     const { showSentimentAnalysis, showModerationFlags } = useSettingsStore();
     const [conversationMessages,setConversationMessages]=useState<any[]>([]);
     useEffect(() => {
-        if (!currentUser) return;
+        if (!currentUser || !roomId) return;
+
         const fetchUsers = async () => {
             try {
-                const conversationMessages = await api.dm.readRoomTalkUserInformationRoomIdGet({roomId: roomId});
-                setConversationMessages(conversationMessages);
+                // roomId を数値に変換して渡す
+                const messages = await api.dm.readRoomTalkUserInformationRoomIdGet({
+                    roomId: Number(roomId)
+                });
+                // 取得したデータをセット
+                setConversationMessages(messages);
             } catch (e) {
-                console.error(e);
+                console.error("メッセージ取得エラー:", e);
             }
         };
 
+        // 1. 先にデータを取得
         fetchUsers();
-    }, []);
 
-    const handleSubmit = (e: React.FormEvent) => {
+        // 2. WebSocket接続
+        const socket = new WebSocket(`ws://localhost:8000/ws/${roomId}?token=${accessToken}`);
+        ws.current = socket;
+
+        socket.onmessage = (event) => {
+            try {
+                const newMessage = JSON.parse(event.data);
+                // 届いたデータが {content, userId} だけの場合、
+                // id や createdAt を補完しないと map 内でエラーになる可能性がある
+                setConversationMessages(prev => [...prev, {
+                    ...newMessage,
+                    id: newMessage.id || Date.now(), // 一時的なID
+                    createdAt: newMessage.createdAt ? new Date(newMessage.createdAt) : new Date()
+                }]);
+            } catch (e) {
+                console.error("WSメッセージパースエラー:", e);
+            }
+        };
+
+        // 3. 最後にクリーンアップを返す
+        return () => {
+            socket.close();
+        };
+    }, [roomId, currentUser]); // currentUser も依存配列に入れる
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!messageText.trim() || isGuest) return;
-        // モックデータなので送信は実際には行われません
+
+        ws.current?.send(JSON.stringify({
+            content: messageText,
+            userId: currentUser.userId,
+        }));
         setMessageText("");
     };
 
@@ -98,11 +133,11 @@ export default function ConversationView({ params }: ConversationViewProps) {
             />
             <div className="flex-1">
                 <div className="flex items-center gap-2">
-                <span className="font-semibold text-gray-900">{selectedRoom.name}</span>
-                {currentUser.isVerified && <CheckCircle className="h-5 w-5 text-blue-600" />}
+                <span className="font-semibold text-gray-900">{selectedRoom?.name}</span>
+                {currentUser?.isVerified && <CheckCircle className="h-5 w-5 text-blue-600" />}
                 </div>
                 <div className="flex items-center gap-1.5 text-sm text-gray-500">
-                {currentUser.isOnline ? (
+                {currentUser?.isOnline ? (
                     <>
                     <Circle className="h-2 w-2 fill-emerald-500 text-emerald-500" />
                     オンライン

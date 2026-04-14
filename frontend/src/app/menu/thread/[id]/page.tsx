@@ -69,7 +69,7 @@ export default function ThreadView({ params }: ThreadPageProps) {
     }
 
     const author = users.find((u) => u.id === post.authorId);
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setReplyText("");
     };

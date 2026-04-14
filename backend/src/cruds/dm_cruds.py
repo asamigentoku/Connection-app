@@ -78,7 +78,7 @@ async def get_room_information_by_id(room_id:int)->Optional[list[GetMessage]]:
 ##メッセージ登録
 async def register_messages(getmessage:SubmitMessage,user_id:int):
     user=await process.get_user_by_id(user_id)
-    room=await get_room_by_id(getmessage.id)
+    room=await get_room_by_id(getmessage.room_id)
     message = await dm_model.Message.objects.create(
         room=room,
         user=user,
