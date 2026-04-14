@@ -57,9 +57,11 @@ export default function BulletinBoard() {
                 <span className="text-sm">ゲストユーザーは閲覧のみ</span>
             </div>
             ) : (
-            <button className="rounded-lg bg-gradient-to-r from-indigo-600 to-blue-600 px-6 py-2 text-white shadow-md transition-all hover:shadow-lg">
-                新規投稿
-            </button>
+                <Link
+                    href="/menu/board/new"
+                    className="rounded-lg bg-gradient-to-r from-indigo-600 to-blue-600 px-6 py-2 text-white shadow-md transition-all hover:shadow-lg"
+                >新規投稿
+                </Link>
             )}
         </div>
 

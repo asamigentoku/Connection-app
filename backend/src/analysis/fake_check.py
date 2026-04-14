@@ -19,4 +19,5 @@ def fake_check_by_content(content:str):
         for word in category["words"]:
             if word in content:
                 score += category["weight"]
+    print(score)
     return score

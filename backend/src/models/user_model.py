@@ -9,7 +9,6 @@ base_ormar_config = OrmarConfig(
     database=database
 )
 
-
 print("読み込みされました")
 class User(ormar.Model):
     ormar_config = base_ormar_config.copy()

@@ -1,5 +1,7 @@
 from src.schemas.post_schemas import *
 from typing import Optional
+from fastapi import HTTPException
+import ormar
 import src.models.post_model as post_model
 import src.cruds.process as process
 import src.analysis.post_category as post_category
@@ -60,8 +62,33 @@ async def get_goodnum_by_postid(post_id:int)->int:
 
 async def create_post(post:Create_PostModel,user_id:int):
     user=await process.get_user_by_id(user_id)
-    await post_model.Post.objects.create(content=post.content,title=post.title,user=user)
-    return
+    if not user:
+        raise ValueError(f"User with id {user_id} not found")
+    category=post_category.post_classify(post.content)
+    try:
+        new_post = post_model.Post(
+            content=post.content,
+            title=post.title,
+            user=user,
+            category=category
+        )
+        try:
+            await new_post.save()
+            return
+        except Exception as e:
+            print(type(e))
+            print(str(e))
+            import traceback
+            traceback.print_exc()
+            raise
+        await new_post.refresh()
+    except ormar.exceptions.NoMatch as e:
+        raise HTTPException(status_code=404, detail="関連データが見つかりません")
+    except ormar.exceptions.MultipleMatches as e:
+        raise HTTPException(status_code=409, detail="データが重複しています")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    return new_post
 
 async def create_post_with_post(post:Create_PostModel,images:list[PostImage],user_id:int):
     user=await process.get_user_by_id(user_id)

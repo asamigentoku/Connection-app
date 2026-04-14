@@ -8,6 +8,11 @@ import {api} from "@api/client"
 
 export default function LoginPage() {
     const router = useRouter();
+    const [ifinput, setIfinput] = useState<boolean>(false);
+    const [input_username, setUsername] = useState<string>("");
+    const [input_password, setPassword] = useState<string>("");
+    const [error, setError] = useState<string>("");
+    const if_login_ok = input_password === "" || input_username === ""
     //グローバルの関数を定義
     const { login, continueAsGuest } = useAuthStore();
     //ここで選ばれたユーザーを選択
@@ -31,7 +36,19 @@ export default function LoginPage() {
     }, []);
 
     const handleLogin = async () => {
-        if (!selectedUserId) return;
+        if (ifinput) {
+            try {
+                const data = await api.jwt.loginForAccessTokenLoginPost({
+                    username: user.userName,
+                    password: "password",
+                });
+                login(user, data.accessToken);
+                router.push("/menu/board");
+            } catch (e) {
+                setError("ログインに失敗しました。もう一度お試しください。");
+            }
+            return;
+        }
         const user = users.find((u) => u.userId === selectedUserId);
         if (user) {
             const data = await api.jwt.loginForAccessTokenLoginPost({
@@ -58,45 +75,80 @@ export default function LoginPage() {
             <h1 className="mb-2 text-3xl font-bold text-gray-900">コミュニティボード</h1>
             <p className="text-gray-600">アカウントを選択してログイン</p>
             </div>
+            <button
+                onClick={() => setIfinput(!ifinput)}
+                className="mb-4 w-full text-sm text-indigo-600 hover:text-indigo-800 transition-all"
+            >
+                {ifinput ? "ユーザー一覧から選ぶ" : "ユーザー名・パスワードで入力する"}
+            </button>
+            {error && (
+                <p className="mb-3 text-sm text-red-600 text-center">{error}</p>
+            )}
 
             <div className="rounded-2xl bg-white p-8 shadow-lg">
             <div className="mb-6">
-                <label className="mb-3 block text-sm font-medium text-gray-700">
-                ユーザーを選択
-                </label>
-                <div className="space-y-2">
-                {users.map((user) => (
-                    <button
-                    key={user.userId}
-                    onClick={() => setSelectedUserId(user.userId)}
-                    className={`flex w-full items-center gap-3 rounded-xl border-2 p-4 transition-all ${
-                        selectedUserId === user.userId
-                        ? "border-indigo-600 bg-indigo-50"
-                        : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
-                    }`}
-                    >
-                    <img
-                        src={user.iconUrl}
-                        alt={user.userName}
-                        className="h-12 w-12 rounded-full object-cover"
-                    />
-                    <div className="flex-1 text-left">
-                        <div className="font-semibold text-gray-900">{user.userName}</div>
-                        <div className="text-sm text-gray-500">{user.status}</div>
-                    </div>
-                    {selectedUserId === user.userId && (
-                        <div className="h-5 w-5 rounded-full bg-indigo-600 flex items-center justify-center">
-                        <div className="h-2 w-2 rounded-full bg-white"></div>
+                {ifinput ?(
+                    <>
+                        <label className="mb-3 block text-sm font-medium text-gray-700">
+                            ユーザー名
+                        </label>
+                        <input
+                            type="text"
+                            value={input_username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="ユーザー名を入力"
+                            className="mb-4 w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900 focus:border-indigo-600 focus:outline-none transition-all"
+                        />
+                        <label className="mb-3 block text-sm font-medium text-gray-700">
+                            パスワード
+                        </label>
+                        <input
+                            type="password"
+                            value={input_password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="パスワードを入力"
+                            className="w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900 focus:border-indigo-600 focus:outline-none transition-all"
+                        />
+                    </>
+                ):(
+                    <>
+                        <label className="mb-3 block text-sm font-medium text-gray-700">
+                            ユーザーを選択
+                        </label>
+                        <div className="space-y-2">
+                            {users.slice(0, 3).map((user) => (
+                                <button
+                                    key={user.userId}
+                                    onClick={() => setSelectedUserId(user.userId)}
+                                    className={`flex w-full items-center gap-3 rounded-xl border-2 p-4 transition-all ${
+                                        selectedUserId === user.userId
+                                            ? "border-indigo-600 bg-indigo-50"
+                                            : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+                                    }`}
+                                >
+                                    <img
+                                        src={user.iconUrl}
+                                        alt={user.userName}
+                                        className="h-12 w-12 rounded-full object-cover"
+                                    />
+                                    <div className="flex-1 text-left">
+                                        <div className="font-semibold text-gray-900">{user.userName}</div>
+                                        <div className="text-sm text-gray-500">{user.status}</div>
+                                    </div>
+                                    {selectedUserId === user.userId && (
+                                        <div className="h-5 w-5 rounded-full bg-indigo-600 flex items-center justify-center">
+                                            <div className="h-2 w-2 rounded-full bg-white"></div>
+                                        </div>
+                                    )}
+                                </button>
+                            ))}
                         </div>
-                    )}
-                    </button>
-                ))}
-                </div>
+                    </>
+                )}
             </div>
-
             <button
                 onClick={handleLogin}
-                disabled={!selectedUserId}
+                disabled={ifinput ? if_login_ok : !selectedUserId}
                 className="mb-3 flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-indigo-600 to-blue-600 px-6 py-3 font-medium text-white shadow-md transition-all hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
             >
                 <LogIn className="h-5 w-5" />

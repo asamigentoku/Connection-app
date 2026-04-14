@@ -46,7 +46,7 @@ async def get_good_num(post_id:int):
 @router.post("/create_post",response_model=ResponseSchema)
 async def create_post(post:Create_PostModel,current_user: Annotated[UserResponse,Depends(get_current_active_user)]):
     try:
-        await post_cruds.create_post(post,current_user.user_id)
+        new_post=await post_cruds.create_post(post,current_user.user_id)
         return ResponseSchema(message="投稿が正常にされました")
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"ツイートの投稿に失敗しました: {str(e)}")

@@ -1,5 +1,7 @@
 import datetime
 import ormar
+from ormar.models.helpers import related_names_validation
+
 from src.models.user_model import User
 from src.database.db import database,metadata
 from ormar import OrmarConfig
@@ -16,11 +18,11 @@ base_ormar_config = OrmarConfig(
 class Post(ormar.Model):
     ormar_config = base_ormar_config.copy()
     post_id: int = ormar.Integer(primary_key=True,autoincrement=True)
-    user: User = ormar.ForeignKey(User)
+    user: User = ormar.ForeignKey(User,related_name="posts")
     title:str=ormar.Text()
     content: str = ormar.Text()
     category: str = ormar.String(max_length=50,nullable=True)
-    created_at: datetime.datetime = ormar.DateTime(default=datetime.datetime.utcnow)
+    created_at: datetime.datetime = ormar.DateTime(default=datetime.datetime.now)
     replies: int = ormar.Integer(default=0)
     likes: int = ormar.Integer(default=0)
 

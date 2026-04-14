@@ -89,15 +89,15 @@ export default function ThreadView({ params }: ThreadPageProps) {
 
             <div className="mb-6 flex items-start gap-4">
             <img
-                src={author?.avatar}
-                alt={author?.name}
+                src={post.userIcon}
+                alt={post.userName}
                 className="h-14 w-14 rounded-full object-cover"
             />
 
             <div className="flex-1">
                 <div className="flex items-center gap-2">
                 <span className="font-semibold text-gray-900">
-                    {author?.name}
+                    {post.userName}
                 </span>
 
                 {author?.isVerified && (
