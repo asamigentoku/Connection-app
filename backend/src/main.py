@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.routers.user_router import  router as user_router
@@ -13,17 +14,24 @@ from contextlib import asynccontextmanager
 from sqlalchemy import text
 import yaml
 from src.database.init_db import init_db
+from dotenv import load_dotenv
+load_dotenv()
 
+test = os.getenv("Test", "false").lower() == "true"
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # startup
     if not database.is_connected:
         await database.connect()
-        metadata.drop_all(engine)
-        metadata.create_all(engine)
+        if test:
+            if engine is not None:
+                metadata.drop_all(engine)
+                metadata.create_all(engine)
+        else:
+            async with engine.begin() as conn:
+                await conn.run_sync(metadata.create_all)
         await init_db()
-
     yield
 
     # shutdown
