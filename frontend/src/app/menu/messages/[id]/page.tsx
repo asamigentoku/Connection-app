@@ -40,11 +40,20 @@ export default function ConversationView({ params }: ConversationViewProps) {
             }
         };
 
+
         // 1. 先にデータを取得
         fetchUsers();
 
         // 2. WebSocket接続
-        const socket = new WebSocket(`ws://localhost:8000/ws/${roomId}?token=${accessToken}`);
+        const BASE_PATH = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+
+        // http(s) を ws(s) に置換する関数
+        const getWsEndpoint = (basePath) => {
+            // https://... なら wss:// に、http://... なら ws:// に変換
+            return basePath.replace(/^http/, 'ws');
+        };
+        const wsUrl = `${getWsEndpoint(BASE_PATH)}/ws/${roomId}?token=${accessToken}`;
+        const socket = new WebSocket(wsUrl);
         ws.current = socket;
 
         socket.onmessage = (event) => {
