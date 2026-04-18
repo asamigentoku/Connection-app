@@ -1,0 +1,20 @@
+name: Keep Alive - Prevent Sleep
+
+on:
+  schedule:
+    - cron: '*/14 * * * *'  # 14分ごとに実行（Renderは15分でスリープ）
+  workflow_dispatch:          # 手動実行も可能
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+
+      - name: Ping Render
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            --max-time 30 "${{ secrets.RENDER_URL }}")
+          echo "Render status: $STATUS"
+          # Renderはコールドスタートで時間がかかるため30秒タイムアウト
