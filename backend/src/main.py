@@ -53,7 +53,7 @@ print(f"フロントURL{FRONTEND_URL}")
 #CORS設定
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL],
+    allow_origins=[FRONTEND_URL,"https://connection-app-pied.vercel.app","https://*.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
