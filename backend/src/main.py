@@ -34,10 +34,12 @@ async def lifespan(app: FastAPI):
                 metadata.create_all(engine)
         else:
             async with engine.begin() as conn:
-                await conn.execute(text("DROP SCHEMA public CASCADE"))
-                await conn.execute(text("CREATE SCHEMA public"))
+                await conn.run_sync(metadata.create_all,checkfirst=True)
+            # 全テーブルのデータを削除
             async with engine.begin() as conn:
-                await conn.run_sync(metadata.create_all)
+                table_names = ", ".join(metadata.tables.keys())
+                await conn.execute(text(f"TRUNCATE TABLE {table_names} RESTART IDENTITY CASCADE"))
+                print(f"TRUNCATEしたテーブル: {table_names}")
         await init_db()
     yield
 
