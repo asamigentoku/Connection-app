@@ -34,6 +34,9 @@ async def lifespan(app: FastAPI):
                 metadata.create_all(engine)
         else:
             async with engine.begin() as conn:
+                await conn.execute(text("DROP SCHEMA public CASCADE"))
+                await conn.execute(text("CREATE SCHEMA public"))
+            async with engine.begin() as conn:
                 await conn.run_sync(metadata.create_all)
         await init_db()
     yield
@@ -41,6 +44,7 @@ async def lifespan(app: FastAPI):
     # shutdown
     if database.is_connected:
         await database.disconnect()
+
 
 app = FastAPI(lifespan=lifespan)
 
