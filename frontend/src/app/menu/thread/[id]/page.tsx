@@ -1,5 +1,5 @@
 "use client";
-
+import {ContentCardProps} from "@my-types/card"
 import Link from "next/link";
 import { replies } from "@data/mock-data";
 import { ArrowLeft, ThumbsUp, Clock, Send, Lock, CheckCircle } from "lucide-react";
@@ -12,7 +12,7 @@ import { ContentCard } from "@hooks/content-card";
 import {ReplyCard} from "@hooks/reply-card"
 import {api} from "@api/client"
 import * as React from 'react'
-import {GetReplysTweetpostsReplyPostIdGetRequest} from "../../../../api";
+
 
 interface ThreadPageProps {
     params: Promise<{ id: number }>;

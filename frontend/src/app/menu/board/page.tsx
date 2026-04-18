@@ -19,7 +19,7 @@ export default function BulletinBoard() {
             try {
                 const posts = await api.tweets.getPostsTweetPostsGet();
                 setposts(posts);
-                console.log(posts.count)
+
                 const users = await api.users.getAllUserAllUserGet();
                 setusers(users);
                 const results: Record<number, any> = {};

@@ -21,7 +21,7 @@ export default function NewPostPage() {
 
         try {
             // 2. 問題なければ本投稿
-            const result=await api.tweets.createPostTweetcreatePostPost({
+            const result=await api.tweets.createPostTweetCreatePostPost({
                 createPostModel: {
                     title: title,
                     content: content,

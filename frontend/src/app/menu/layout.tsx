@@ -62,12 +62,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 >
                     {currentUser ? (
                     <>
-                        <img
-                        src={currentUser.iconUrl}
+                        <img src={currentUser.iconUrl ?? ""}
                         alt={currentUser.userName}
                         className="h-8 w-8 rounded-full object-cover"
                         />
-                        <span className="hidden sm:inline">{currentUser.name}</span>
+                        <span className="hidden sm:inline">{currentUser.userName}</span>
                     </>
                     ) : (
                     <>

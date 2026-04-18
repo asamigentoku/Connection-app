@@ -74,7 +74,7 @@ export default function ConversationView({ params }: ConversationViewProps) {
 
         ws.current?.send(JSON.stringify({
             content: messageText,
-            userId: currentUser.userId,
+            userId: currentUser?.userId,
         }));
         setMessageText("");
     };
@@ -157,7 +157,7 @@ export default function ConversationView({ params }: ConversationViewProps) {
         <div className="flex-1 overflow-y-auto bg-gray-50 p-6">
             <div className="mx-auto max-w-4xl space-y-4">
             {conversationMessages.map((message) => {
-                const isSent = message.userId === currentUser.userId;
+                const isSent = message.userId === currentUser?.userId;
                 const moderationResult = analyzeContent(message.content);
                 return (
                 <div key={message.id} className={`flex ${isSent ? "justify-end" : "justify-start"}`}>

@@ -36,6 +36,7 @@ export default function LoginPage() {
     }, []);
 
     const handleLogin = async () => {
+        const user = users.find((u) => u.userId === selectedUserId);
         if (ifinput) {
             try {
                 const data = await api.jwt.loginForAccessTokenLoginPost({
@@ -49,7 +50,7 @@ export default function LoginPage() {
             }
             return;
         }
-        const user = users.find((u) => u.userId === selectedUserId);
+
         if (user) {
             const data = await api.jwt.loginForAccessTokenLoginPost({
                 username: user.userName,

@@ -18,6 +18,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     currentUser: null,
     accessToken: null,
     isGuest: false,
+    selectedRoom:null,
 
     // ログイン、この関数を他で呼び出すことができる
     login: (user,token) => {

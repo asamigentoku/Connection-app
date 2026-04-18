@@ -3,18 +3,12 @@
 import { ReactNode } from "react";
 import { AlertTriangle, ShieldAlert, AlertCircle, CheckCircle } from "lucide-react";
 import {getSentimentColor, getSentimentBadge } from "@utils/content-moderation";
-import {ModerationResult_post} from "@typs/analyze"
+import {ModerationResult_post} from "@my-types/analyze"
 import { useSettingsStore  } from "@lib/settings_context";
 import { User } from "@data/mock-data";
 
+import {ContentCardProps} from "@my-types/card"
 
-
-interface ContentCardProps {
-    children: ReactNode;
-    moderationResult: ModerationResult_post;
-    author?: User;
-    className?: string;
-    }
 //ここではユーザーの検証情報が欲しい
 export function ContentCard({ children, moderationResult, author, className = "" }: ContentCardProps) {
     const { safeMode, showSentimentAnalysis, showModerationFlags, showFakeNewsWarnings, showVerifiedBadges } = useSettingsStore();

@@ -5,7 +5,7 @@ export interface ModerationResult {
   isHarassment: boolean;
   isDiscriminatory: boolean;
   isPotentialFakeNews: boolean;
-  sentiment: "positive" | "neutral" | "negative" | "angry";
+  sentiment: string;
   toxicityLevel: number; // 0-100
   flags: string[];
 }

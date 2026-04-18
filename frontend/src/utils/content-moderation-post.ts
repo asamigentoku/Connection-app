@@ -1,9 +1,9 @@
 // コンテンツモデレーションと分析のユーティリティ
 
-import {ModerationResult_post} from "@typs/analyze"
+import {ModerationResult_post} from "@my-types/analyze"
 import {api} from "@api/client"
 
-export async function analyzebyPostId(post_id:number): ModerationResult_post {
+export async function analyzebyPostId(post_id:number):Promise<ModerationResult_post> {
     const flags: string[] = [];
     let toxicityLevel = 0;
     console.log(post_id)
@@ -12,17 +12,14 @@ export async function analyzebyPostId(post_id:number): ModerationResult_post {
     });
     switch (isHarassment) {
       case "inappropriate":
-        isHarassment=true;
         flags.push("不適切な表現");
         toxicityLevel += 40;
         break;
       case "power":
-        isHarassment
         flags.push("パワハラの可能性");
         toxicityLevel += 35;
         break;
       case "discriminatory":
-        isDiscriminatory=true;
         flags.push("差別的表現");
         toxicityLevel += 30;
         break;
@@ -53,7 +50,7 @@ export async function analyzebyPostId(post_id:number): ModerationResult_post {
     };
 }
 
-export function getSentimentColor(sentiment: ModerationResult["sentiment"]): string {
+export function getSentimentColor(sentiment: ModerationResult_post["sentiment"]): string {
     switch (sentiment) {
         case "positive":
             return "bg-green-50 border-green-200";
@@ -66,7 +63,7 @@ export function getSentimentColor(sentiment: ModerationResult["sentiment"]): str
     }
 }
 
-export function getSentimentBadge(sentiment: ModerationResult["sentiment"]): string {
+export function getSentimentBadge(sentiment: ModerationResult_post["sentiment"]): string {
     switch (sentiment) {
         case "positive":
             return "😊 ポジティブ";
