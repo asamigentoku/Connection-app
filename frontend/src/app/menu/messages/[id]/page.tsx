@@ -48,7 +48,7 @@ export default function ConversationView({ params }: ConversationViewProps) {
         const BASE_PATH = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
 
         // http(s) を ws(s) に置換する関数
-        const getWsEndpoint = (basePath) => {
+        const getWsEndpoint = (basePath:string) => {
             // https://... なら wss:// に、http://... なら ws:// に変換
             return basePath.replace(/^http/, 'ws');
         };
