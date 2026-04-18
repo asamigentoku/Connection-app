@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI,Request
 from fastapi.middleware.cors import CORSMiddleware
 from src.routers.user_router import  router as user_router
 from src.routers.jwt_router import router as jwt_router
@@ -59,6 +59,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ここに追加
+@app.middleware("http")
+async def dispose_connections(request: Request, call_next):
+    response = await call_next(request)
+    await engine.dispose(close=False)
+    return response
 
 app.include_router(user_router)
 app.include_router(jwt_router)
