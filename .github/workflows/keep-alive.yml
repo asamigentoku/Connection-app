@@ -11,10 +11,16 @@ jobs:
     timeout-minutes: 5
 
     steps:
-
       - name: Ping Render
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             --max-time 30 "${{ secrets.RENDER_URL }}")
           echo "Render status: $STATUS"
           # Renderはコールドスタートで時間がかかるため30秒タイムアウト
+
+      - name: Ping Supabase
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/")
+          echo "Supabase status: $STATUS"
