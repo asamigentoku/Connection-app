@@ -15,7 +15,7 @@
 
 import * as runtime from '../runtime';
 import type {
-  BodyCreatePostWithImageTweetcreatePostWithImagePost,
+  BodyCreatePostWithImageTweetCreatePostWithImagePost,
   CreatePostModel,
   GetReplyPostModel,
   HTTPValidationError,
@@ -25,8 +25,8 @@ import type {
   ResponseSchema,
 } from '../models/index';
 import {
-    BodyCreatePostWithImageTweetcreatePostWithImagePostFromJSON,
-    BodyCreatePostWithImageTweetcreatePostWithImagePostToJSON,
+    BodyCreatePostWithImageTweetCreatePostWithImagePostFromJSON,
+    BodyCreatePostWithImageTweetCreatePostWithImagePostToJSON,
     CreatePostModelFromJSON,
     CreatePostModelToJSON,
     GetReplyPostModelFromJSON,
@@ -43,35 +43,35 @@ import {
     ResponseSchemaToJSON,
 } from '../models/index';
 
-export interface CreatePostTweetcreatePostPostRequest {
+export interface CreatePostTweetCreatePostPostRequest {
     createPostModel: CreatePostModel;
 }
 
-export interface CreatePostWithImageTweetcreatePostWithImagePostRequest {
-    bodyCreatePostWithImageTweetcreatePostWithImagePost: BodyCreatePostWithImageTweetcreatePostWithImagePost;
+export interface CreatePostWithImageTweetCreatePostWithImagePostRequest {
+    bodyCreatePostWithImageTweetCreatePostWithImagePost: BodyCreatePostWithImageTweetCreatePostWithImagePost;
 }
 
-export interface DeletePostTweetdeletePostPostIdDeleteRequest {
+export interface DeletePostTweetDeletePostPostIdDeleteRequest {
     postId: number;
 }
 
-export interface GetGoodNumTweetpostsGoodNumPostIdGetRequest {
+export interface GetGoodNumTweetPostsGoodNumPostIdGetRequest {
     postId: number;
 }
 
-export interface GetImagesTweetpostsImagesPostIdGetRequest {
+export interface GetImagesTweetPostsImagesPostIdGetRequest {
     postId: number;
 }
 
-export interface GetReplysTweetpostsReplyPostIdGetRequest {
+export interface GetReplysTweetPostsReplyPostIdGetRequest {
     postId: number;
 }
 
-export interface PostLikeTweetmanegeLikePostIdPostRequest {
+export interface PostLikeTweetManegeLikePostIdPostRequest {
     postId: number;
 }
 
-export interface UpdatePostTweetupdatePostPutRequest {
+export interface UpdatePostTweetUpdatePostPutRequest {
     postModel: PostModel;
 }
 
@@ -81,13 +81,13 @@ export interface UpdatePostTweetupdatePostPutRequest {
 export class TweetApi extends runtime.BaseAPI {
 
     /**
-     * Creates request options for createPostTweetcreatePostPost without sending the request
+     * Creates request options for createPostTweetCreatePostPost without sending the request
      */
-    async createPostTweetcreatePostPostRequestOpts(requestParameters: CreatePostTweetcreatePostPostRequest): Promise<runtime.RequestOpts> {
+    async createPostTweetCreatePostPostRequestOpts(requestParameters: CreatePostTweetCreatePostPostRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['createPostModel'] == null) {
             throw new runtime.RequiredError(
                 'createPostModel',
-                'Required parameter "createPostModel" was null or undefined when calling createPostTweetcreatePostPost().'
+                'Required parameter "createPostModel" was null or undefined when calling createPostTweetCreatePostPost().'
             );
         }
 
@@ -117,8 +117,8 @@ export class TweetApi extends runtime.BaseAPI {
     /**
      * Create Post
      */
-    async createPostTweetcreatePostPostRaw(requestParameters: CreatePostTweetcreatePostPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseSchema>> {
-        const requestOptions = await this.createPostTweetcreatePostPostRequestOpts(requestParameters);
+    async createPostTweetCreatePostPostRaw(requestParameters: CreatePostTweetCreatePostPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseSchema>> {
+        const requestOptions = await this.createPostTweetCreatePostPostRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ResponseSchemaFromJSON(jsonValue));
@@ -127,19 +127,19 @@ export class TweetApi extends runtime.BaseAPI {
     /**
      * Create Post
      */
-    async createPostTweetcreatePostPost(requestParameters: CreatePostTweetcreatePostPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseSchema> {
-        const response = await this.createPostTweetcreatePostPostRaw(requestParameters, initOverrides);
+    async createPostTweetCreatePostPost(requestParameters: CreatePostTweetCreatePostPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseSchema> {
+        const response = await this.createPostTweetCreatePostPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
-     * Creates request options for createPostWithImageTweetcreatePostWithImagePost without sending the request
+     * Creates request options for createPostWithImageTweetCreatePostWithImagePost without sending the request
      */
-    async createPostWithImageTweetcreatePostWithImagePostRequestOpts(requestParameters: CreatePostWithImageTweetcreatePostWithImagePostRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['bodyCreatePostWithImageTweetcreatePostWithImagePost'] == null) {
+    async createPostWithImageTweetCreatePostWithImagePostRequestOpts(requestParameters: CreatePostWithImageTweetCreatePostWithImagePostRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['bodyCreatePostWithImageTweetCreatePostWithImagePost'] == null) {
             throw new runtime.RequiredError(
-                'bodyCreatePostWithImageTweetcreatePostWithImagePost',
-                'Required parameter "bodyCreatePostWithImageTweetcreatePostWithImagePost" was null or undefined when calling createPostWithImageTweetcreatePostWithImagePost().'
+                'bodyCreatePostWithImageTweetCreatePostWithImagePost',
+                'Required parameter "bodyCreatePostWithImageTweetCreatePostWithImagePost" was null or undefined when calling createPostWithImageTweetCreatePostWithImagePost().'
             );
         }
 
@@ -162,15 +162,15 @@ export class TweetApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: BodyCreatePostWithImageTweetcreatePostWithImagePostToJSON(requestParameters['bodyCreatePostWithImageTweetcreatePostWithImagePost']),
+            body: BodyCreatePostWithImageTweetCreatePostWithImagePostToJSON(requestParameters['bodyCreatePostWithImageTweetCreatePostWithImagePost']),
         };
     }
 
     /**
      * Create Post With Image
      */
-    async createPostWithImageTweetcreatePostWithImagePostRaw(requestParameters: CreatePostWithImageTweetcreatePostWithImagePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseSchema>> {
-        const requestOptions = await this.createPostWithImageTweetcreatePostWithImagePostRequestOpts(requestParameters);
+    async createPostWithImageTweetCreatePostWithImagePostRaw(requestParameters: CreatePostWithImageTweetCreatePostWithImagePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseSchema>> {
+        const requestOptions = await this.createPostWithImageTweetCreatePostWithImagePostRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ResponseSchemaFromJSON(jsonValue));
@@ -179,19 +179,19 @@ export class TweetApi extends runtime.BaseAPI {
     /**
      * Create Post With Image
      */
-    async createPostWithImageTweetcreatePostWithImagePost(requestParameters: CreatePostWithImageTweetcreatePostWithImagePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseSchema> {
-        const response = await this.createPostWithImageTweetcreatePostWithImagePostRaw(requestParameters, initOverrides);
+    async createPostWithImageTweetCreatePostWithImagePost(requestParameters: CreatePostWithImageTweetCreatePostWithImagePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseSchema> {
+        const response = await this.createPostWithImageTweetCreatePostWithImagePostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
-     * Creates request options for deletePostTweetdeletePostPostIdDelete without sending the request
+     * Creates request options for deletePostTweetDeletePostPostIdDelete without sending the request
      */
-    async deletePostTweetdeletePostPostIdDeleteRequestOpts(requestParameters: DeletePostTweetdeletePostPostIdDeleteRequest): Promise<runtime.RequestOpts> {
+    async deletePostTweetDeletePostPostIdDeleteRequestOpts(requestParameters: DeletePostTweetDeletePostPostIdDeleteRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['postId'] == null) {
             throw new runtime.RequiredError(
                 'postId',
-                'Required parameter "postId" was null or undefined when calling deletePostTweetdeletePostPostIdDelete().'
+                'Required parameter "postId" was null or undefined when calling deletePostTweetDeletePostPostIdDelete().'
             );
         }
 
@@ -219,8 +219,8 @@ export class TweetApi extends runtime.BaseAPI {
     /**
      * Delete Post
      */
-    async deletePostTweetdeletePostPostIdDeleteRaw(requestParameters: DeletePostTweetdeletePostPostIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseSchema>> {
-        const requestOptions = await this.deletePostTweetdeletePostPostIdDeleteRequestOpts(requestParameters);
+    async deletePostTweetDeletePostPostIdDeleteRaw(requestParameters: DeletePostTweetDeletePostPostIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseSchema>> {
+        const requestOptions = await this.deletePostTweetDeletePostPostIdDeleteRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ResponseSchemaFromJSON(jsonValue));
@@ -229,19 +229,19 @@ export class TweetApi extends runtime.BaseAPI {
     /**
      * Delete Post
      */
-    async deletePostTweetdeletePostPostIdDelete(requestParameters: DeletePostTweetdeletePostPostIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseSchema> {
-        const response = await this.deletePostTweetdeletePostPostIdDeleteRaw(requestParameters, initOverrides);
+    async deletePostTweetDeletePostPostIdDelete(requestParameters: DeletePostTweetDeletePostPostIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseSchema> {
+        const response = await this.deletePostTweetDeletePostPostIdDeleteRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
-     * Creates request options for getGoodNumTweetpostsGoodNumPostIdGet without sending the request
+     * Creates request options for getGoodNumTweetPostsGoodNumPostIdGet without sending the request
      */
-    async getGoodNumTweetpostsGoodNumPostIdGetRequestOpts(requestParameters: GetGoodNumTweetpostsGoodNumPostIdGetRequest): Promise<runtime.RequestOpts> {
+    async getGoodNumTweetPostsGoodNumPostIdGetRequestOpts(requestParameters: GetGoodNumTweetPostsGoodNumPostIdGetRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['postId'] == null) {
             throw new runtime.RequiredError(
                 'postId',
-                'Required parameter "postId" was null or undefined when calling getGoodNumTweetpostsGoodNumPostIdGet().'
+                'Required parameter "postId" was null or undefined when calling getGoodNumTweetPostsGoodNumPostIdGet().'
             );
         }
 
@@ -264,8 +264,8 @@ export class TweetApi extends runtime.BaseAPI {
     /**
      * Get Good Num
      */
-    async getGoodNumTweetpostsGoodNumPostIdGetRaw(requestParameters: GetGoodNumTweetpostsGoodNumPostIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<number>> {
-        const requestOptions = await this.getGoodNumTweetpostsGoodNumPostIdGetRequestOpts(requestParameters);
+    async getGoodNumTweetPostsGoodNumPostIdGetRaw(requestParameters: GetGoodNumTweetPostsGoodNumPostIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<number>> {
+        const requestOptions = await this.getGoodNumTweetPostsGoodNumPostIdGetRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -278,19 +278,19 @@ export class TweetApi extends runtime.BaseAPI {
     /**
      * Get Good Num
      */
-    async getGoodNumTweetpostsGoodNumPostIdGet(requestParameters: GetGoodNumTweetpostsGoodNumPostIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<number> {
-        const response = await this.getGoodNumTweetpostsGoodNumPostIdGetRaw(requestParameters, initOverrides);
+    async getGoodNumTweetPostsGoodNumPostIdGet(requestParameters: GetGoodNumTweetPostsGoodNumPostIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<number> {
+        const response = await this.getGoodNumTweetPostsGoodNumPostIdGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
-     * Creates request options for getImagesTweetpostsImagesPostIdGet without sending the request
+     * Creates request options for getImagesTweetPostsImagesPostIdGet without sending the request
      */
-    async getImagesTweetpostsImagesPostIdGetRequestOpts(requestParameters: GetImagesTweetpostsImagesPostIdGetRequest): Promise<runtime.RequestOpts> {
+    async getImagesTweetPostsImagesPostIdGetRequestOpts(requestParameters: GetImagesTweetPostsImagesPostIdGetRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['postId'] == null) {
             throw new runtime.RequiredError(
                 'postId',
-                'Required parameter "postId" was null or undefined when calling getImagesTweetpostsImagesPostIdGet().'
+                'Required parameter "postId" was null or undefined when calling getImagesTweetPostsImagesPostIdGet().'
             );
         }
 
@@ -313,8 +313,8 @@ export class TweetApi extends runtime.BaseAPI {
     /**
      * Get Images
      */
-    async getImagesTweetpostsImagesPostIdGetRaw(requestParameters: GetImagesTweetpostsImagesPostIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<PostImage>>> {
-        const requestOptions = await this.getImagesTweetpostsImagesPostIdGetRequestOpts(requestParameters);
+    async getImagesTweetPostsImagesPostIdGetRaw(requestParameters: GetImagesTweetPostsImagesPostIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<PostImage>>> {
+        const requestOptions = await this.getImagesTweetPostsImagesPostIdGetRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(PostImageFromJSON));
@@ -323,8 +323,8 @@ export class TweetApi extends runtime.BaseAPI {
     /**
      * Get Images
      */
-    async getImagesTweetpostsImagesPostIdGet(requestParameters: GetImagesTweetpostsImagesPostIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<PostImage>> {
-        const response = await this.getImagesTweetpostsImagesPostIdGetRaw(requestParameters, initOverrides);
+    async getImagesTweetPostsImagesPostIdGet(requestParameters: GetImagesTweetPostsImagesPostIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<PostImage>> {
+        const response = await this.getImagesTweetPostsImagesPostIdGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -366,13 +366,13 @@ export class TweetApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates request options for getReplysTweetpostsReplyPostIdGet without sending the request
+     * Creates request options for getReplysTweetPostsReplyPostIdGet without sending the request
      */
-    async getReplysTweetpostsReplyPostIdGetRequestOpts(requestParameters: GetReplysTweetpostsReplyPostIdGetRequest): Promise<runtime.RequestOpts> {
+    async getReplysTweetPostsReplyPostIdGetRequestOpts(requestParameters: GetReplysTweetPostsReplyPostIdGetRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['postId'] == null) {
             throw new runtime.RequiredError(
                 'postId',
-                'Required parameter "postId" was null or undefined when calling getReplysTweetpostsReplyPostIdGet().'
+                'Required parameter "postId" was null or undefined when calling getReplysTweetPostsReplyPostIdGet().'
             );
         }
 
@@ -395,8 +395,8 @@ export class TweetApi extends runtime.BaseAPI {
     /**
      * Get Replys
      */
-    async getReplysTweetpostsReplyPostIdGetRaw(requestParameters: GetReplysTweetpostsReplyPostIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ReplyModel>>> {
-        const requestOptions = await this.getReplysTweetpostsReplyPostIdGetRequestOpts(requestParameters);
+    async getReplysTweetPostsReplyPostIdGetRaw(requestParameters: GetReplysTweetPostsReplyPostIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ReplyModel>>> {
+        const requestOptions = await this.getReplysTweetPostsReplyPostIdGetRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ReplyModelFromJSON));
@@ -405,19 +405,19 @@ export class TweetApi extends runtime.BaseAPI {
     /**
      * Get Replys
      */
-    async getReplysTweetpostsReplyPostIdGet(requestParameters: GetReplysTweetpostsReplyPostIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ReplyModel>> {
-        const response = await this.getReplysTweetpostsReplyPostIdGetRaw(requestParameters, initOverrides);
+    async getReplysTweetPostsReplyPostIdGet(requestParameters: GetReplysTweetPostsReplyPostIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ReplyModel>> {
+        const response = await this.getReplysTweetPostsReplyPostIdGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
-     * Creates request options for postLikeTweetmanegeLikePostIdPost without sending the request
+     * Creates request options for postLikeTweetManegeLikePostIdPost without sending the request
      */
-    async postLikeTweetmanegeLikePostIdPostRequestOpts(requestParameters: PostLikeTweetmanegeLikePostIdPostRequest): Promise<runtime.RequestOpts> {
+    async postLikeTweetManegeLikePostIdPostRequestOpts(requestParameters: PostLikeTweetManegeLikePostIdPostRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['postId'] == null) {
             throw new runtime.RequiredError(
                 'postId',
-                'Required parameter "postId" was null or undefined when calling postLikeTweetmanegeLikePostIdPost().'
+                'Required parameter "postId" was null or undefined when calling postLikeTweetManegeLikePostIdPost().'
             );
         }
 
@@ -445,8 +445,8 @@ export class TweetApi extends runtime.BaseAPI {
     /**
      * Post Like
      */
-    async postLikeTweetmanegeLikePostIdPostRaw(requestParameters: PostLikeTweetmanegeLikePostIdPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseSchema>> {
-        const requestOptions = await this.postLikeTweetmanegeLikePostIdPostRequestOpts(requestParameters);
+    async postLikeTweetManegeLikePostIdPostRaw(requestParameters: PostLikeTweetManegeLikePostIdPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseSchema>> {
+        const requestOptions = await this.postLikeTweetManegeLikePostIdPostRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ResponseSchemaFromJSON(jsonValue));
@@ -455,19 +455,19 @@ export class TweetApi extends runtime.BaseAPI {
     /**
      * Post Like
      */
-    async postLikeTweetmanegeLikePostIdPost(requestParameters: PostLikeTweetmanegeLikePostIdPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseSchema> {
-        const response = await this.postLikeTweetmanegeLikePostIdPostRaw(requestParameters, initOverrides);
+    async postLikeTweetManegeLikePostIdPost(requestParameters: PostLikeTweetManegeLikePostIdPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseSchema> {
+        const response = await this.postLikeTweetManegeLikePostIdPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
-     * Creates request options for updatePostTweetupdatePostPut without sending the request
+     * Creates request options for updatePostTweetUpdatePostPut without sending the request
      */
-    async updatePostTweetupdatePostPutRequestOpts(requestParameters: UpdatePostTweetupdatePostPutRequest): Promise<runtime.RequestOpts> {
+    async updatePostTweetUpdatePostPutRequestOpts(requestParameters: UpdatePostTweetUpdatePostPutRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['postModel'] == null) {
             throw new runtime.RequiredError(
                 'postModel',
-                'Required parameter "postModel" was null or undefined when calling updatePostTweetupdatePostPut().'
+                'Required parameter "postModel" was null or undefined when calling updatePostTweetUpdatePostPut().'
             );
         }
 
@@ -497,8 +497,8 @@ export class TweetApi extends runtime.BaseAPI {
     /**
      * Update Post
      */
-    async updatePostTweetupdatePostPutRaw(requestParameters: UpdatePostTweetupdatePostPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseSchema>> {
-        const requestOptions = await this.updatePostTweetupdatePostPutRequestOpts(requestParameters);
+    async updatePostTweetUpdatePostPutRaw(requestParameters: UpdatePostTweetUpdatePostPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseSchema>> {
+        const requestOptions = await this.updatePostTweetUpdatePostPutRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ResponseSchemaFromJSON(jsonValue));
@@ -507,8 +507,8 @@ export class TweetApi extends runtime.BaseAPI {
     /**
      * Update Post
      */
-    async updatePostTweetupdatePostPut(requestParameters: UpdatePostTweetupdatePostPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseSchema> {
-        const response = await this.updatePostTweetupdatePostPutRaw(requestParameters, initOverrides);
+    async updatePostTweetUpdatePostPut(requestParameters: UpdatePostTweetUpdatePostPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseSchema> {
+        const response = await this.updatePostTweetUpdatePostPutRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
