@@ -6,8 +6,8 @@
 
 Name | Type
 ------------ | -------------
-`content` | string
 `id` | number
+`content` | string
 
 ## Example
 
@@ -16,8 +16,8 @@ import type { UpdateMessage } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "content": null,
   "id": null,
+  "content": null,
 } satisfies UpdateMessage
 
 console.log(example)

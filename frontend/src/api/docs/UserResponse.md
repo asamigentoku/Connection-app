@@ -6,14 +6,14 @@
 
 Name | Type
 ------------ | -------------
+`userName` | string
 `email` | string
 `gender` | string
+`status` | string
 `iconUrl` | string
+`userId` | number
 `isOnline` | boolean
 `isVerified` | boolean
-`status` | string
-`userId` | number
-`userName` | string
 
 ## Example
 
@@ -22,14 +22,14 @@ import type { UserResponse } from ''
 
 // TODO: Update the object below with actual values
 const example = {
+  "userName": null,
   "email": null,
   "gender": null,
+  "status": null,
   "iconUrl": null,
+  "userId": null,
   "isOnline": null,
   "isVerified": null,
-  "status": null,
-  "userId": null,
-  "userName": null,
 } satisfies UserResponse
 
 console.log(example)

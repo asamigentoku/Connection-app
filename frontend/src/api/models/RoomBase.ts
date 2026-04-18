@@ -21,12 +21,6 @@ import { mapValues } from '../runtime';
 export interface RoomBase {
     /**
      * 
-     * @type {Date}
-     * @memberof RoomBase
-     */
-    createdAt?: Date | null;
-    /**
-     * 
      * @type {number}
      * @memberof RoomBase
      */
@@ -36,7 +30,19 @@ export interface RoomBase {
      * @type {string}
      * @memberof RoomBase
      */
-    roomName: string;
+    roomName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RoomBase
+     */
+    roomIcon?: string;
+    /**
+     * 
+     * @type {Date}
+     * @memberof RoomBase
+     */
+    createdAt?: Date | null;
 }
 
 /**
@@ -44,7 +50,6 @@ export interface RoomBase {
  */
 export function instanceOfRoomBase(value: object): value is RoomBase {
     if (!('roomId' in value) || value['roomId'] === undefined) return false;
-    if (!('roomName' in value) || value['roomName'] === undefined) return false;
     return true;
 }
 
@@ -58,9 +63,10 @@ export function RoomBaseFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     }
     return {
         
-        'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
         'roomId': json['room_id'],
-        'roomName': json['room_name'],
+        'roomName': json['room_name'] == null ? undefined : json['room_name'],
+        'roomIcon': json['room_icon'] == null ? undefined : json['room_icon'],
+        'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
     };
 }
 
@@ -75,9 +81,10 @@ export function RoomBaseToJSONTyped(value?: RoomBase | null, ignoreDiscriminator
 
     return {
         
-        'created_at': value['createdAt'] == null ? value['createdAt'] : value['createdAt'].toISOString(),
         'room_id': value['roomId'],
         'room_name': value['roomName'],
+        'room_icon': value['roomIcon'],
+        'created_at': value['createdAt'] == null ? value['createdAt'] : value['createdAt'].toISOString(),
     };
 }
 

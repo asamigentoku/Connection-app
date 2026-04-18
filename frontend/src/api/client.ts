@@ -1,5 +1,5 @@
 // src/api/client.ts
-import { Configuration } from "./runtime";
+import { Configuration } from "../api/runtime";
 
 import {
     UsersApi,
@@ -9,7 +9,8 @@ import {
     HarassmentCheckApi,
     JWTApi,
     TweetApi,
-} from "./apis";
+    FriendsApi
+} from "../api/apis";
 
 // 共通設定（JWTなどもここに集約できる）
 const config = new Configuration({
@@ -29,5 +30,6 @@ export const api = {
     harassment: new HarassmentCheckApi(config),
     jwt: new JWTApi(config),
     tweets: new TweetApi(config),
+    friends:new FriendsApi(config)
 };
 

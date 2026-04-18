@@ -21,24 +21,24 @@ import { mapValues } from '../runtime';
 export interface UpdateMessage {
     /**
      * 
-     * @type {string}
-     * @memberof UpdateMessage
-     */
-    content: string;
-    /**
-     * 
      * @type {number}
      * @memberof UpdateMessage
      */
     id: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMessage
+     */
+    content: string;
 }
 
 /**
  * Check if a given object implements the UpdateMessage interface.
  */
 export function instanceOfUpdateMessage(value: object): value is UpdateMessage {
-    if (!('content' in value) || value['content'] === undefined) return false;
     if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('content' in value) || value['content'] === undefined) return false;
     return true;
 }
 
@@ -52,8 +52,8 @@ export function UpdateMessageFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         
-        'content': json['content'],
         'id': json['id'],
+        'content': json['content'],
     };
 }
 
@@ -68,8 +68,8 @@ export function UpdateMessageToJSONTyped(value?: UpdateMessage | null, ignoreDis
 
     return {
         
-        'content': value['content'],
         'id': value['id'],
+        'content': value['content'],
     };
 }
 

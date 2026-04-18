@@ -40,7 +40,7 @@ export default function ThreadView({ params }: ThreadPageProps) {
                 const moderationresult=await analyzebyPostId(threadId);
                 setModerationResult(moderationresult);
 
-                const threadreplies= await api.tweets.getReplysTweetpostsReplyPostIdGet({postId:threadId});
+                const threadreplies= await api.tweets.getReplysTweetPostsReplyPostIdGet({postId:threadId});
                 setThreadReplies(threadreplies);
             } catch (e) {
                 console.error(e);

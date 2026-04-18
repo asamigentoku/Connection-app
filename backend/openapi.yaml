@@ -1,0 +1,1250 @@
+components:
+  schemas:
+    AddRoomMember:
+      properties:
+        room_id:
+          title: Room Id
+          type: integer
+        user_id:
+          title: User Id
+          type: integer
+      required:
+      - room_id
+      - user_id
+      title: AddRoomMember
+      type: object
+    Body_create_post_with_image_tweet_create_post_with_image_post:
+      properties:
+        images:
+          items:
+            $ref: '#/components/schemas/PostImage'
+          title: Images
+          type: array
+        post:
+          $ref: '#/components/schemas/Create_PostModel'
+      required:
+      - post
+      - images
+      title: Body_create_post_with_image_tweet_create_post_with_image_post
+      type: object
+    Body_login_for_access_token_login_post:
+      properties:
+        client_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Id
+        client_secret:
+          anyOf:
+          - type: string
+          - type: 'null'
+          format: password
+          title: Client Secret
+        grant_type:
+          anyOf:
+          - pattern: ^password$
+            type: string
+          - type: 'null'
+          title: Grant Type
+        password:
+          format: password
+          title: Password
+          type: string
+        scope:
+          default: ''
+          title: Scope
+          type: string
+        username:
+          title: Username
+          type: string
+      required:
+      - username
+      - password
+      title: Body_login_for_access_token_login_post
+      type: object
+    CreateRoom:
+      properties:
+        room_name:
+          title: Room Name
+          type: string
+        user1_id:
+          title: User1 Id
+          type: integer
+        user2_id:
+          title: User2 Id
+          type: integer
+      required:
+      - room_name
+      - user1_id
+      - user2_id
+      title: CreateRoom
+      type: object
+    Create_PostModel:
+      properties:
+        content:
+          title: Content
+          type: string
+        title:
+          title: Title
+          type: string
+      required:
+      - title
+      - content
+      title: Create_PostModel
+      type: object
+    GetMessage:
+      properties:
+        content:
+          title: Content
+          type: string
+        created_at:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Created At
+        id:
+          title: Id
+          type: integer
+        room_id:
+          title: Room Id
+          type: integer
+        user_icon:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Icon
+        user_id:
+          title: User Id
+          type: integer
+      required:
+      - id
+      - content
+      - room_id
+      - user_id
+      title: GetMessage
+      type: object
+    Get_Reply_PostModel:
+      properties:
+        category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Category
+        content:
+          title: Content
+          type: string
+        created_at:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Created At
+        post_id:
+          title: Post Id
+          type: integer
+        title:
+          title: Title
+          type: string
+        user_icon:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Icon
+        user_id:
+          title: User Id
+          type: integer
+        user_name:
+          title: User Name
+          type: string
+      required:
+      - content
+      - title
+      - post_id
+      title: Get_Reply_PostModel
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    PostImage:
+      properties:
+        image_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Image Url
+      title: PostImage
+      type: object
+    PostModel:
+      properties:
+        content:
+          title: Content
+          type: string
+        post_id:
+          title: Post Id
+          type: integer
+        title:
+          title: Title
+          type: string
+      required:
+      - content
+      - title
+      - post_id
+      title: PostModel
+      type: object
+    ReplyModel:
+      properties:
+        content:
+          title: Content
+          type: string
+        created_at:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Created At
+        reply_id:
+          title: Reply Id
+          type: integer
+        user_icon:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Icon
+        user_name:
+          title: User Name
+          type: string
+      required:
+      - reply_id
+      - content
+      - user_name
+      title: ReplyModel
+      type: object
+    ResponseSchema:
+      properties:
+        message:
+          description: "API\u64CD\u4F5C\u306E\u7D50\u679C\u3092\u8AAC\u660E\u3059\u308B\
+            \u30E1\u30C3\u30BB\u30FC\u30B8"
+          example: "\u30E1\u30E2\u306E\u66F4\u65B0\u306B\u6210\u529F\u3057\u307E\u3057\
+            \u305F"
+          title: Message
+          type: string
+      required:
+      - message
+      title: ResponseSchema
+      type: object
+    RoomBase:
+      properties:
+        created_at:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Created At
+        room_icon:
+          title: Room Icon
+          type: string
+        room_id:
+          title: Room Id
+          type: integer
+        room_name:
+          title: Room Name
+          type: string
+      required:
+      - room_id
+      title: RoomBase
+      type: object
+    SubmitMessage:
+      properties:
+        content:
+          title: Content
+          type: string
+        room_id:
+          title: Room Id
+          type: integer
+      required:
+      - content
+      - room_id
+      title: SubmitMessage
+      type: object
+    Token:
+      properties:
+        access_token:
+          title: Access Token
+          type: string
+        token_type:
+          title: Token Type
+          type: string
+      required:
+      - access_token
+      - token_type
+      title: Token
+      type: object
+    UpdateMessage:
+      properties:
+        content:
+          title: Content
+          type: string
+        id:
+          title: Id
+          type: integer
+      required:
+      - id
+      - content
+      title: UpdateMessage
+      type: object
+    User:
+      properties:
+        disabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Disabled
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        username:
+          title: Username
+          type: string
+      required:
+      - username
+      title: User
+      type: object
+    UserCreate:
+      properties:
+        email:
+          anyOf:
+          - format: email
+            type: string
+          - type: 'null'
+          title: Email
+        gender:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gender
+        icon_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Icon Url
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        user_name:
+          title: User Name
+          type: string
+        user_pass:
+          title: User Pass
+          type: string
+      required:
+      - user_name
+      - user_pass
+      title: UserCreate
+      type: object
+    UserResponse:
+      properties:
+        email:
+          anyOf:
+          - format: email
+            type: string
+          - type: 'null'
+          title: Email
+        gender:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gender
+        icon_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Icon Url
+        is_online:
+          title: Is Online
+          type: boolean
+        is_verified:
+          title: Is Verified
+          type: boolean
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        user_id:
+          title: User Id
+          type: integer
+        user_name:
+          title: User Name
+          type: string
+      required:
+      - user_name
+      - user_id
+      - is_online
+      - is_verified
+      title: UserResponse
+      type: object
+    UserUpdate:
+      properties:
+        email:
+          anyOf:
+          - format: email
+            type: string
+          - type: 'null'
+          title: Email
+        gender:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gender
+        icon_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Icon Url
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        user_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Name
+      title: UserUpdate
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+  securitySchemes:
+    OAuth2PasswordBearer:
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: token
+      type: oauth2
+info:
+  title: FastAPI
+  version: 0.1.0
+openapi: 3.1.0
+paths:
+  /all_user:
+    get:
+      operationId: get_all_user_all_user_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserResponse'
+                title: Response Get All User All User Get
+                type: array
+          description: Successful Response
+      summary: Get All User
+      tags:
+      - Users
+  /emotion/get_emotion_by_message:
+    post:
+      operationId: get_emotion_by_message_emotion_get_emotion_by_message_post
+      parameters:
+      - in: query
+        name: message_id
+        required: true
+        schema:
+          title: Message Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Get Emotion By Message Emotion Get Emotion By Message
+                  Post
+                type: string
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Emotion By Message
+      tags:
+      - emotion
+  /emotion/get_emotion_by_post:
+    post:
+      operationId: get_emotion_by_post_emotion_get_emotion_by_post_post
+      parameters:
+      - in: query
+        name: post_id
+        required: true
+        schema:
+          title: Post Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Get Emotion By Post Emotion Get Emotion By Post Post
+                type: string
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Emotion By Post
+      tags:
+      - emotion
+  /fakecheck/fake_check_by_post:
+    post:
+      operationId: fake_check_by_post_fakecheck_fake_check_by_post_post
+      parameters:
+      - in: query
+        name: post_id
+        required: true
+        schema:
+          title: Post Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Fake Check By Post Fakecheck Fake Check By Post Post
+                type: integer
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Fake Check By Post
+      tags:
+      - fakecheck
+  /friends/delete_friends:
+    delete:
+      operationId: delete_friends_friends_delete_friends_delete
+      parameters:
+      - in: query
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: integer
+      - in: query
+        name: friends_id
+        required: true
+        schema:
+          title: Friends Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSchema'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Delete Friends
+      tags:
+      - friends
+  /friends/friends_list/{user_id}:
+    get:
+      operationId: get_friends_list_friends_friends_list__user_id__get
+      parameters:
+      - in: path
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserResponse'
+                title: Response Get Friends List Friends Friends List  User Id  Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Friends List
+      tags:
+      - friends
+  /friends/make_friends:
+    post:
+      operationId: create_friends_friends_make_friends_post
+      parameters:
+      - in: query
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: integer
+      - in: query
+        name: friends_id
+        required: true
+        schema:
+          title: Friends Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSchema'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Create Friends
+      tags:
+      - friends
+  /harassment/anycheck:
+    post:
+      operationId: harassment_check_harassment_anycheck_post
+      parameters:
+      - in: query
+        name: post_id
+        required: true
+        schema:
+          title: Post Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Harassment Check Harassment Anycheck Post
+                type: string
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Harassment Check
+      tags:
+      - harassment_check
+  /login:
+    post:
+      operationId: login_for_access_token_login_post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_login_for_access_token_login_post'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Login For Access Token
+      tags:
+      - JWT
+  /register:
+    post:
+      operationId: create_user_register_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSchema'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Create User
+      tags:
+      - Users
+  /talk/add_room_member:
+    post:
+      operationId: add_room_member_talk_add_room_member_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddRoomMember'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSchema'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearer: []
+      summary: Add Room Member
+      tags:
+      - DM
+  /talk/create_room:
+    post:
+      operationId: create_room_talk_create_room_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoom'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSchema'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearer: []
+      summary: Create Room
+      tags:
+      - DM
+  /talk/message_delete/{message_id}:
+    delete:
+      operationId: delete_message_talk_message_delete__message_id__delete
+      parameters:
+      - in: path
+        name: message_id
+        required: true
+        schema:
+          title: Message Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSchema'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearer: []
+      summary: Delete Message
+      tags:
+      - DM
+  /talk/message_submit:
+    post:
+      operationId: submit_message_talk_message_submit_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitMessage'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSchema'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearer: []
+      summary: Submit Message
+      tags:
+      - DM
+  /talk/message_update:
+    put:
+      operationId: update_talk_message_update_put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMessage'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSchema'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearer: []
+      summary: Update
+      tags:
+      - DM
+  /talk/user_information/{room_id}:
+    get:
+      operationId: read_room_talk_user_information__room_id__get
+      parameters:
+      - in: path
+        name: room_id
+        required: true
+        schema:
+          title: Room Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/GetMessage'
+                title: Response Read Room Talk User Information  Room Id  Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearer: []
+      summary: Read Room
+      tags:
+      - DM
+  /talk/user_rooms:
+    get:
+      operationId: get_rooms_by_user_talk_user_rooms_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/RoomBase'
+                title: Response Get Rooms By User Talk User Rooms Get
+                type: array
+          description: Successful Response
+      security:
+      - OAuth2PasswordBearer: []
+      summary: Get Rooms By User
+      tags:
+      - DM
+  /tweet/create_post:
+    post:
+      operationId: create_post_tweet_create_post_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Create_PostModel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSchema'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearer: []
+      summary: Create Post
+      tags:
+      - tweet
+  /tweet/create_post_with_image:
+    post:
+      operationId: create_post_with_image_tweet_create_post_with_image_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_create_post_with_image_tweet_create_post_with_image_post'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSchema'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearer: []
+      summary: Create Post With Image
+      tags:
+      - tweet
+  /tweet/delete_post/{post_id}:
+    delete:
+      operationId: delete_post_tweet_delete_post__post_id__delete
+      parameters:
+      - in: path
+        name: post_id
+        required: true
+        schema:
+          title: Post Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSchema'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearer: []
+      summary: Delete Post
+      tags:
+      - tweet
+  /tweet/manege_like/{post_id}:
+    post:
+      operationId: post_like_tweet_manege_like__post_id__post
+      parameters:
+      - in: path
+        name: post_id
+        required: true
+        schema:
+          title: Post Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSchema'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearer: []
+      summary: Post Like
+      tags:
+      - tweet
+  /tweet/posts:
+    get:
+      operationId: get_posts_tweet_posts_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Get_Reply_PostModel'
+                title: Response Get Posts Tweet Posts Get
+                type: array
+          description: Successful Response
+      summary: Get Posts
+      tags:
+      - tweet
+  /tweet/posts/good_num/{post_id}:
+    get:
+      operationId: get_good_num_tweet_posts_good_num__post_id__get
+      parameters:
+      - in: path
+        name: post_id
+        required: true
+        schema:
+          title: Post Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Get Good Num Tweet Posts Good Num  Post Id  Get
+                type: integer
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Good Num
+      tags:
+      - tweet
+  /tweet/posts/images/{post_id}:
+    get:
+      operationId: get_images_tweet_posts_images__post_id__get
+      parameters:
+      - in: path
+        name: post_id
+        required: true
+        schema:
+          title: Post Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PostImage'
+                title: Response Get Images Tweet Posts Images  Post Id  Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Images
+      tags:
+      - tweet
+  /tweet/posts/reply/{post_id}:
+    get:
+      operationId: get_replys_tweet_posts_reply__post_id__get
+      parameters:
+      - in: path
+        name: post_id
+        required: true
+        schema:
+          title: Post Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ReplyModel'
+                title: Response Get Replys Tweet Posts Reply  Post Id  Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Replys
+      tags:
+      - tweet
+  /tweet/update_post:
+    put:
+      operationId: update_post_tweet_update_post_put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostModel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSchema'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearer: []
+      summary: Update Post
+      tags:
+      - tweet
+  /users/me/:
+    get:
+      operationId: read_users_me_users_me__get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: Successful Response
+      security:
+      - OAuth2PasswordBearer: []
+      summary: Read Users Me
+      tags:
+      - JWT
+  /users/me/items/:
+    get:
+      operationId: read_own_items_users_me_items__get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      security:
+      - OAuth2PasswordBearer: []
+      summary: Read Own Items
+      tags:
+      - JWT
+  /users/{user_id}:
+    get:
+      operationId: get_user_detail_users__user_id__get
+      parameters:
+      - in: path
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearer: []
+      summary: Get User Detail
+      tags:
+      - Users
+    put:
+      operationId: modify_user_users__user_id__put
+      parameters:
+      - in: path
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSchema'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearer: []
+      summary: Modify User
+      tags:
+      - Users

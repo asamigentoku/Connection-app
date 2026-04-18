@@ -24,6 +24,12 @@ export interface UserResponse {
      * @type {string}
      * @memberof UserResponse
      */
+    userName: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserResponse
+     */
     email?: string | null;
     /**
      * 
@@ -36,7 +42,19 @@ export interface UserResponse {
      * @type {string}
      * @memberof UserResponse
      */
+    status?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserResponse
+     */
     iconUrl?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof UserResponse
+     */
+    userId: number;
     /**
      * 
      * @type {boolean}
@@ -49,34 +67,16 @@ export interface UserResponse {
      * @memberof UserResponse
      */
     isVerified: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserResponse
-     */
-    status?: string | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof UserResponse
-     */
-    userId: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserResponse
-     */
-    userName: string;
 }
 
 /**
  * Check if a given object implements the UserResponse interface.
  */
 export function instanceOfUserResponse(value: object): value is UserResponse {
+    if (!('userName' in value) || value['userName'] === undefined) return false;
+    if (!('userId' in value) || value['userId'] === undefined) return false;
     if (!('isOnline' in value) || value['isOnline'] === undefined) return false;
     if (!('isVerified' in value) || value['isVerified'] === undefined) return false;
-    if (!('userId' in value) || value['userId'] === undefined) return false;
-    if (!('userName' in value) || value['userName'] === undefined) return false;
     return true;
 }
 
@@ -90,14 +90,14 @@ export function UserResponseFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
+        'userName': json['user_name'],
         'email': json['email'] == null ? undefined : json['email'],
         'gender': json['gender'] == null ? undefined : json['gender'],
+        'status': json['status'] == null ? undefined : json['status'],
         'iconUrl': json['icon_url'] == null ? undefined : json['icon_url'],
+        'userId': json['user_id'],
         'isOnline': json['is_online'],
         'isVerified': json['is_verified'],
-        'status': json['status'] == null ? undefined : json['status'],
-        'userId': json['user_id'],
-        'userName': json['user_name'],
     };
 }
 
@@ -112,14 +112,14 @@ export function UserResponseToJSONTyped(value?: UserResponse | null, ignoreDiscr
 
     return {
         
+        'user_name': value['userName'],
         'email': value['email'],
         'gender': value['gender'],
+        'status': value['status'],
         'icon_url': value['iconUrl'],
+        'user_id': value['userId'],
         'is_online': value['isOnline'],
         'is_verified': value['isVerified'],
-        'status': value['status'],
-        'user_id': value['userId'],
-        'user_name': value['userName'],
     };
 }
 

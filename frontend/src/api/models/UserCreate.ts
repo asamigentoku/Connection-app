@@ -24,6 +24,12 @@ export interface UserCreate {
      * @type {string}
      * @memberof UserCreate
      */
+    userName: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserCreate
+     */
     email?: string | null;
     /**
      * 
@@ -36,19 +42,13 @@ export interface UserCreate {
      * @type {string}
      * @memberof UserCreate
      */
-    iconUrl?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserCreate
-     */
     status?: string | null;
     /**
      * 
      * @type {string}
      * @memberof UserCreate
      */
-    userName: string;
+    iconUrl?: string | null;
     /**
      * 
      * @type {string}
@@ -76,11 +76,11 @@ export function UserCreateFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     }
     return {
         
+        'userName': json['user_name'],
         'email': json['email'] == null ? undefined : json['email'],
         'gender': json['gender'] == null ? undefined : json['gender'],
-        'iconUrl': json['icon_url'] == null ? undefined : json['icon_url'],
         'status': json['status'] == null ? undefined : json['status'],
-        'userName': json['user_name'],
+        'iconUrl': json['icon_url'] == null ? undefined : json['icon_url'],
         'userPass': json['user_pass'],
     };
 }
@@ -96,11 +96,11 @@ export function UserCreateToJSONTyped(value?: UserCreate | null, ignoreDiscrimin
 
     return {
         
+        'user_name': value['userName'],
         'email': value['email'],
         'gender': value['gender'],
-        'icon_url': value['iconUrl'],
         'status': value['status'],
-        'user_name': value['userName'],
+        'icon_url': value['iconUrl'],
         'user_pass': value['userPass'],
     };
 }

@@ -4,21 +4,21 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createPostTweetcreatePostPost**](TweetApi.md#createposttweetcreatepostpost) | **POST** /tweetcreate_post | Create Post |
-| [**createPostWithImageTweetcreatePostWithImagePost**](TweetApi.md#createpostwithimagetweetcreatepostwithimagepost) | **POST** /tweetcreate_post_with_image | Create Post With Image |
-| [**deletePostTweetdeletePostPostIdDelete**](TweetApi.md#deleteposttweetdeletepostpostiddelete) | **DELETE** /tweetdelete_post/{post_id} | Delete Post |
-| [**getGoodNumTweetpostsGoodNumPostIdGet**](TweetApi.md#getgoodnumtweetpostsgoodnumpostidget) | **GET** /tweetposts/good_num/{post_id} | Get Good Num |
-| [**getImagesTweetpostsImagesPostIdGet**](TweetApi.md#getimagestweetpostsimagespostidget) | **GET** /tweetposts/images/{post_id} | Get Images |
+| [**createPostTweetCreatePostPost**](TweetApi.md#createposttweetcreatepostpost) | **POST** /tweet/create_post | Create Post |
+| [**createPostWithImageTweetCreatePostWithImagePost**](TweetApi.md#createpostwithimagetweetcreatepostwithimagepost) | **POST** /tweet/create_post_with_image | Create Post With Image |
+| [**deletePostTweetDeletePostPostIdDelete**](TweetApi.md#deleteposttweetdeletepostpostiddelete) | **DELETE** /tweet/delete_post/{post_id} | Delete Post |
+| [**getGoodNumTweetPostsGoodNumPostIdGet**](TweetApi.md#getgoodnumtweetpostsgoodnumpostidget) | **GET** /tweet/posts/good_num/{post_id} | Get Good Num |
+| [**getImagesTweetPostsImagesPostIdGet**](TweetApi.md#getimagestweetpostsimagespostidget) | **GET** /tweet/posts/images/{post_id} | Get Images |
 | [**getPostsTweetPostsGet**](TweetApi.md#getpoststweetpostsget) | **GET** /tweet/posts | Get Posts |
-| [**getReplysTweetpostsReplyPostIdGet**](TweetApi.md#getreplystweetpostsreplypostidget) | **GET** /tweetposts/reply/{post_id} | Get Replys |
-| [**postLikeTweetmanegeLikePostIdPost**](TweetApi.md#postliketweetmanegelikepostidpost) | **POST** /tweetmanege_like/{post_id} | Post Like |
-| [**updatePostTweetupdatePostPut**](TweetApi.md#updateposttweetupdatepostput) | **PUT** /tweetupdate_post | Update Post |
+| [**getReplysTweetPostsReplyPostIdGet**](TweetApi.md#getreplystweetpostsreplypostidget) | **GET** /tweet/posts/reply/{post_id} | Get Replys |
+| [**postLikeTweetManegeLikePostIdPost**](TweetApi.md#postliketweetmanegelikepostidpost) | **POST** /tweet/manege_like/{post_id} | Post Like |
+| [**updatePostTweetUpdatePostPut**](TweetApi.md#updateposttweetupdatepostput) | **PUT** /tweet/update_post | Update Post |
 
 
 
-## createPostTweetcreatePostPost
+## createPostTweetCreatePostPost
 
-> ResponseSchema createPostTweetcreatePostPost(createPostModel)
+> ResponseSchema createPostTweetCreatePostPost(createPostModel)
 
 Create Post
 
@@ -29,7 +29,7 @@ import {
   Configuration,
   TweetApi,
 } from '';
-import type { CreatePostTweetcreatePostPostRequest } from '';
+import type { CreatePostTweetCreatePostPostRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -42,10 +42,10 @@ async function example() {
   const body = {
     // CreatePostModel
     createPostModel: ...,
-  } satisfies CreatePostTweetcreatePostPostRequest;
+  } satisfies CreatePostTweetCreatePostPostRequest;
 
   try {
-    const data = await api.createPostTweetcreatePostPost(body);
+    const data = await api.createPostTweetCreatePostPost(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -86,9 +86,9 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
-## createPostWithImageTweetcreatePostWithImagePost
+## createPostWithImageTweetCreatePostWithImagePost
 
-> ResponseSchema createPostWithImageTweetcreatePostWithImagePost(bodyCreatePostWithImageTweetcreatePostWithImagePost)
+> ResponseSchema createPostWithImageTweetCreatePostWithImagePost(bodyCreatePostWithImageTweetCreatePostWithImagePost)
 
 Create Post With Image
 
@@ -99,7 +99,7 @@ import {
   Configuration,
   TweetApi,
 } from '';
-import type { CreatePostWithImageTweetcreatePostWithImagePostRequest } from '';
+import type { CreatePostWithImageTweetCreatePostWithImagePostRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -110,12 +110,12 @@ async function example() {
   const api = new TweetApi(config);
 
   const body = {
-    // BodyCreatePostWithImageTweetcreatePostWithImagePost
-    bodyCreatePostWithImageTweetcreatePostWithImagePost: ...,
-  } satisfies CreatePostWithImageTweetcreatePostWithImagePostRequest;
+    // BodyCreatePostWithImageTweetCreatePostWithImagePost
+    bodyCreatePostWithImageTweetCreatePostWithImagePost: ...,
+  } satisfies CreatePostWithImageTweetCreatePostWithImagePostRequest;
 
   try {
-    const data = await api.createPostWithImageTweetcreatePostWithImagePost(body);
+    const data = await api.createPostWithImageTweetCreatePostWithImagePost(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -131,7 +131,7 @@ example().catch(console.error);
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **bodyCreatePostWithImageTweetcreatePostWithImagePost** | [BodyCreatePostWithImageTweetcreatePostWithImagePost](BodyCreatePostWithImageTweetcreatePostWithImagePost.md) |  | |
+| **bodyCreatePostWithImageTweetCreatePostWithImagePost** | [BodyCreatePostWithImageTweetCreatePostWithImagePost](BodyCreatePostWithImageTweetCreatePostWithImagePost.md) |  | |
 
 ### Return type
 
@@ -156,9 +156,9 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
-## deletePostTweetdeletePostPostIdDelete
+## deletePostTweetDeletePostPostIdDelete
 
-> ResponseSchema deletePostTweetdeletePostPostIdDelete(postId)
+> ResponseSchema deletePostTweetDeletePostPostIdDelete(postId)
 
 Delete Post
 
@@ -169,7 +169,7 @@ import {
   Configuration,
   TweetApi,
 } from '';
-import type { DeletePostTweetdeletePostPostIdDeleteRequest } from '';
+import type { DeletePostTweetDeletePostPostIdDeleteRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -182,10 +182,10 @@ async function example() {
   const body = {
     // number
     postId: 56,
-  } satisfies DeletePostTweetdeletePostPostIdDeleteRequest;
+  } satisfies DeletePostTweetDeletePostPostIdDeleteRequest;
 
   try {
-    const data = await api.deletePostTweetdeletePostPostIdDelete(body);
+    const data = await api.deletePostTweetDeletePostPostIdDelete(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -226,9 +226,9 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
-## getGoodNumTweetpostsGoodNumPostIdGet
+## getGoodNumTweetPostsGoodNumPostIdGet
 
-> number getGoodNumTweetpostsGoodNumPostIdGet(postId)
+> number getGoodNumTweetPostsGoodNumPostIdGet(postId)
 
 Get Good Num
 
@@ -239,7 +239,7 @@ import {
   Configuration,
   TweetApi,
 } from '';
-import type { GetGoodNumTweetpostsGoodNumPostIdGetRequest } from '';
+import type { GetGoodNumTweetPostsGoodNumPostIdGetRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -248,10 +248,10 @@ async function example() {
   const body = {
     // number
     postId: 56,
-  } satisfies GetGoodNumTweetpostsGoodNumPostIdGetRequest;
+  } satisfies GetGoodNumTweetPostsGoodNumPostIdGetRequest;
 
   try {
-    const data = await api.getGoodNumTweetpostsGoodNumPostIdGet(body);
+    const data = await api.getGoodNumTweetPostsGoodNumPostIdGet(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -292,9 +292,9 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
-## getImagesTweetpostsImagesPostIdGet
+## getImagesTweetPostsImagesPostIdGet
 
-> Array&lt;PostImage&gt; getImagesTweetpostsImagesPostIdGet(postId)
+> Array&lt;PostImage&gt; getImagesTweetPostsImagesPostIdGet(postId)
 
 Get Images
 
@@ -305,7 +305,7 @@ import {
   Configuration,
   TweetApi,
 } from '';
-import type { GetImagesTweetpostsImagesPostIdGetRequest } from '';
+import type { GetImagesTweetPostsImagesPostIdGetRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -314,10 +314,10 @@ async function example() {
   const body = {
     // number
     postId: 56,
-  } satisfies GetImagesTweetpostsImagesPostIdGetRequest;
+  } satisfies GetImagesTweetPostsImagesPostIdGetRequest;
 
   try {
-    const data = await api.getImagesTweetpostsImagesPostIdGet(body);
+    const data = await api.getImagesTweetPostsImagesPostIdGet(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -415,9 +415,9 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
-## getReplysTweetpostsReplyPostIdGet
+## getReplysTweetPostsReplyPostIdGet
 
-> Array&lt;ReplyModel&gt; getReplysTweetpostsReplyPostIdGet(postId)
+> Array&lt;ReplyModel&gt; getReplysTweetPostsReplyPostIdGet(postId)
 
 Get Replys
 
@@ -428,7 +428,7 @@ import {
   Configuration,
   TweetApi,
 } from '';
-import type { GetReplysTweetpostsReplyPostIdGetRequest } from '';
+import type { GetReplysTweetPostsReplyPostIdGetRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -437,10 +437,10 @@ async function example() {
   const body = {
     // number
     postId: 56,
-  } satisfies GetReplysTweetpostsReplyPostIdGetRequest;
+  } satisfies GetReplysTweetPostsReplyPostIdGetRequest;
 
   try {
-    const data = await api.getReplysTweetpostsReplyPostIdGet(body);
+    const data = await api.getReplysTweetPostsReplyPostIdGet(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -481,9 +481,9 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
-## postLikeTweetmanegeLikePostIdPost
+## postLikeTweetManegeLikePostIdPost
 
-> ResponseSchema postLikeTweetmanegeLikePostIdPost(postId)
+> ResponseSchema postLikeTweetManegeLikePostIdPost(postId)
 
 Post Like
 
@@ -494,7 +494,7 @@ import {
   Configuration,
   TweetApi,
 } from '';
-import type { PostLikeTweetmanegeLikePostIdPostRequest } from '';
+import type { PostLikeTweetManegeLikePostIdPostRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -507,10 +507,10 @@ async function example() {
   const body = {
     // number
     postId: 56,
-  } satisfies PostLikeTweetmanegeLikePostIdPostRequest;
+  } satisfies PostLikeTweetManegeLikePostIdPostRequest;
 
   try {
-    const data = await api.postLikeTweetmanegeLikePostIdPost(body);
+    const data = await api.postLikeTweetManegeLikePostIdPost(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -551,9 +551,9 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
-## updatePostTweetupdatePostPut
+## updatePostTweetUpdatePostPut
 
-> ResponseSchema updatePostTweetupdatePostPut(postModel)
+> ResponseSchema updatePostTweetUpdatePostPut(postModel)
 
 Update Post
 
@@ -564,7 +564,7 @@ import {
   Configuration,
   TweetApi,
 } from '';
-import type { UpdatePostTweetupdatePostPutRequest } from '';
+import type { UpdatePostTweetUpdatePostPutRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -577,10 +577,10 @@ async function example() {
   const body = {
     // PostModel
     postModel: ...,
-  } satisfies UpdatePostTweetupdatePostPutRequest;
+  } satisfies UpdatePostTweetUpdatePostPutRequest;
 
   try {
-    const data = await api.updatePostTweetupdatePostPut(body);
+    const data = await api.updatePostTweetUpdatePostPut(body);
     console.log(data);
   } catch (error) {
     console.error(error);

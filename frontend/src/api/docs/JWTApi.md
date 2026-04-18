@@ -12,7 +12,7 @@ All URIs are relative to *http://localhost*
 
 ## loginForAccessTokenLoginPost
 
-> Token loginForAccessTokenLoginPost(password, username, clientId, clientSecret, grantType, scope)
+> Token loginForAccessTokenLoginPost(username, password, grantType, scope, clientId, clientSecret)
 
 Login For Access Token
 
@@ -31,17 +31,17 @@ async function example() {
 
   const body = {
     // string
-    password: password_example,
-    // string
     username: username_example,
-    // string (optional)
-    clientId: clientId_example,
-    // string (optional)
-    clientSecret: clientSecret_example,
+    // string
+    password: password_example,
     // string (optional)
     grantType: grantType_example,
     // string (optional)
     scope: scope_example,
+    // string (optional)
+    clientId: clientId_example,
+    // string (optional)
+    clientSecret: clientSecret_example,
   } satisfies LoginForAccessTokenLoginPostRequest;
 
   try {
@@ -61,12 +61,12 @@ example().catch(console.error);
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **password** | `string` |  | [Defaults to `undefined`] |
 | **username** | `string` |  | [Defaults to `undefined`] |
-| **clientId** | `string` |  | [Optional] [Defaults to `undefined`] |
-| **clientSecret** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **password** | `string` |  | [Defaults to `undefined`] |
 | **grantType** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **scope** | `string` |  | [Optional] [Defaults to `&#39;&#39;`] |
+| **clientId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **clientSecret** | `string` |  | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 

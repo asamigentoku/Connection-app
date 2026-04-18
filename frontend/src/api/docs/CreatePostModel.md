@@ -6,8 +6,8 @@
 
 Name | Type
 ------------ | -------------
-`content` | string
 `title` | string
+`content` | string
 
 ## Example
 
@@ -16,8 +16,8 @@ import type { CreatePostModel } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "content": null,
   "title": null,
+  "content": null,
 } satisfies CreatePostModel
 
 console.log(example)

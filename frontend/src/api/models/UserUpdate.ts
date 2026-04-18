@@ -24,6 +24,12 @@ export interface UserUpdate {
      * @type {string}
      * @memberof UserUpdate
      */
+    userName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserUpdate
+     */
     email?: string | null;
     /**
      * 
@@ -36,19 +42,13 @@ export interface UserUpdate {
      * @type {string}
      * @memberof UserUpdate
      */
-    iconUrl?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserUpdate
-     */
     status?: string | null;
     /**
      * 
      * @type {string}
      * @memberof UserUpdate
      */
-    userName?: string | null;
+    iconUrl?: string | null;
 }
 
 /**
@@ -68,11 +68,11 @@ export function UserUpdateFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     }
     return {
         
+        'userName': json['user_name'] == null ? undefined : json['user_name'],
         'email': json['email'] == null ? undefined : json['email'],
         'gender': json['gender'] == null ? undefined : json['gender'],
-        'iconUrl': json['icon_url'] == null ? undefined : json['icon_url'],
         'status': json['status'] == null ? undefined : json['status'],
-        'userName': json['user_name'] == null ? undefined : json['user_name'],
+        'iconUrl': json['icon_url'] == null ? undefined : json['icon_url'],
     };
 }
 
@@ -87,11 +87,11 @@ export function UserUpdateToJSONTyped(value?: UserUpdate | null, ignoreDiscrimin
 
     return {
         
+        'user_name': value['userName'],
         'email': value['email'],
         'gender': value['gender'],
-        'icon_url': value['iconUrl'],
         'status': value['status'],
-        'user_name': value['userName'],
+        'icon_url': value['iconUrl'],
     };
 }
 

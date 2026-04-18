@@ -21,22 +21,16 @@ import { mapValues } from '../runtime';
 export interface GetMessage {
     /**
      * 
-     * @type {string}
-     * @memberof GetMessage
-     */
-    content: string;
-    /**
-     * 
-     * @type {Date}
-     * @memberof GetMessage
-     */
-    createdAt?: Date | null;
-    /**
-     * 
      * @type {number}
      * @memberof GetMessage
      */
     id: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetMessage
+     */
+    content: string;
     /**
      * 
      * @type {number}
@@ -45,24 +39,30 @@ export interface GetMessage {
     roomId: number;
     /**
      * 
+     * @type {number}
+     * @memberof GetMessage
+     */
+    userId: number;
+    /**
+     * 
      * @type {string}
      * @memberof GetMessage
      */
     userIcon?: string | null;
     /**
      * 
-     * @type {number}
+     * @type {Date}
      * @memberof GetMessage
      */
-    userId: number;
+    createdAt?: Date | null;
 }
 
 /**
  * Check if a given object implements the GetMessage interface.
  */
 export function instanceOfGetMessage(value: object): value is GetMessage {
-    if (!('content' in value) || value['content'] === undefined) return false;
     if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('content' in value) || value['content'] === undefined) return false;
     if (!('roomId' in value) || value['roomId'] === undefined) return false;
     if (!('userId' in value) || value['userId'] === undefined) return false;
     return true;
@@ -78,12 +78,12 @@ export function GetMessageFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     }
     return {
         
-        'content': json['content'],
-        'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
         'id': json['id'],
+        'content': json['content'],
         'roomId': json['room_id'],
-        'userIcon': json['user_icon'] == null ? undefined : json['user_icon'],
         'userId': json['user_id'],
+        'userIcon': json['user_icon'] == null ? undefined : json['user_icon'],
+        'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
     };
 }
 
@@ -98,12 +98,12 @@ export function GetMessageToJSONTyped(value?: GetMessage | null, ignoreDiscrimin
 
     return {
         
-        'content': value['content'],
-        'created_at': value['createdAt'] == null ? value['createdAt'] : value['createdAt'].toISOString(),
         'id': value['id'],
+        'content': value['content'],
         'room_id': value['roomId'],
-        'user_icon': value['userIcon'],
         'user_id': value['userId'],
+        'user_icon': value['userIcon'],
+        'created_at': value['createdAt'] == null ? value['createdAt'] : value['createdAt'].toISOString(),
     };
 }
 

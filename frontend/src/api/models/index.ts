@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export * from './AddRoomMember';
-export * from './BodyCreatePostWithImageTweetcreatePostWithImagePost';
+export * from './BodyCreatePostWithImageTweetCreatePostWithImagePost';
 export * from './CreatePostModel';
 export * from './CreateRoom';
 export * from './GetMessage';

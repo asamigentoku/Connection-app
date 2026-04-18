@@ -21,18 +21,6 @@ import { mapValues } from '../runtime';
 export interface ReplyModel {
     /**
      * 
-     * @type {string}
-     * @memberof ReplyModel
-     */
-    content: string;
-    /**
-     * 
-     * @type {Date}
-     * @memberof ReplyModel
-     */
-    createdAt?: Date | null;
-    /**
-     * 
      * @type {number}
      * @memberof ReplyModel
      */
@@ -42,21 +30,33 @@ export interface ReplyModel {
      * @type {string}
      * @memberof ReplyModel
      */
-    userIcon?: string | null;
+    content: string;
     /**
      * 
      * @type {string}
      * @memberof ReplyModel
      */
     userName: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ReplyModel
+     */
+    userIcon?: string | null;
+    /**
+     * 
+     * @type {Date}
+     * @memberof ReplyModel
+     */
+    createdAt?: Date | null;
 }
 
 /**
  * Check if a given object implements the ReplyModel interface.
  */
 export function instanceOfReplyModel(value: object): value is ReplyModel {
-    if (!('content' in value) || value['content'] === undefined) return false;
     if (!('replyId' in value) || value['replyId'] === undefined) return false;
+    if (!('content' in value) || value['content'] === undefined) return false;
     if (!('userName' in value) || value['userName'] === undefined) return false;
     return true;
 }
@@ -71,11 +71,11 @@ export function ReplyModelFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     }
     return {
         
-        'content': json['content'],
-        'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
         'replyId': json['reply_id'],
-        'userIcon': json['user_icon'] == null ? undefined : json['user_icon'],
+        'content': json['content'],
         'userName': json['user_name'],
+        'userIcon': json['user_icon'] == null ? undefined : json['user_icon'],
+        'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
     };
 }
 
@@ -90,11 +90,11 @@ export function ReplyModelToJSONTyped(value?: ReplyModel | null, ignoreDiscrimin
 
     return {
         
-        'content': value['content'],
-        'created_at': value['createdAt'] == null ? value['createdAt'] : value['createdAt'].toISOString(),
         'reply_id': value['replyId'],
-        'user_icon': value['userIcon'],
+        'content': value['content'],
         'user_name': value['userName'],
+        'user_icon': value['userIcon'],
+        'created_at': value['createdAt'] == null ? value['createdAt'] : value['createdAt'].toISOString(),
     };
 }
 

@@ -24,21 +24,21 @@ export interface CreatePostModel {
      * @type {string}
      * @memberof CreatePostModel
      */
-    content: string;
+    title: string;
     /**
      * 
      * @type {string}
      * @memberof CreatePostModel
      */
-    title: string;
+    content: string;
 }
 
 /**
  * Check if a given object implements the CreatePostModel interface.
  */
 export function instanceOfCreatePostModel(value: object): value is CreatePostModel {
-    if (!('content' in value) || value['content'] === undefined) return false;
     if (!('title' in value) || value['title'] === undefined) return false;
+    if (!('content' in value) || value['content'] === undefined) return false;
     return true;
 }
 
@@ -52,8 +52,8 @@ export function CreatePostModelFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
-        'content': json['content'],
         'title': json['title'],
+        'content': json['content'],
     };
 }
 
@@ -68,8 +68,8 @@ export function CreatePostModelToJSONTyped(value?: CreatePostModel | null, ignor
 
     return {
         
-        'content': value['content'],
         'title': value['title'],
+        'content': value['content'],
     };
 }
 

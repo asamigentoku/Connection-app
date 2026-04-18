@@ -29,18 +29,6 @@ import {
 export interface ValidationError {
     /**
      * 
-     * @type {object}
-     * @memberof ValidationError
-     */
-    ctx?: object;
-    /**
-     * 
-     * @type {any}
-     * @memberof ValidationError
-     */
-    input?: any | null;
-    /**
-     * 
      * @type {Array<LocationInner>}
      * @memberof ValidationError
      */
@@ -57,6 +45,18 @@ export interface ValidationError {
      * @memberof ValidationError
      */
     type: string;
+    /**
+     * 
+     * @type {any}
+     * @memberof ValidationError
+     */
+    input?: any | null;
+    /**
+     * 
+     * @type {object}
+     * @memberof ValidationError
+     */
+    ctx?: object;
 }
 
 /**
@@ -79,11 +79,11 @@ export function ValidationErrorFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
-        'ctx': json['ctx'] == null ? undefined : json['ctx'],
-        'input': json['input'] == null ? undefined : json['input'],
         'loc': ((json['loc'] as Array<any>).map(LocationInnerFromJSON)),
         'msg': json['msg'],
         'type': json['type'],
+        'input': json['input'] == null ? undefined : json['input'],
+        'ctx': json['ctx'] == null ? undefined : json['ctx'],
     };
 }
 
@@ -98,11 +98,11 @@ export function ValidationErrorToJSONTyped(value?: ValidationError | null, ignor
 
     return {
         
-        'ctx': value['ctx'],
-        'input': value['input'],
         'loc': ((value['loc'] as Array<any>).map(LocationInnerToJSON)),
         'msg': value['msg'],
         'type': value['type'],
+        'input': value['input'],
+        'ctx': value['ctx'],
     };
 }
 

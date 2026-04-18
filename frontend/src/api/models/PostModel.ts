@@ -27,16 +27,16 @@ export interface PostModel {
     content: string;
     /**
      * 
-     * @type {number}
-     * @memberof PostModel
-     */
-    postId: number;
-    /**
-     * 
      * @type {string}
      * @memberof PostModel
      */
     title: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof PostModel
+     */
+    postId: number;
 }
 
 /**
@@ -44,8 +44,8 @@ export interface PostModel {
  */
 export function instanceOfPostModel(value: object): value is PostModel {
     if (!('content' in value) || value['content'] === undefined) return false;
-    if (!('postId' in value) || value['postId'] === undefined) return false;
     if (!('title' in value) || value['title'] === undefined) return false;
+    if (!('postId' in value) || value['postId'] === undefined) return false;
     return true;
 }
 
@@ -60,8 +60,8 @@ export function PostModelFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     return {
         
         'content': json['content'],
-        'postId': json['post_id'],
         'title': json['title'],
+        'postId': json['post_id'],
     };
 }
 
@@ -77,8 +77,8 @@ export function PostModelToJSONTyped(value?: PostModel | null, ignoreDiscriminat
     return {
         
         'content': value['content'],
-        'post_id': value['postId'],
         'title': value['title'],
+        'post_id': value['postId'],
     };
 }
 

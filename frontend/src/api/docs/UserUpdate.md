@@ -6,11 +6,11 @@
 
 Name | Type
 ------------ | -------------
+`userName` | string
 `email` | string
 `gender` | string
-`iconUrl` | string
 `status` | string
-`userName` | string
+`iconUrl` | string
 
 ## Example
 
@@ -19,11 +19,11 @@ import type { UserUpdate } from ''
 
 // TODO: Update the object below with actual values
 const example = {
+  "userName": null,
   "email": null,
   "gender": null,
-  "iconUrl": null,
   "status": null,
-  "userName": null,
+  "iconUrl": null,
 } satisfies UserUpdate
 
 console.log(example)

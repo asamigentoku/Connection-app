@@ -24,11 +24,11 @@ class User(ormar.Model):
     is_verified: bool = ormar.Boolean(default=False)
 
 # ----------------- Follow -----------------
-class Follow(ormar.Model):
+class Friends(ormar.Model):
     ormar_config = base_ormar_config.copy()
     id: int = ormar.Integer(primary_key=True,autoincrement=True)
-    follower: User = ormar.ForeignKey(User, related_name="following")
-    following: User = ormar.ForeignKey(User, related_name="followers")
+    user1: User = ormar.ForeignKey(User, related_name="user1")
+    user2: User = ormar.ForeignKey(User, related_name="user2")
     created_at: datetime.datetime =  ormar.DateTime(default=datetime.datetime.now)
 
 # ----------------- Block -----------------

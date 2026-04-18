@@ -6,11 +6,11 @@
 
 Name | Type
 ------------ | -------------
+`userName` | string
 `email` | string
 `gender` | string
-`iconUrl` | string
 `status` | string
-`userName` | string
+`iconUrl` | string
 `userPass` | string
 
 ## Example
@@ -20,11 +20,11 @@ import type { UserCreate } from ''
 
 // TODO: Update the object below with actual values
 const example = {
+  "userName": null,
   "email": null,
   "gender": null,
-  "iconUrl": null,
   "status": null,
-  "userName": null,
+  "iconUrl": null,
   "userPass": null,
 } satisfies UserCreate
 

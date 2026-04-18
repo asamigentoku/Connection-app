@@ -6,13 +6,14 @@
 
 Name | Type
 ------------ | -------------
-`category` | string
 `content` | string
-`createdAt` | Date
-`postId` | number
 `title` | string
-`userIcon` | string
+`postId` | number
 `userName` | string
+`userId` | number
+`userIcon` | string
+`createdAt` | Date
+`category` | string
 
 ## Example
 
@@ -21,13 +22,14 @@ import type { GetReplyPostModel } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "category": null,
   "content": null,
-  "createdAt": null,
-  "postId": null,
   "title": null,
-  "userIcon": null,
+  "postId": null,
   "userName": null,
+  "userId": null,
+  "userIcon": null,
+  "createdAt": null,
+  "category": null,
 } satisfies GetReplyPostModel
 
 console.log(example)

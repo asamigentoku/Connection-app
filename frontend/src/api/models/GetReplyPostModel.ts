@@ -24,19 +24,13 @@ export interface GetReplyPostModel {
      * @type {string}
      * @memberof GetReplyPostModel
      */
-    category?: string | null;
+    content: string;
     /**
      * 
      * @type {string}
      * @memberof GetReplyPostModel
      */
-    content: string;
-    /**
-     * 
-     * @type {Date}
-     * @memberof GetReplyPostModel
-     */
-    createdAt?: Date | null;
+    title: string;
     /**
      * 
      * @type {number}
@@ -48,7 +42,13 @@ export interface GetReplyPostModel {
      * @type {string}
      * @memberof GetReplyPostModel
      */
-    title: string;
+    userName?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetReplyPostModel
+     */
+    userId?: number;
     /**
      * 
      * @type {string}
@@ -57,10 +57,16 @@ export interface GetReplyPostModel {
     userIcon?: string | null;
     /**
      * 
+     * @type {Date}
+     * @memberof GetReplyPostModel
+     */
+    createdAt?: Date | null;
+    /**
+     * 
      * @type {string}
      * @memberof GetReplyPostModel
      */
-    userName: string;
+    category?: string | null;
 }
 
 /**
@@ -68,9 +74,8 @@ export interface GetReplyPostModel {
  */
 export function instanceOfGetReplyPostModel(value: object): value is GetReplyPostModel {
     if (!('content' in value) || value['content'] === undefined) return false;
-    if (!('postId' in value) || value['postId'] === undefined) return false;
     if (!('title' in value) || value['title'] === undefined) return false;
-    if (!('userName' in value) || value['userName'] === undefined) return false;
+    if (!('postId' in value) || value['postId'] === undefined) return false;
     return true;
 }
 
@@ -84,13 +89,14 @@ export function GetReplyPostModelFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'category': json['category'] == null ? undefined : json['category'],
         'content': json['content'],
-        'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
-        'postId': json['post_id'],
         'title': json['title'],
+        'postId': json['post_id'],
+        'userName': json['user_name'] == null ? undefined : json['user_name'],
+        'userId': json['user_id'] == null ? undefined : json['user_id'],
         'userIcon': json['user_icon'] == null ? undefined : json['user_icon'],
-        'userName': json['user_name'],
+        'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
+        'category': json['category'] == null ? undefined : json['category'],
     };
 }
 
@@ -105,13 +111,14 @@ export function GetReplyPostModelToJSONTyped(value?: GetReplyPostModel | null, i
 
     return {
         
-        'category': value['category'],
         'content': value['content'],
-        'created_at': value['createdAt'] == null ? value['createdAt'] : value['createdAt'].toISOString(),
-        'post_id': value['postId'],
         'title': value['title'],
-        'user_icon': value['userIcon'],
+        'post_id': value['postId'],
         'user_name': value['userName'],
+        'user_id': value['userId'],
+        'user_icon': value['userIcon'],
+        'created_at': value['createdAt'] == null ? value['createdAt'] : value['createdAt'].toISOString(),
+        'category': value['category'],
     };
 }
 

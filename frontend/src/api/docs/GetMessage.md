@@ -6,12 +6,12 @@
 
 Name | Type
 ------------ | -------------
-`content` | string
-`createdAt` | Date
 `id` | number
+`content` | string
 `roomId` | number
-`userIcon` | string
 `userId` | number
+`userIcon` | string
+`createdAt` | Date
 
 ## Example
 
@@ -20,12 +20,12 @@ import type { GetMessage } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "content": null,
-  "createdAt": null,
   "id": null,
+  "content": null,
   "roomId": null,
-  "userIcon": null,
   "userId": null,
+  "userIcon": null,
+  "createdAt": null,
 } satisfies GetMessage
 
 console.log(example)

@@ -6,11 +6,11 @@
 
 Name | Type
 ------------ | -------------
-`ctx` | object
-`input` | any
 `loc` | [Array&lt;LocationInner&gt;](LocationInner.md)
 `msg` | string
 `type` | string
+`input` | any
+`ctx` | object
 
 ## Example
 
@@ -19,11 +19,11 @@ import type { ValidationError } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "ctx": null,
-  "input": null,
   "loc": null,
   "msg": null,
   "type": null,
+  "input": null,
+  "ctx": null,
 } satisfies ValidationError
 
 console.log(example)

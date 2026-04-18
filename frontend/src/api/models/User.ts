@@ -21,10 +21,10 @@ import { mapValues } from '../runtime';
 export interface User {
     /**
      * 
-     * @type {boolean}
+     * @type {string}
      * @memberof User
      */
-    disabled?: boolean | null;
+    username: string;
     /**
      * 
      * @type {string}
@@ -39,10 +39,10 @@ export interface User {
     fullName?: string | null;
     /**
      * 
-     * @type {string}
+     * @type {boolean}
      * @memberof User
      */
-    username: string;
+    disabled?: boolean | null;
 }
 
 /**
@@ -63,10 +63,10 @@ export function UserFromJSONTyped(json: any, ignoreDiscriminator: boolean): User
     }
     return {
         
-        'disabled': json['disabled'] == null ? undefined : json['disabled'],
+        'username': json['username'],
         'email': json['email'] == null ? undefined : json['email'],
         'fullName': json['full_name'] == null ? undefined : json['full_name'],
-        'username': json['username'],
+        'disabled': json['disabled'] == null ? undefined : json['disabled'],
     };
 }
 
@@ -81,10 +81,10 @@ export function UserToJSONTyped(value?: User | null, ignoreDiscriminator: boolea
 
     return {
         
-        'disabled': value['disabled'],
+        'username': value['username'],
         'email': value['email'],
         'full_name': value['fullName'],
-        'username': value['username'],
+        'disabled': value['disabled'],
     };
 }
 

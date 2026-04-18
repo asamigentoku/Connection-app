@@ -7,8 +7,8 @@
 Name | Type
 ------------ | -------------
 `content` | string
-`postId` | number
 `title` | string
+`postId` | number
 
 ## Example
 
@@ -18,8 +18,8 @@ import type { PostModel } from ''
 // TODO: Update the object below with actual values
 const example = {
   "content": null,
-  "postId": null,
   "title": null,
+  "postId": null,
 } satisfies PostModel
 
 console.log(example)

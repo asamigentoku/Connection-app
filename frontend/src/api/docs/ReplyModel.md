@@ -6,11 +6,11 @@
 
 Name | Type
 ------------ | -------------
-`content` | string
-`createdAt` | Date
 `replyId` | number
-`userIcon` | string
+`content` | string
 `userName` | string
+`userIcon` | string
+`createdAt` | Date
 
 ## Example
 
@@ -19,11 +19,11 @@ import type { ReplyModel } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "content": null,
-  "createdAt": null,
   "replyId": null,
-  "userIcon": null,
+  "content": null,
   "userName": null,
+  "userIcon": null,
+  "createdAt": null,
 } satisfies ReplyModel
 
 console.log(example)

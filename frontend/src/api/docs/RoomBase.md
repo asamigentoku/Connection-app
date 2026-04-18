@@ -6,9 +6,10 @@
 
 Name | Type
 ------------ | -------------
-`createdAt` | Date
-`rommId` | number
+`roomId` | number
 `roomName` | string
+`roomIcon` | string
+`createdAt` | Date
 
 ## Example
 
@@ -17,9 +18,10 @@ import type { RoomBase } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "createdAt": null,
-  "rommId": null,
+  "roomId": null,
   "roomName": null,
+  "roomIcon": null,
+  "createdAt": null,
 } satisfies RoomBase
 
 console.log(example)

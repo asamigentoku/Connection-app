@@ -29,12 +29,12 @@ import {
 } from '../models/index';
 
 export interface LoginForAccessTokenLoginPostRequest {
-    password: string;
     username: string;
-    clientId?: string | null;
-    clientSecret?: string | null;
+    password: string;
     grantType?: string | null;
     scope?: string;
+    clientId?: string | null;
+    clientSecret?: string | null;
 }
 
 /**
@@ -46,17 +46,17 @@ export class JWTApi extends runtime.BaseAPI {
      * Creates request options for loginForAccessTokenLoginPost without sending the request
      */
     async loginForAccessTokenLoginPostRequestOpts(requestParameters: LoginForAccessTokenLoginPostRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['password'] == null) {
-            throw new runtime.RequiredError(
-                'password',
-                'Required parameter "password" was null or undefined when calling loginForAccessTokenLoginPost().'
-            );
-        }
-
         if (requestParameters['username'] == null) {
             throw new runtime.RequiredError(
                 'username',
                 'Required parameter "username" was null or undefined when calling loginForAccessTokenLoginPost().'
+            );
+        }
+
+        if (requestParameters['password'] == null) {
+            throw new runtime.RequiredError(
+                'password',
+                'Required parameter "password" was null or undefined when calling loginForAccessTokenLoginPost().'
             );
         }
 
@@ -78,16 +78,12 @@ export class JWTApi extends runtime.BaseAPI {
             formParams = new URLSearchParams();
         }
 
-        if (requestParameters['clientId'] != null) {
-            formParams.append('client_id', requestParameters['clientId'] as any);
-        }
-
-        if (requestParameters['clientSecret'] != null) {
-            formParams.append('client_secret', requestParameters['clientSecret'] as any);
-        }
-
         if (requestParameters['grantType'] != null) {
             formParams.append('grant_type', requestParameters['grantType'] as any);
+        }
+
+        if (requestParameters['username'] != null) {
+            formParams.append('username', requestParameters['username'] as any);
         }
 
         if (requestParameters['password'] != null) {
@@ -98,8 +94,12 @@ export class JWTApi extends runtime.BaseAPI {
             formParams.append('scope', requestParameters['scope'] as any);
         }
 
-        if (requestParameters['username'] != null) {
-            formParams.append('username', requestParameters['username'] as any);
+        if (requestParameters['clientId'] != null) {
+            formParams.append('client_id', requestParameters['clientId'] as any);
+        }
+
+        if (requestParameters['clientSecret'] != null) {
+            formParams.append('client_secret', requestParameters['clientSecret'] as any);
         }
 
 

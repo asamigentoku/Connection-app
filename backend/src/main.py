@@ -9,6 +9,7 @@ from src.routers.emotin_router import router as emotion_router
 from src.websocket.web_socker_router import router as websocket_router
 from src.routers.harassment_router import router as harassment_router
 from src.routers.fakecheck_router import router as fakecheck_router
+from src.routers.friend_router import router as friend_router
 from src.database.db import database, metadata,engine
 from contextlib import asynccontextmanager
 from sqlalchemy import text
@@ -26,7 +27,10 @@ async def lifespan(app: FastAPI):
         await database.connect()
         if test:
             if engine is not None:
-                metadata.drop_all(engine)
+                with engine.connect() as conn:
+                    conn.execute(text("DROP SCHEMA public CASCADE"))
+                    conn.execute(text("CREATE SCHEMA public"))
+                    conn.commit()
                 metadata.create_all(engine)
         else:
             async with engine.begin() as conn:
@@ -39,13 +43,6 @@ async def lifespan(app: FastAPI):
         await database.disconnect()
 
 app = FastAPI(lifespan=lifespan)
-with open("openapi.yaml","w") as f:
-    yaml.dump(app.openapi(), f)
-
-
-#環境変数読み込み
-import os
-from dotenv import load_dotenv
 
 load_dotenv(".env")
 
@@ -71,7 +68,7 @@ app.include_router(emotion_router)
 app.include_router(harassment_router)
 app.include_router(fakecheck_router)
 app.include_router(websocket_router)
-
+app.include_router(friend_router)
 from fastapi.responses import JSONResponse
 from pydantic import ValidationError
 @app.exception_handler(ValidationError)
@@ -84,6 +81,6 @@ async def validation_exception_handler(exc:ValidationError):
         }
     )
     
-import yaml
+
 with open("openapi.yaml","w") as f:
     yaml.dump(app.openapi(), f)

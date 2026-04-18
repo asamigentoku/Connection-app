@@ -1,24 +1,24 @@
 
-# BodyCreatePostWithImageTweetcreatePostWithImagePost
+# BodyCreatePostWithImageTweetCreatePostWithImagePost
 
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`images` | [Array&lt;PostImage&gt;](PostImage.md)
 `post` | [CreatePostModel](CreatePostModel.md)
+`images` | [Array&lt;PostImage&gt;](PostImage.md)
 
 ## Example
 
 ```typescript
-import type { BodyCreatePostWithImageTweetcreatePostWithImagePost } from ''
+import type { BodyCreatePostWithImageTweetCreatePostWithImagePost } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "images": null,
   "post": null,
-} satisfies BodyCreatePostWithImageTweetcreatePostWithImagePost
+  "images": null,
+} satisfies BodyCreatePostWithImageTweetCreatePostWithImagePost
 
 console.log(example)
 
@@ -27,7 +27,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as BodyCreatePostWithImageTweetcreatePostWithImagePost
+const exampleParsed = JSON.parse(exampleJSON) as BodyCreatePostWithImageTweetCreatePostWithImagePost
 console.log(exampleParsed)
 ```
 

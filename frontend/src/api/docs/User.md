@@ -6,10 +6,10 @@
 
 Name | Type
 ------------ | -------------
-`disabled` | boolean
+`username` | string
 `email` | string
 `fullName` | string
-`username` | string
+`disabled` | boolean
 
 ## Example
 
@@ -18,10 +18,10 @@ import type { User } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "disabled": null,
+  "username": null,
   "email": null,
   "fullName": null,
-  "username": null,
+  "disabled": null,
 } satisfies User
 
 console.log(example)
