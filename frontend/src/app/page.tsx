@@ -1,6 +1,6 @@
 // src/app/page.tsx
 import Link from "next/link";
-
+import ArchitectureDiagram from "@components/ArchitectureDiagram";
 export default function Home() {
   return (
       <div className="relative min-h-screen overflow-hidden bg-white">
@@ -57,8 +57,10 @@ export default function Home() {
                 </div>
             ))}
           </div>
+            <ArchitectureDiagram />
 
-          {/* Divider */}
+
+            {/* Divider */}
           <div className="mb-8 flex items-center gap-4">
             <div className="h-px flex-1 bg-gray-100" />
             <span className="text-xs uppercase tracking-widest text-gray-400">Tech Stack</span>
