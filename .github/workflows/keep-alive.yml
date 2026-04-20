@@ -2,7 +2,7 @@ name: Keep Alive - Prevent Sleep
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # 14分ごとに実行（Renderは15分でスリープ）
+    - cron: '*/3 * * * *'  # 3分ごとに実行（Renderは15分でスリープ）
   workflow_dispatch:          # 手動実行も可能
 
 jobs:
