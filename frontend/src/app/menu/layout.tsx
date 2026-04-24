@@ -31,28 +31,35 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <div className="flex h-screen flex-col bg-gray-50">
         <header className="border-b border-gray-200 bg-gradient-to-r from-indigo-600 to-blue-600 shadow-sm">
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
-            <h1 className="text-2xl font-bold text-white">コミュニティボード</h1>
+                <h1 className="hidden sm:block text-2xl font-bold text-white">コミュニティボード</h1>
             <div className="flex items-center gap-4">
                 <nav className="flex gap-2">
 
-                <Link
-                    href="/menu/board"
-                    className="flex items-center gap-2 rounded-lg px-4 py-2 text-white hover:bg-white/10"
-                >
-                    <Home className="h-5 w-5" />
-                    掲示板
-                </Link>
-                <Link
-                    href="/menu/messages"
-                    className="flex items-center gap-2 rounded-lg px-4 py-2 text-white hover:bg-white/10"
-                >
-                    <MessageSquare className="h-5 w-5" />
-                    メッセージ
-                </Link>
-                <Link href="/menu/friends" className="flex items-center gap-2 rounded-lg px-4 py-2 text-white hover:bg-white/10">
-                    <Users className="h-5 w-5" />
-                    友達
-                 </Link>
+                    <Link
+                        href="/menu/board"
+                        className="flex items-center gap-2 rounded-lg px-4 py-2 text-white hover:bg-white/10"
+                        title="掲示板"
+                    >
+                        <Home className="h-5 w-5" />
+                        {/* テキストはスマホで非表示 */}
+                        <span className="hidden sm:inline">掲示板</span>
+                    </Link>
+                    <Link
+                        href="/menu/messages"
+                        className="flex items-center gap-2 rounded-lg px-4 py-2 text-white hover:bg-white/10"
+                        title="メッセージ"
+                    >
+                        <MessageSquare className="h-5 w-5" />
+                        <span className="hidden sm:inline">メッセージ</span>
+                    </Link>
+                    <Link
+                        href="/menu/friends"
+                        className="flex items-center gap-2 rounded-lg px-4 py-2 text-white hover:bg-white/10"
+                        title="友達"
+                    >
+                        <Users className="h-5 w-5" />
+                        <span className="hidden sm:inline">友達</span>
+                    </Link>
                 </nav>
 
                 <div className="relative">
