@@ -43,6 +43,12 @@ export interface RoomBase {
      * @memberof RoomBase
      */
     createdAt?: Date | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof RoomBase
+     */
+    isGroup?: boolean;
 }
 
 /**
@@ -67,6 +73,7 @@ export function RoomBaseFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'roomName': json['room_name'] == null ? undefined : json['room_name'],
         'roomIcon': json['room_icon'] == null ? undefined : json['room_icon'],
         'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
+        'isGroup': json['is_group'] == null ? undefined : json['is_group'],
     };
 }
 
@@ -85,6 +92,7 @@ export function RoomBaseToJSONTyped(value?: RoomBase | null, ignoreDiscriminator
         'room_name': value['roomName'],
         'room_icon': value['roomIcon'],
         'created_at': value['createdAt'] == null ? value['createdAt'] : value['createdAt'].toISOString(),
+        'is_group': value['isGroup'],
     };
 }
 

@@ -247,6 +247,10 @@ components:
             type: string
           - type: 'null'
           title: Created At
+        is_group:
+          default: false
+          title: Is Group
+          type: boolean
         room_icon:
           title: Room Icon
           type: string
@@ -565,6 +569,99 @@ paths:
       summary: Fake Check By Post
       tags:
       - fakecheck
+  /friends/delete_friends:
+    delete:
+      operationId: delete_friends_friends_delete_friends_delete
+      parameters:
+      - in: query
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: integer
+      - in: query
+        name: friends_id
+        required: true
+        schema:
+          title: Friends Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSchema'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Delete Friends
+      tags:
+      - friends
+  /friends/friends_list/{user_id}:
+    get:
+      operationId: get_friends_list_friends_friends_list__user_id__get
+      parameters:
+      - in: path
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserResponse'
+                title: Response Get Friends List Friends Friends List  User Id  Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Friends List
+      tags:
+      - friends
+  /friends/make_friends:
+    post:
+      operationId: create_friends_friends_make_friends_post
+      parameters:
+      - in: query
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: integer
+      - in: query
+        name: friends_id
+        required: true
+        schema:
+          title: Friends Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSchema'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Create Friends
+      tags:
+      - friends
   /harassment/anycheck:
     post:
       operationId: harassment_check_harassment_anycheck_post
@@ -590,6 +687,34 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Harassment Check
+      tags:
+      - harassment_check
+  /harassment/anycheck/text:
+    post:
+      operationId: harassment_check_by_text_harassment_anycheck_text_post
+      parameters:
+      - in: query
+        name: content
+        required: true
+        schema:
+          title: Content
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Harassment Check By Text Harassment Anycheck Text
+                  Post
+                type: string
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Harassment Check By Text
       tags:
       - harassment_check
   /login:

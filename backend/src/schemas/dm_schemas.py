@@ -7,6 +7,7 @@ class RoomBase(BaseModel):
     room_name:str=None
     room_icon:str=None
     created_at: Optional[datetime] = None
+    is_group:bool=False
 
 class CreateRoom(BaseModel):
     room_name:str

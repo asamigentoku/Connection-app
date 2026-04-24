@@ -25,6 +25,12 @@ async def add_room_member(newmember:AddRoomMember):
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"ルームへのメンバーの追加に失敗しました: {str(e)}")
 
+#できれば、リストでも
+#ルームメンバーの取得
+#->現在の区レントユーザーじゃなもの
+#それの友達スキーマを返す
+
+
 
 #ユーザーのルームを取得
 @router.get("/user_rooms",response_model=list[RoomBase])

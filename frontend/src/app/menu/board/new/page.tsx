@@ -12,6 +12,8 @@ export default function NewPostPage() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isChecking, setIsChecking] = useState(false);
+    const [harassmentWarning, setHarassmentWarning] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -41,6 +43,47 @@ export default function NewPostPage() {
         }
     };
 
+    const handleHarassmentCheck = async () => {
+        if (!title && !content) return;
+        setIsChecking(true);
+        setError(null);
+        setHarassmentWarning(null);
+
+        try {
+            const result = await api.harassment.harassmentCheckByTextHarassmentAnycheckTextPost({
+                content: `${title} ${content}`,
+            });
+            if (result) {
+                switch (result) {
+                    case "inappropriate":
+                        setHarassmentWarning("⚠️ 不適切な表現が含まれている可能性があります。投稿内容を見直してください。");
+                        break;
+                    case "power":
+                        setHarassmentWarning("⚠️ パワーハラスメントに該当する表現が含まれている可能性があります。");
+                        break;
+                    case "discriminatory":
+                        setHarassmentWarning("⚠️ 差別的な表現が含まれている可能性があります。投稿前に内容を確認してください。");
+                        break;
+                    case "sexual_harassment":
+                        setHarassmentWarning("⚠️ セクシャルハラスメントに該当する表現が含まれている可能性があります。");
+                        break;
+                    default:
+                        setHarassmentWarning("✅問題ありませんでした！このまま投稿できます");
+                        // alert("問題ありませんでした！このまま投稿できます。");
+                }
+
+            } else {
+                setHarassmentWarning("✅ 問題ありませんでした！このまま投稿できます");
+                // alert("問題ありませんでした！このまま投稿できます。");
+            }
+        } catch (err) {
+            console.error(err);
+            setError("炎上チェックに失敗しました。時間をおいて再度お試しください。");
+        } finally {
+            setIsChecking(false);
+        }
+    };
+
     return (
         <div className="mx-auto max-w-3xl p-6">
             <div className="mb-6">
@@ -48,7 +91,18 @@ export default function NewPostPage() {
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     掲示板に戻る
                 </Link>
-                <h2 className="mt-4 text-3xl font-bold text-gray-800">新規投稿</h2>
+                <div className="flex items-center justify-between">
+                    <h2 className="mt-4 text-3xl font-bold text-gray-800">新規投稿</h2>
+                    <button
+                        type="button"
+                        onClick={handleHarassmentCheck}
+                        disabled={isChecking || (!title && !content)}
+                        className="flex items-center gap-2 rounded-lg bg-orange-600 px-8 py-3 font-semibold text-white transition-all hover:bg-orange-700 disabled:opacity-50"
+                    >
+                        {isChecking ? "チェック中..." : <><ShieldAlert className="h-4 w-4" /> 炎上チェッカー</>}
+                    </button>
+                </div>
+
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -56,6 +110,12 @@ export default function NewPostPage() {
                     <div className="flex items-center gap-2 rounded-lg bg-red-50 p-4 text-red-700">
                         <ShieldAlert className="h-5 w-5" />
                         <span className="text-sm">{error}</span>
+                    </div>
+                )}
+                {harassmentWarning && (
+                    <div className="flex items-center gap-2 rounded-lg bg-yellow-50 p-4 text-yellow-700">
+                        {/*<ShieldAlert className="h-5 w-5" />*/}
+                        <span className="text-sm">{harassmentWarning}</span>
                     </div>
                 )}
                 {success && (
@@ -87,6 +147,7 @@ export default function NewPostPage() {
                         placeholder="どのような内容を共有しますか？"
                     />
                 </div>
+
 
                 <div className="flex justify-end">
                     <button

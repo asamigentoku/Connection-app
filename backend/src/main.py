@@ -69,7 +69,10 @@ app.add_middleware(
 @app.middleware("http")
 async def dispose_connections(request: Request, call_next):
     response = await call_next(request)
-    await engine.dispose(close=False)
+    if test:
+        engine.dispose(close=False)
+    else:
+        await engine.dispose(close=False)
     return response
 
 app.include_router(user_router)
@@ -92,7 +95,8 @@ async def validation_exception_handler(exc:ValidationError):
             "body":exc.model
         }
     )
-    
 
-with open("openapi.yaml","w") as f:
+
+output_path = os.path.join("..", "openapi.yaml")
+with open(output_path, "w") as f:
     yaml.dump(app.openapi(), f)

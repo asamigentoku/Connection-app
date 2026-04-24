@@ -10,6 +10,7 @@ Name | Type
 `roomName` | string
 `roomIcon` | string
 `createdAt` | Date
+`isGroup` | boolean
 
 ## Example
 
@@ -22,6 +23,7 @@ const example = {
   "roomName": null,
   "roomIcon": null,
   "createdAt": null,
+  "isGroup": null,
 } satisfies RoomBase
 
 console.log(example)

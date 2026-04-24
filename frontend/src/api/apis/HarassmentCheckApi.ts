@@ -22,6 +22,10 @@ import {
     HTTPValidationErrorToJSON,
 } from '../models/index';
 
+export interface HarassmentCheckByTextHarassmentAnycheckTextPostRequest {
+    content: string;
+}
+
 export interface HarassmentCheckHarassmentAnycheckPostRequest {
     postId: number;
 }
@@ -30,6 +34,58 @@ export interface HarassmentCheckHarassmentAnycheckPostRequest {
  * 
  */
 export class HarassmentCheckApi extends runtime.BaseAPI {
+
+    /**
+     * Creates request options for harassmentCheckByTextHarassmentAnycheckTextPost without sending the request
+     */
+    async harassmentCheckByTextHarassmentAnycheckTextPostRequestOpts(requestParameters: HarassmentCheckByTextHarassmentAnycheckTextPostRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['content'] == null) {
+            throw new runtime.RequiredError(
+                'content',
+                'Required parameter "content" was null or undefined when calling harassmentCheckByTextHarassmentAnycheckTextPost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['content'] != null) {
+            queryParameters['content'] = requestParameters['content'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+
+        let urlPath = `/harassment/anycheck/text`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Harassment Check By Text
+     */
+    async harassmentCheckByTextHarassmentAnycheckTextPostRaw(requestParameters: HarassmentCheckByTextHarassmentAnycheckTextPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        const requestOptions = await this.harassmentCheckByTextHarassmentAnycheckTextPostRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     * Harassment Check By Text
+     */
+    async harassmentCheckByTextHarassmentAnycheckTextPost(requestParameters: HarassmentCheckByTextHarassmentAnycheckTextPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.harassmentCheckByTextHarassmentAnycheckTextPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * Creates request options for harassmentCheckHarassmentAnycheckPost without sending the request
