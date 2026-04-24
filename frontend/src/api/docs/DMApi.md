@@ -8,6 +8,7 @@ All URIs are relative to *http://localhost*
 | [**createRoomTalkCreateRoomPost**](DMApi.md#createroomtalkcreateroompost) | **POST** /talk/create_room | Create Room |
 | [**deleteMessageTalkMessageDeleteMessageIdDelete**](DMApi.md#deletemessagetalkmessagedeletemessageiddelete) | **DELETE** /talk/message_delete/{message_id} | Delete Message |
 | [**getRoomsByUserTalkUserRoomsGet**](DMApi.md#getroomsbyusertalkuserroomsget) | **GET** /talk/user_rooms | Get Rooms By User |
+| [**readRoomTalkFriendInformationRoomIdGet**](DMApi.md#readroomtalkfriendinformationroomidget) | **GET** /talk/friend_information/{room_id} | Read Room |
 | [**readRoomTalkUserInformationRoomIdGet**](DMApi.md#readroomtalkuserinformationroomidget) | **GET** /talk/user_information/{room_id} | Read Room |
 | [**submitMessageTalkMessageSubmitPost**](DMApi.md#submitmessagetalkmessagesubmitpost) | **POST** /talk/message_submit | Submit Message |
 | [**updateTalkMessageUpdatePut**](DMApi.md#updatetalkmessageupdateput) | **PUT** /talk/message_update | Update |
@@ -281,6 +282,76 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## readRoomTalkFriendInformationRoomIdGet
+
+> UserResponse readRoomTalkFriendInformationRoomIdGet(roomId)
+
+Read Room
+
+### Example
+
+```ts
+import {
+  Configuration,
+  DMApi,
+} from '';
+import type { ReadRoomTalkFriendInformationRoomIdGetRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // To configure OAuth2 access token for authorization: OAuth2PasswordBearer password
+    accessToken: "YOUR ACCESS TOKEN",
+  });
+  const api = new DMApi(config);
+
+  const body = {
+    // number
+    roomId: 56,
+  } satisfies ReadRoomTalkFriendInformationRoomIdGetRequest;
+
+  try {
+    const data = await api.readRoomTalkFriendInformationRoomIdGet(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **roomId** | `number` |  | [Defaults to `undefined`] |
+
+### Return type
+
+[**UserResponse**](UserResponse.md)
+
+### Authorization
+
+[OAuth2PasswordBearer password](../README.md#OAuth2PasswordBearer-password)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
+| **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

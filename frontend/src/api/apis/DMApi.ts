@@ -23,6 +23,7 @@ import type {
   RoomBase,
   SubmitMessage,
   UpdateMessage,
+  UserResponse,
 } from '../models/index';
 import {
     AddRoomMemberFromJSON,
@@ -41,6 +42,8 @@ import {
     SubmitMessageToJSON,
     UpdateMessageFromJSON,
     UpdateMessageToJSON,
+    UserResponseFromJSON,
+    UserResponseToJSON,
 } from '../models/index';
 
 export interface AddRoomMemberTalkAddRoomMemberPostRequest {
@@ -53,6 +56,10 @@ export interface CreateRoomTalkCreateRoomPostRequest {
 
 export interface DeleteMessageTalkMessageDeleteMessageIdDeleteRequest {
     messageId: number;
+}
+
+export interface ReadRoomTalkFriendInformationRoomIdGetRequest {
+    roomId: number;
 }
 
 export interface ReadRoomTalkUserInformationRoomIdGetRequest {
@@ -265,6 +272,56 @@ export class DMApi extends runtime.BaseAPI {
      */
     async getRoomsByUserTalkUserRoomsGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<RoomBase>> {
         const response = await this.getRoomsByUserTalkUserRoomsGetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for readRoomTalkFriendInformationRoomIdGet without sending the request
+     */
+    async readRoomTalkFriendInformationRoomIdGetRequestOpts(requestParameters: ReadRoomTalkFriendInformationRoomIdGetRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['roomId'] == null) {
+            throw new runtime.RequiredError(
+                'roomId',
+                'Required parameter "roomId" was null or undefined when calling readRoomTalkFriendInformationRoomIdGet().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("OAuth2PasswordBearer", []);
+        }
+
+
+        let urlPath = `/talk/friend_information/{room_id}`;
+        urlPath = urlPath.replace(`{${"room_id"}}`, encodeURIComponent(String(requestParameters['roomId'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Read Room
+     */
+    async readRoomTalkFriendInformationRoomIdGetRaw(requestParameters: ReadRoomTalkFriendInformationRoomIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserResponse>> {
+        const requestOptions = await this.readRoomTalkFriendInformationRoomIdGetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Read Room
+     */
+    async readRoomTalkFriendInformationRoomIdGet(requestParameters: ReadRoomTalkFriendInformationRoomIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserResponse> {
+        const response = await this.readRoomTalkFriendInformationRoomIdGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -4,7 +4,11 @@ import src.models.user_model as user_model
 import src.models.dm_model as dm_model
 import src.cruds.process as process
 from fastapi import HTTPException
-    #ユーザーIDからルーム名、ルームID
+
+from src.schemas.user_schemas import UserResponse
+
+
+#ユーザーIDからルーム名、ルームID
 
 async def get_room_by_id(id:int)-> Optional[dm_model.TalkRoom]:
     print("get_room_by_id")
@@ -16,6 +20,22 @@ async def get_members_by_user(user:user_model.User)->Optional[list[dm_model.Room
         return members
     else:
         return None
+
+async def get_friend_info_by_room(id:int,current_user):
+    room=await get_room_by_id(id)
+    if not room.is_group:
+        members=await dm_model.RoomMember.objects.select_related("user").filter(room=room).all()
+        for member in members:
+            if member.user.user_id!=current_user.user_id:
+                print(member.user)
+                friend=UserResponse(**member.user.model_dump())
+                return friend
+        return None
+
+
+                #そのmembersのuserのuser_idが違ったらそのuserをキャストして返す
+    else:
+        raise HTTPException(status_code=404, detail="this is group!")
 
 
 async def get_rooms_by_userid(id:int) -> Optional[list[dm_model.TalkRoom]]:
@@ -105,5 +125,6 @@ async def update_message(message_id:int,newcontent:str):
     message.content=newcontent
     await message.update()
     return message
+
     
 

@@ -26,7 +26,14 @@ async def add_room_member(newmember:AddRoomMember):
         raise HTTPException(status_code=404, detail=f"ルームへのメンバーの追加に失敗しました: {str(e)}")
 
 #できれば、リストでも
-#ルームメンバーの取得
+@router.get("/friend_information/{room_id}",response_model=UserResponse)
+async def read_room(room_id:int,current_user: Annotated[UserResponse,Depends(get_current_active_user)]):
+    try:
+        information=await dm_cruds.get_friend_info_by_room(room_id,current_user)
+        return information
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=f"ルームの読み込みに失敗しました {str(e)}")
+    #ルームメンバーの取得
 #->現在の区レントユーザーじゃなもの
 #それの友達スキーマを返す
 
