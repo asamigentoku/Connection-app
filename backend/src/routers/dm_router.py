@@ -1,4 +1,7 @@
 from fastapi import APIRouter,Depends,HTTPException
+from pydantic import ValidationError
+from uvicorn import logging
+
 from src.login_jwt.create_jwt import get_current_active_user
 from src.schemas.user_schemas import *
 from src.schemas.main_schemas import *
@@ -37,7 +40,33 @@ async def read_room(room_id:int,current_user: Annotated[UserResponse,Depends(get
 #->現在の区レントユーザーじゃなもの
 #それの友達スキーマを返す
 
+@router.post("/search_make_users_room",response_model=RoomBase)
+async def search_room(user1_id:int,user2_id:int):
+    try:
+        rooms=await dm_cruds.get_rooms_by_users(user1_id, user2_id)
+        if rooms:
+            room=rooms[0]
+            print(f"room.model_dump(): {room.model_dump()}")
+            print(f"RoomBaseのフィールド: {RoomBase.model_fields.keys()}")  # ← フィールド確認
+            try:
+                # room_base = RoomBase(**room.model_dump())
+                room_base = RoomBase(**room.model_dump(exclude={'messages', 'roommembers'}))
+            except ValidationError as e:
+                logging.error(f"ValidationError: {e.errors()}")  # ターミナルに出力
+                print(f"ValidationError: {e.errors()}")           # printでも可
+                raise HTTPException(status_code=422, detail=e.errors())
+            print(room_base)
 
+            return room_base
+        else:
+            room=await dm_cruds.create_room(user1_id, user2_id)
+            # room_base=RoomBase(**room.model_dump())
+            room_base = RoomBase(**room.model_dump(exclude={'messages', 'roommembers'}))
+            print(room_base)
+            return room_base
+
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=f"ルームの読み込みに失敗しました {str(e)}")
 
 #ユーザーのルームを取得
 @router.get("/user_rooms",response_model=list[RoomBase])

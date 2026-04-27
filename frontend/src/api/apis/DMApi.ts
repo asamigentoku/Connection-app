@@ -66,6 +66,11 @@ export interface ReadRoomTalkUserInformationRoomIdGetRequest {
     roomId: number;
 }
 
+export interface SearchRoomTalkSearchMakeUsersRoomPostRequest {
+    user1Id: number;
+    user2Id: number;
+}
+
 export interface SubmitMessageTalkMessageSubmitPostRequest {
     submitMessage: SubmitMessage;
 }
@@ -372,6 +377,70 @@ export class DMApi extends runtime.BaseAPI {
      */
     async readRoomTalkUserInformationRoomIdGet(requestParameters: ReadRoomTalkUserInformationRoomIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<GetMessage>> {
         const response = await this.readRoomTalkUserInformationRoomIdGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for searchRoomTalkSearchMakeUsersRoomPost without sending the request
+     */
+    async searchRoomTalkSearchMakeUsersRoomPostRequestOpts(requestParameters: SearchRoomTalkSearchMakeUsersRoomPostRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['user1Id'] == null) {
+            throw new runtime.RequiredError(
+                'user1Id',
+                'Required parameter "user1Id" was null or undefined when calling searchRoomTalkSearchMakeUsersRoomPost().'
+            );
+        }
+
+        if (requestParameters['user2Id'] == null) {
+            throw new runtime.RequiredError(
+                'user2Id',
+                'Required parameter "user2Id" was null or undefined when calling searchRoomTalkSearchMakeUsersRoomPost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['user1Id'] != null) {
+            queryParameters['user1_id'] = requestParameters['user1Id'];
+        }
+
+        if (requestParameters['user2Id'] != null) {
+            queryParameters['user2_id'] = requestParameters['user2Id'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("OAuth2PasswordBearer", []);
+        }
+
+
+        let urlPath = `/talk/search_make_users_room`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search Room
+     */
+    async searchRoomTalkSearchMakeUsersRoomPostRaw(requestParameters: SearchRoomTalkSearchMakeUsersRoomPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RoomBase>> {
+        const requestOptions = await this.searchRoomTalkSearchMakeUsersRoomPostRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RoomBaseFromJSON(jsonValue));
+    }
+
+    /**
+     * Search Room
+     */
+    async searchRoomTalkSearchMakeUsersRoomPost(requestParameters: SearchRoomTalkSearchMakeUsersRoomPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RoomBase> {
+        const response = await this.searchRoomTalkSearchMakeUsersRoomPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -5,8 +5,10 @@ import Link from "next/link";
 import { CheckCircle, Search, UserX, MessageCircle, Users } from "lucide-react";
 import { useAuthStore } from "@lib/auth_context";
 import { api } from "@api/client";
+import { useRouter } from 'next/navigation'
 
 export default function FriendsList() {
+    const router = useRouter();
     const [friends, setFriends] = useState<any[]>([]);
     const [searchText, setSearchText] = useState("");
     const [loading, setLoading] = useState(true);
@@ -34,6 +36,13 @@ export default function FriendsList() {
     const filteredFriends = friends.filter((friend) =>
         friend.userName?.includes(searchText)
     );
+    const handleSearchRoom = async (friendId:int) => {
+        // 1. ルームIDを取得（なければ作成）するAPIを叩く
+        const  room  = await api.dm.searchRoomTalkSearchMakeUsersRoomPost({user1Id:currentUser.userId,user2Id:friendId})
+        // 2. ルームIDを使って遷移
+        console.log(room)
+        router.push(`/menu/messages/${room.roomId}`);
+    };
 
     // コンポーネントの外に追加
     const avatarColors = [
@@ -88,8 +97,7 @@ export default function FriendsList() {
                     >
                         <div className="flex items-center justify-between">
                             {/* Left: Avatar + Info */}
-                            <Link
-                                href={`/menu/profile/${friend.userId}`}
+                            <div
                                 className="flex items-center gap-4"
                             >
                                 <div className="relative">
@@ -135,18 +143,18 @@ export default function FriendsList() {
 
                                     </div>
                                 </div>
-                            </Link>
+                            </div>
 
                             {/* Right: Actions */}
-                            <div className="flex items-center gap-2">
-                                <Link
-                                    href={`/menu/messages/${friend.user_id}`}
+                            <button className="flex items-center gap-2" onClick={() => handleSearchRoom(friend.userId)}>
+
+                                <div
                                     className="flex items-center gap-1.5 rounded-lg bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 transition hover:bg-indigo-100"
                                 >
                                     <MessageCircle className="h-4 w-4" />
                                     <span>メッセージ</span>
-                                </Link>
-                            </div>
+                                </div>
+                            </button>
                         </div>
                     </div>
                 ))}

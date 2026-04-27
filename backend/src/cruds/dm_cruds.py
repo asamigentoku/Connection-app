@@ -37,6 +37,33 @@ async def get_friend_info_by_room(id:int,current_user):
     else:
         raise HTTPException(status_code=404, detail="this is group!")
 
+async def get_rooms_by_users(user1_id:int,user2_id:int):
+    user1=await process.get_user_by_id(user1_id)
+    user2=await process.get_user_by_id(user2_id)
+    if not user1 or not user2:
+        raise HTTPException(status_code=404, detail="ユーザーが見つかりません")
+    # 各ユーザーが所属するルームIDを取得
+    members1 = await dm_model.RoomMember.objects.filter(user=user1).all()
+    members2 = await dm_model.RoomMember.objects.filter(user=user2).all()
+    room_ids1 = {m.room.room_id for m in members1}
+    room_ids2 = {m.room.room_id for m in members2}
+
+    # 両方が所属するルームIDの積集合
+    common_room_ids = room_ids1 & room_ids2
+
+    if not common_room_ids:
+        return None
+
+    # 該当ルームを返す（複数の可能性もあるためリスト）
+    rooms = []
+    for room_id in common_room_ids:
+        room = await get_room_by_id(room_id)
+        if room:
+            rooms.append(room)
+
+    return rooms if rooms else None
+
+
 
 async def get_rooms_by_userid(id:int) -> Optional[list[dm_model.TalkRoom]]:
     user=await process.get_user_by_id(id)
@@ -52,6 +79,16 @@ async def create_room(room:CreateRoom):
     if not user1 or not user2:
         raise HTTPException(status_code=404, detail="ユーザーが見つかりません")
     new_room=await dm_model.TalkRoom.objects.create(room_name=room.room_name)
+    await dm_model.RoomMember.objects.create(room=new_room, user=user1)
+    await dm_model.RoomMember.objects.create(room=new_room, user=user2)
+    return new_room
+
+async def create_room(user1_id:int,user2_id:int):
+    user1=await process.get_user_by_id(user1_id)
+    user2=await process.get_user_by_id(user2_id)
+    if not user1 or not user2:
+        raise HTTPException(status_code=404, detail="ユーザーが見つかりません")
+    new_room=await dm_model.TalkRoom.objects.create(room_name="未設定")
     await dm_model.RoomMember.objects.create(room=new_room, user=user1)
     await dm_model.RoomMember.objects.create(room=new_room, user=user2)
     return new_room

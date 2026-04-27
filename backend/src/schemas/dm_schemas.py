@@ -4,8 +4,8 @@ from datetime import datetime
 
 class RoomBase(BaseModel):
     room_id:int
-    room_name:str=None
-    room_icon:str=None
+    room_name:Optional[str]=None
+    room_icon:Optional[str]=None
     created_at: Optional[datetime] = None
     is_group:bool=False
 

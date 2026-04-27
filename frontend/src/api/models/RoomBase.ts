@@ -30,13 +30,13 @@ export interface RoomBase {
      * @type {string}
      * @memberof RoomBase
      */
-    roomName?: string;
+    roomName?: string | null;
     /**
      * 
      * @type {string}
      * @memberof RoomBase
      */
-    roomIcon?: string;
+    roomIcon?: string | null;
     /**
      * 
      * @type {Date}
